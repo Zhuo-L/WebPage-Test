@@ -18,14 +18,13 @@
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#results">Results</a>
         <a href="#ecosystem">Ecosystem</a>
-        <a href="#citation">Citation</a>
       </nav>
       <div class="header-resources" aria-label="Project resources">
-        <a class="resource-link is-primary" href="https://zhuo-l.github.io/WebPage-Test">Paper</a>
-        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">GitHub</a>
-        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">arXiv</a>
-        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">Hugging Face</a>
-        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">ModelScope</a>
+        <a class="resource-link is-paper" href="https://zhuo-l.github.io/WebPage-Test"><span>P</span>Paper</a>
+        <a class="resource-link is-github" href="https://zhuo-l.github.io/WebPage-Test"><span>GH</span>GitHub</a>
+        <a class="resource-link is-arxiv" href="https://zhuo-l.github.io/WebPage-Test"><span>aX</span>arXiv</a>
+        <a class="resource-link is-hf" href="https://zhuo-l.github.io/WebPage-Test"><span>HF</span>Hugging Face</a>
+        <a class="resource-link is-ms" href="https://zhuo-l.github.io/WebPage-Test"><span>MS</span>ModelScope</a>
       </div>
     </header>
 
@@ -44,48 +43,21 @@
           </p>
           <blockquote class="mind-quote">
             <p>
-              &ldquo;The Extended Mind Thesis: The mind is not confined to the brain,
+              &ldquo;The mind is not confined to the brain,
               but extends into tools, artifacts, and the environment with which it interacts.&rdquo;
             </p>
-            <cite>Andy Clark and David Chalmers</cite>
+            <cite>
+              <a href="https://en.wikipedia.org/wiki/Andy_Clark">Andy Clark</a>
+              <span>and</span>
+              <a href="https://en.wikipedia.org/wiki/David_Chalmers">David Chalmers</a>
+            </cite>
           </blockquote>
           <div class="actions" aria-label="Project actions">
-            <a class="button primary" href="https://zhuo-l.github.io/WebPage-Test">Paper</a>
-            <a class="button" href="#results">Results</a>
-            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Code</a>
-            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Model</a>
-            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Dataset</a>
+            <a class="button is-paper" href="https://zhuo-l.github.io/WebPage-Test"><span>P</span>Paper</a>
+            <a class="button is-results" href="#results"><span>R</span>Results</a>
+            <a class="button is-github" href="https://zhuo-l.github.io/WebPage-Test"><span>GH</span>Code</a>
+            <a class="button is-model" href="https://zhuo-l.github.io/WebPage-Test"><span>M</span>Model</a>
           </div>
-          <ul class="factor-strip" aria-label="Key ExoMind factors">
-            <li>
-              <span class="factor-index">01</span>
-              <div>
-                <strong>Scientific Interaction Objects</strong>
-                <p>Structured objects for research tasks, tools, and intermediate evidence.</p>
-              </div>
-            </li>
-            <li>
-              <span class="factor-index">02</span>
-              <div>
-                <strong>Autonomous Tool-Using Workflow</strong>
-                <p>Search, verification, execution, and reflection inside one agent loop.</p>
-              </div>
-            </li>
-            <li>
-              <span class="factor-index">03</span>
-              <div>
-                <strong>Compact 35B Scientific Agent</strong>
-                <p>Frontier-style scientific capability without only scaling parameters.</p>
-              </div>
-            </li>
-            <li>
-              <span class="factor-index">04</span>
-              <div>
-                <strong>Low-Cost Specialization</strong>
-                <p>Domain adaptation focused on scientific research and reasoning.</p>
-              </div>
-            </li>
-          </ul>
         </div>
       </section>
 
@@ -94,9 +66,8 @@
           <div class="figure-head">
             <div>
               <span class="figure-index">Performance Landscape</span>
-              <h2 id="performance-title">Compact model, frontier-level science</h2>
+              <h2 id="performance-title">35B model, frontier-level scientific intelligence</h2>
             </div>
-            <span class="hint">Explore</span>
           </div>
           <div class="figure-stage">
             <div id="performance-chart" class="performance-chart" aria-label="Interactive benchmark comparison">
@@ -113,34 +84,6 @@
             <p>The compact 35B ExoMind system reaches the highest average region while staying far smaller than trillion-parameter frontier models.</p>
           </aside>
         </article>
-      </section>
-
-      <section class="section capability-section" aria-labelledby="capabilities-title">
-        <div class="section-heading compact-heading">
-          <p class="eyebrow">Capability Overview</p>
-          <h2 id="capabilities-title">Designed for real scientific workflows</h2>
-          <p>
-            ExoMind connects compact-model reasoning with the external objects and tools
-            needed for scientific discovery, verification, and problem solving.
-          </p>
-        </div>
-        <div class="capability-grid" aria-label="ExoMind capability overview">
-          <article class="capability-card">
-            <span>Research</span>
-            <h3>Evidence-centered exploration</h3>
-            <p>Turns search traces, tool outputs, and intermediate observations into reusable reasoning context.</p>
-          </article>
-          <article class="capability-card">
-            <span>Reasoning</span>
-            <h3>Competition-grade problem solving</h3>
-            <p>Targets physics, math, and scientific reasoning tasks where multi-step verification matters.</p>
-          </article>
-          <article class="capability-card">
-            <span>Agent System</span>
-            <h3>Reusable interaction loop</h3>
-            <p>Organizes planning, tool use, and reflection as a compact workflow rather than a one-shot response.</p>
-          </article>
-        </div>
       </section>
 
       <section id="results" class="section table-section" aria-labelledby="results-title">
@@ -233,7 +176,7 @@
           <h2 id="ecosystem-title">Related scientific intelligence projects</h2>
           <p>
             ExoMind is designed to sit within a broader open ecosystem of scientific
-            reasoning models, benchmarks, datasets, and agent infrastructure.
+            reasoning models, benchmarks, and a multi-agent system.
           </p>
         </div>
         <div class="project-grid" aria-label="Related projects">
@@ -247,15 +190,15 @@
           </article>
           <article class="project-card">
             <div>
-              <span class="project-type">Dataset</span>
+              <span class="project-type">Benchmark</span>
               <h3>HiPhO</h3>
               <p>High-level physics olympiad benchmark for multimodal scientific reasoning.</p>
             </div>
-            <a href="https://huggingface.co/datasets/SciYu/HiPhO">Dataset</a>
+            <a href="https://huggingface.co/datasets/SciYu/HiPhO">Benchmark</a>
           </article>
           <article class="project-card">
             <div>
-              <span class="project-type">Infrastructure</span>
+              <span class="project-type">Multi-agent system</span>
               <h3>openJiSi</h3>
               <p>Routing and aggregation system for scalable model selection and evidence use.</p>
             </div>
@@ -264,42 +207,6 @@
         </div>
       </section>
 
-      <section class="section signal-section" aria-labelledby="signals-title">
-        <div class="section-heading compact-heading">
-          <p class="eyebrow">Launch Signals</p>
-          <h2 id="signals-title">Global release signals</h2>
-          <p>
-            A compact visual signal panel for the public release. It keeps the page lively
-            without adding third-party tracking scripts before launch.
-          </p>
-        </div>
-        <div class="signal-panel" aria-label="Launch signal visualization">
-          <div class="signal-map" aria-hidden="true">
-            <span style="--x: 14%; --y: 42%"></span>
-            <span style="--x: 31%; --y: 32%"></span>
-            <span style="--x: 48%; --y: 48%"></span>
-            <span style="--x: 67%; --y: 35%"></span>
-            <span style="--x: 82%; --y: 54%"></span>
-          </div>
-          <div class="signal-copy">
-            <span>Public launch ready</span>
-            <strong>Project page prepared for GitHub Pages</strong>
-            <p>Replace this panel with live analytics later, or keep it as a polished release signal.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="citation" class="citation-section" aria-labelledby="citation-title">
-        <div>
-          <p class="eyebrow">Citation</p>
-          <h2 id="citation-title">Cite ExoMind</h2>
-        </div>
-        <pre><code>@misc{ye2026exomind,
-  title  = {ExoMind: Democratizing Scientific Intelligence via Extended-Mind-Inspired Agentic System},
-  author = {Ye, Peng and Liu, Zhuo and Ye, Jingqi and Yu, Fangchen and Tang, Shengji and Jiang, Yichen and He, Haonan and Chen, Tao and Hu, Shuyue and Zhang, Bo and Ouyang, Wanli and Zhou, Bowen and Bai, Lei},
-  year   = {2026}
-}</code></pre>
-      </section>
     </main>
 
     <footer class="site-footer">
