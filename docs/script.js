@@ -3,12 +3,6 @@
   const imageSpace = {
     width: 3988,
     height: 1858,
-    plot: {
-      left: 218,
-      right: 3112,
-      top: 162,
-      bottom: 1420,
-    },
   };
 
   const makeSvg = (name, attrs = {}) => {
@@ -16,8 +10,6 @@
     Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
     return element;
   };
-
-  const normalizeLabel = (label) => String(label || "").replace(/\s+/g, " ").trim();
 
   const setText = (note, title, body) => {
     const noteTitle = note?.querySelector("strong");
@@ -36,46 +28,12 @@
     return points.join(" ");
   };
 
-  const markerRadius = (point) => {
-    if (point.marker === "star") return 56;
-    return Math.max(34, Math.min(104, Math.sqrt(Number(point.size || 400)) * 1.9));
-  };
-
-  const makeEdgeLine = (name, attrs, color, extraClass = "") =>
-    makeSvg(name, {
-      ...attrs,
-      class: `chart-emphasis chart-edge edge-line ${extraClass}`.trim(),
-      fill: "none",
-      stroke: color,
-      "vector-effect": "non-scaling-stroke",
-    });
-
-  const clusterBox = {
-    x: 2117,
-    y: 538,
-    width: 992,
-    height: 501,
-  };
-
   const renderPerformanceOverlay = () => {
-    const data = window.EXOMIND_PERFORMANCE_DATA;
     const container = document.getElementById("performance-chart");
-    const panel = data?.panels?.[0];
-    if (!container || !panel) return;
+    if (!container) return;
 
     const note = container.closest(".interactive-figure")?.querySelector(".figure-note");
     const controls = Array.from(container.closest(".interactive-figure")?.querySelectorAll(".figure-control") || []);
-    const pointMap = new Map(panel.points.map((point) => [point.key, point]));
-    const pointElements = new Map();
-    const arrowElements = new Map();
-    const clusterElements = [];
-    const xSpan = panel.xlim[1] - panel.xlim[0];
-    const ySpan = panel.ylim[1] - panel.ylim[0];
-    const plotWidth = imageSpace.plot.right - imageSpace.plot.left;
-    const plotHeight = imageSpace.plot.bottom - imageSpace.plot.top;
-    const sx = (x) => imageSpace.plot.left + ((x - panel.xlim[0]) / xSpan) * plotWidth;
-    const sy = (y) => imageSpace.plot.bottom - ((y - panel.ylim[0]) / ySpan) * plotHeight;
-
     const overlay = makeSvg("svg", {
       class: "chart-overlay",
       viewBox: `0 0 ${imageSpace.width} ${imageSpace.height}`,
@@ -83,6 +41,7 @@
       "aria-label": "Interactive highlights for the benchmark figure",
       focusable: "false",
     });
+    const groups = new Map();
 
     const addTitle = (element, text) => {
       const title = makeSvg("title");
@@ -98,150 +57,132 @@
       controls.forEach((control) => control.classList.toggle("is-active", control.dataset.key === key));
     };
 
-    const activatePoint = (key, controlKey = "") => {
-      const point = pointMap.get(key);
-      if (!point) return;
-      clearActive();
-      setActiveControl(controlKey);
-      (pointElements.get(key) || []).forEach((element) => element.classList.add("is-active"));
-      if (point.key === "Ours") {
-        setText(note, "ExoMind point", "A 35B agentic system reaches the strongest average region with far fewer parameters.");
-      } else {
-        setText(note, normalizeLabel(point.label), `Average score ${Number(point.y).toFixed(1)}`);
-      }
+    const addGroup = (key, elements, title, body) => {
+      const items = Array.isArray(elements) ? elements : [elements];
+      groups.set(key, { items, title, body });
+      items.forEach((element) => overlay.appendChild(element));
     };
 
-    const activateArrow = (arrow) => {
+    const activateGroup = (key) => {
+      const group = groups.get(key);
+      if (!group) return;
       clearActive();
-      setActiveControl("efficiency");
-      (arrowElements.get(arrow.key) || []).forEach((element) => element.classList.add("is-active"));
-      setText(
-        note,
-        arrow.key === "gain" ? "Score gain" : "Parameter-efficiency direction",
-        "The performance frontier moves toward smaller models with stronger scientific intelligence."
-      );
+      setActiveControl(key);
+      group.items.forEach((element) => element.classList.add("is-active"));
+      setText(note, group.title, group.body);
     };
 
-    const activateTrend = () => {
-      clearActive();
-      setActiveControl("efficiency");
-      (data.highlightGroups?.trend || [])
-        .flatMap((key) => arrowElements.get(key) || [])
-        .forEach((element) => element.classList.add("is-active"));
-      setText(
-        note,
-        "Parameter-efficiency direction",
-        "ExoMind combines the score gain with a shift toward smaller models."
-      );
-    };
-
-    const activateFrontier = () => {
-      clearActive();
-      setActiveControl("frontier");
-      clusterElements.forEach((element) => element.classList.add("is-active"));
-      (data.highlightGroups?.frontier || []).forEach((key) => {
-        (pointElements.get(key) || []).forEach((element) => element.classList.add("is-active"));
-      });
-      setText(note, "Frontier cluster", "Frontier proprietary systems provide the main high-parameter comparison group.");
-    };
-
-    const clusterFrame = makeSvg("rect", {
-      class: "chart-emphasis cluster-frame",
-      x: clusterBox.x,
-      y: clusterBox.y,
-      width: clusterBox.width,
-      height: clusterBox.height,
-      rx: 22,
-      ry: 22,
-      fill: "none",
-      "vector-effect": "non-scaling-stroke",
-    });
-    overlay.appendChild(clusterFrame);
-    clusterElements.push(clusterFrame);
-
-    (data.arrows || []).forEach((arrow) => {
-      const x1 = sx(arrow.from[0]);
-      const y1 = sy(arrow.from[1]);
-      const x2 = sx(arrow.to[0]);
-      const y2 = sy(arrow.to[1]);
-      const emphasis = makeEdgeLine(
-        "line",
-        {
-          x1,
-          y1,
-          x2,
-          y2,
-          "stroke-linecap": "round",
-        },
-        "#e31a1c",
-        "is-arrow"
-      );
-      const hit = makeSvg("line", {
-        class: "overlay-hit",
-        x1,
-        y1,
-        x2,
-        y2,
-        stroke: "transparent",
-        "stroke-width": 62,
-        "stroke-linecap": "round",
-        "pointer-events": "stroke",
-        tabindex: "0",
-        role: "button",
-      });
-      addTitle(hit, arrow.label || arrow.key);
+    const addHitTarget = (key, element, label) => {
+      addTitle(element, label);
       ["mouseenter", "focus", "click"].forEach((eventName) => {
-        hit.addEventListener(eventName, () => activateArrow(arrow));
+        element.addEventListener(eventName, (event) => {
+          if (eventName === "click") event.preventDefault();
+          activateGroup(key);
+        });
       });
-      overlay.appendChild(emphasis);
-      overlay.appendChild(hit);
-      arrowElements.set(arrow.key, [emphasis]);
-    });
+      overlay.appendChild(element);
+    };
 
-    panel.points.forEach((point) => {
-      const cx = sx(point.x);
-      const cy = sy(point.y);
-      const r = markerRadius(point);
-      const emphasis =
-        point.marker === "star"
-          ? makeEdgeLine(
-              "polygon",
-              { points: starPoints(cx, cy, r) },
-              point.color || "#e31a1c",
-              "is-point is-star"
-            )
-          : makeEdgeLine(
-              "circle",
-              { cx, cy, r },
-              point.color || "#50e2d0",
-              "is-point"
-            );
-      const hit = makeSvg("circle", {
+    addGroup(
+      "exomind",
+      makeSvg("polygon", {
+        class: "chart-emphasis calibrated-highlight exomind-highlight",
+        points: starPoints(396, 233, 66, 30),
+        "vector-effect": "non-scaling-stroke",
+      }),
+      "ExoMind point",
+      "A 35B agentic system reaches the strongest average region with far fewer parameters."
+    );
+    addHitTarget(
+      "exomind",
+      makeSvg("circle", {
         class: "overlay-hit",
-        cx,
-        cy,
-        r: Math.max(r + 20, 50),
+        cx: 396,
+        cy: 233,
+        r: 92,
         fill: "#000000",
         "pointer-events": "fill",
         tabindex: "0",
         role: "button",
-      });
-      addTitle(hit, `${normalizeLabel(point.label)} average ${Number(point.y).toFixed(1)}`);
-      ["mouseenter", "focus", "click"].forEach((eventName) => {
-        hit.addEventListener(eventName, () => activatePoint(point.key, point.key === "Ours" ? "exomind" : ""));
-      });
-      overlay.appendChild(emphasis);
-      overlay.appendChild(hit);
-      pointElements.set(point.key, [emphasis]);
-    });
+      }),
+      "Highlight ExoMind point"
+    );
+
+    addGroup(
+      "efficiency",
+      [
+        makeSvg("line", {
+          class: "chart-emphasis calibrated-highlight trend-highlight trend-vertical",
+          x1: 396,
+          y1: 310,
+          x2: 396,
+          y2: 1190,
+          "vector-effect": "non-scaling-stroke",
+        }),
+        makeSvg("line", {
+          class: "chart-emphasis calibrated-highlight trend-highlight trend-diagonal",
+          x1: 540,
+          y1: 255,
+          x2: 2750,
+          y2: 650,
+          "vector-effect": "non-scaling-stroke",
+        }),
+      ],
+      "Parameter-efficiency direction",
+      "ExoMind combines the score gain with a shift toward smaller models."
+    );
+    addHitTarget(
+      "efficiency",
+      makeSvg("path", {
+        class: "overlay-hit",
+        d: "M396 310 L396 1190 M540 255 L2750 650",
+        fill: "none",
+        stroke: "transparent",
+        "stroke-width": 86,
+        "stroke-linecap": "round",
+        "pointer-events": "stroke",
+        tabindex: "0",
+        role: "button",
+      }),
+      "Highlight efficiency trend"
+    );
+
+    addGroup(
+      "frontier",
+      makeSvg("rect", {
+        class: "chart-emphasis calibrated-highlight cluster-frame",
+        x: 2170,
+        y: 585,
+        width: 930,
+        height: 430,
+        rx: 20,
+        ry: 20,
+        "vector-effect": "non-scaling-stroke",
+      }),
+      "Frontier cluster",
+      "Frontier proprietary systems provide the main high-parameter comparison group."
+    );
+    addHitTarget(
+      "frontier",
+      makeSvg("rect", {
+        class: "overlay-hit",
+        x: 2170,
+        y: 585,
+        width: 930,
+        height: 430,
+        rx: 20,
+        ry: 20,
+        fill: "#000000",
+        "pointer-events": "fill",
+        tabindex: "0",
+        role: "button",
+      }),
+      "Highlight frontier cluster"
+    );
 
     container.appendChild(overlay);
     controls.forEach((control) => {
-      const run = () => {
-        if (control.dataset.key === "exomind") activatePoint("Ours", "exomind");
-        if (control.dataset.key === "efficiency") activateTrend();
-        if (control.dataset.key === "frontier") activateFrontier();
-      };
+      const run = () => activateGroup(control.dataset.key);
       control.addEventListener("mouseenter", run);
       control.addEventListener("focus", run);
       control.addEventListener("click", (event) => {
@@ -249,7 +190,7 @@
         run();
       });
     });
-    activatePoint("Ours", "exomind");
+    activateGroup("exomind");
   };
 
   const enhanceBenchmarkTable = () => {

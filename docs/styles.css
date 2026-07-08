@@ -512,62 +512,39 @@ h2 {
   transition: opacity 150ms ease, filter 150ms ease;
 }
 
-.chart-edge {
+.calibrated-highlight {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   transform: none;
 }
 
-.chart-edge.edge-line {
-  stroke-width: 3;
-}
-
-.chart-edge.is-star.edge-line {
-  stroke-width: 3.5;
-}
-
-.chart-edge.is-arrow.edge-line {
-  stroke-width: 5;
-}
-
-.chart-edge.edge-line.is-active {
-  opacity: 0.9;
-  filter: drop-shadow(0 0 4px rgba(7, 10, 15, 0.28));
-}
-
-.chart-edge.is-star.edge-line.is-active,
-.chart-edge.is-arrow.edge-line.is-active {
-  opacity: 0.88;
-  filter:
-    drop-shadow(0 0 2px rgba(255, 255, 255, 0.18))
-    drop-shadow(0 0 5px rgba(227, 26, 28, 0.18));
-}
-
-.chart-edge.is-arrow.is-active {
-  animation: trendTrace 680ms ease-out;
-}
-
-.cluster-frame {
-  fill: rgba(80, 226, 208, 0.035);
-  stroke: rgba(80, 226, 208, 0.82);
-  stroke-width: 5;
-  stroke-dasharray: 18 12;
-  filter: drop-shadow(0 0 5px rgba(80, 226, 208, 0.24));
-}
-
-.cluster-frame.is-active {
+.calibrated-highlight.is-active {
   opacity: 1;
 }
 
-@keyframes trendTrace {
-  from {
-    stroke-dashoffset: 34;
-  }
+.exomind-highlight {
+  fill: rgba(244, 201, 104, 0.08);
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 7;
+  filter:
+    drop-shadow(0 0 3px rgba(227, 26, 28, 0.38))
+    drop-shadow(0 0 7px rgba(244, 201, 104, 0.24));
+}
 
-  to {
-    stroke-dashoffset: 0;
-  }
+.trend-highlight {
+  stroke: rgba(255, 226, 143, 0.9);
+  stroke-width: 9;
+  filter:
+    drop-shadow(0 0 2px rgba(7, 10, 15, 0.32))
+    drop-shadow(0 0 5px rgba(227, 26, 28, 0.26));
+}
+
+.cluster-frame {
+  fill: rgba(244, 201, 104, 0.12);
+  stroke: rgba(80, 226, 208, 0.86);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 7px rgba(80, 226, 208, 0.22));
 }
 
 .figure-controls {
@@ -990,8 +967,7 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   body,
-  body::before,
-  .chart-emphasis.is-active.is-arrow {
+  body::before {
     animation: none;
   }
 }
