@@ -156,6 +156,7 @@ img {
   --accent: #50e2d0;
   --accent-2: #f4c968;
   --accent-rgb: 80, 226, 208;
+  --accent-2-rgb: 244, 201, 104;
 }
 
 .is-github,
@@ -163,6 +164,7 @@ img {
   --accent: #d6e3f0;
   --accent-2: #a7abff;
   --accent-rgb: 214, 227, 240;
+  --accent-2-rgb: 167, 171, 255;
 }
 
 .is-arxiv,
@@ -170,25 +172,28 @@ img {
   --accent: #ff6f9f;
   --accent-2: #f4c968;
   --accent-rgb: 255, 111, 159;
+  --accent-2-rgb: 244, 201, 104;
 }
 
 .is-hf {
   --accent: #f4c968;
   --accent-2: #ff9e6e;
   --accent-rgb: 244, 201, 104;
+  --accent-2-rgb: 255, 158, 110;
 }
 
 .is-ms {
   --accent: #7cc7ff;
   --accent-2: #50e2d0;
   --accent-rgb: 124, 199, 255;
+  --accent-2-rgb: 80, 226, 208;
 }
 
 .resource-link[class*="is-"],
 .button[class*="is-"] {
   border-color: rgba(var(--accent-rgb), 0.38);
   background:
-    linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0.08)),
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(var(--accent-2-rgb), 0.16), rgba(255, 255, 255, 0.045)),
     rgba(255, 255, 255, 0.045);
   color: var(--text);
 }
@@ -199,7 +204,7 @@ img {
 .button[class*="is-"]:focus-visible {
   border-color: rgba(var(--accent-rgb), 0.66);
   background:
-    linear-gradient(135deg, rgba(var(--accent-rgb), 0.25), rgba(var(--accent-rgb), 0.13)),
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.32), rgba(var(--accent-2-rgb), 0.24), rgba(255, 255, 255, 0.07)),
     rgba(255, 255, 255, 0.08);
   box-shadow: 0 12px 34px rgba(var(--accent-rgb), 0.24);
 }
@@ -419,25 +424,23 @@ h2 {
   outline: 0;
 }
 
-.chart-loupe {
-  position: absolute;
-  z-index: 4;
-  width: clamp(170px, 23vw, 260px);
-  aspect-ratio: 13 / 8;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 8px;
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+.chart-emphasis {
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%) scale(0.96);
-  transition: opacity 150ms ease, transform 150ms ease, left 150ms ease, top 150ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 150ms ease, filter 150ms ease, transform 150ms ease;
 }
 
-.chart-loupe.is-visible {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+.chart-emphasis.is-active {
+  opacity: 0.76;
+  filter: drop-shadow(0 0 10px rgba(255, 111, 159, 0.45));
+  transform: scale(1.16);
+}
+
+.chart-emphasis.is-active.is-arrow {
+  opacity: 0.9;
+  transform: scale(1.03);
 }
 
 .figure-controls {
@@ -675,18 +678,6 @@ h2 {
   background:
     linear-gradient(90deg, rgba(80, 226, 208, 0.2), rgba(124, 199, 255, 0.12)),
     #091a1e;
-}
-
-.results-table tbody tr.is-row-active th,
-.results-table tbody tr.is-row-active td {
-  background: rgba(255, 255, 255, 0.075);
-  color: var(--text);
-}
-
-.results-table .is-column-active,
-.results-table thead .is-column-active {
-  background: rgba(80, 226, 208, 0.12) !important;
-  color: var(--text) !important;
 }
 
 .results-table .best-in-column {
