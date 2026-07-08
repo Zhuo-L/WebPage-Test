@@ -37,8 +37,8 @@
   };
 
   const markerRadius = (point) => {
-    if (point.marker === "star") return 58;
-    return Math.max(30, Math.min(118, Math.sqrt(Number(point.size || 400)) * 1.95));
+    if (point.marker === "star") return 44;
+    return Math.max(22, Math.min(74, Math.sqrt(Number(point.size || 400)) * 1.18));
   };
 
   const renderPerformanceOverlay = () => {
@@ -67,20 +67,6 @@
       focusable: "false",
     });
 
-    const defs = makeSvg("defs");
-    const markerEnd = makeSvg("marker", {
-      id: "overlay-arrow-head",
-      markerWidth: "18",
-      markerHeight: "18",
-      refX: "15",
-      refY: "9",
-      orient: "auto",
-      markerUnits: "strokeWidth",
-    });
-    markerEnd.appendChild(makeSvg("path", { d: "M2,2 L16,9 L2,16 Z", fill: "#e31a1c" }));
-    defs.appendChild(markerEnd);
-    overlay.appendChild(defs);
-
     const addTitle = (element, text) => {
       const title = makeSvg("title");
       title.textContent = text;
@@ -102,7 +88,7 @@
       setActiveControl(controlKey);
       (pointElements.get(key) || []).forEach((element) => element.classList.add("is-active"));
       if (point.key === "Ours") {
-        setText(note, "ExoMind point", "A 35B agentic system reaches the top average score with far fewer parameters.");
+        setText(note, "ExoMind point", "A 35B agentic system reaches the strongest average region with far fewer parameters.");
       } else {
         setText(note, normalizeLabel(point.label), `Average score ${Number(point.y).toFixed(1)}`);
       }
@@ -115,7 +101,7 @@
       setText(
         note,
         arrow.key === "gain" ? "Score gain" : "Parameter-efficiency direction",
-        "ExoMind shifts the frontier toward smaller models and stronger scientific intelligence."
+        "The performance frontier moves toward smaller models with stronger scientific intelligence."
       );
     };
 
@@ -125,7 +111,7 @@
       (data.highlightGroups?.frontier || []).forEach((key) => {
         (pointElements.get(key) || []).forEach((element) => element.classList.add("is-active"));
       });
-      setText(note, "Frontier cluster", "Large proprietary models remain the primary frontier-scale comparison group.");
+      setText(note, "Frontier cluster", "Frontier proprietary systems provide the main high-parameter comparison group.");
     };
 
     (data.arrows || []).forEach((arrow) => {
@@ -140,9 +126,10 @@
         x2,
         y2,
         stroke: "#e31a1c",
-        "stroke-width": 18,
+        "stroke-width": 7,
         "stroke-linecap": "round",
-        "marker-end": "url(#overlay-arrow-head)",
+        "stroke-dasharray": "20 14",
+        "stroke-dashoffset": "0",
       });
       const hit = makeSvg("line", {
         class: "overlay-hit",
@@ -151,7 +138,7 @@
         x2,
         y2,
         stroke: "transparent",
-        "stroke-width": 82,
+        "stroke-width": 58,
         "stroke-linecap": "round",
         "pointer-events": "stroke",
         tabindex: "0",
@@ -173,12 +160,12 @@
       const emphasis =
         point.marker === "star"
           ? makeSvg("polygon", {
-              class: "chart-emphasis",
+              class: "chart-emphasis is-point is-star",
               points: starPoints(cx, cy, r),
               fill: point.color || "#e31a1c",
             })
           : makeSvg("circle", {
-              class: "chart-emphasis",
+              class: "chart-emphasis is-point",
               cx,
               cy,
               r,
