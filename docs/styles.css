@@ -519,54 +519,45 @@ h2 {
   transform: none;
 }
 
-.chart-edge.edge-halo {
-  stroke-width: 16;
-}
-
 .chart-edge.edge-line {
-  stroke-width: 4.5;
-}
-
-.chart-edge.is-star.edge-halo {
-  stroke-width: 14;
+  stroke-width: 3;
 }
 
 .chart-edge.is-star.edge-line {
-  stroke-width: 4;
-}
-
-.chart-edge.is-arrow.edge-halo {
-  stroke-width: 17;
+  stroke-width: 3.5;
 }
 
 .chart-edge.is-arrow.edge-line {
   stroke-width: 5;
 }
 
-.chart-edge.edge-halo.is-active {
-  opacity: 0.34;
-  filter:
-    drop-shadow(0 0 4px rgba(255, 255, 255, 0.28))
-    drop-shadow(0 0 13px rgba(80, 226, 208, 0.18));
-}
-
 .chart-edge.edge-line.is-active {
   opacity: 0.9;
-  filter:
-    drop-shadow(0 0 2px rgba(255, 255, 255, 0.28))
-    drop-shadow(0 0 6px rgba(7, 10, 15, 0.2));
+  filter: drop-shadow(0 0 4px rgba(7, 10, 15, 0.28));
 }
 
-.chart-edge.is-star.edge-halo.is-active,
-.chart-edge.is-arrow.edge-halo.is-active {
-  opacity: 0.3;
+.chart-edge.is-star.edge-line.is-active,
+.chart-edge.is-arrow.edge-line.is-active {
+  opacity: 0.88;
   filter:
-    drop-shadow(0 0 4px rgba(255, 255, 255, 0.24))
-    drop-shadow(0 0 12px rgba(227, 26, 28, 0.22));
+    drop-shadow(0 0 2px rgba(255, 255, 255, 0.18))
+    drop-shadow(0 0 5px rgba(227, 26, 28, 0.18));
 }
 
 .chart-edge.is-arrow.is-active {
   animation: trendTrace 680ms ease-out;
+}
+
+.cluster-frame {
+  fill: rgba(80, 226, 208, 0.035);
+  stroke: rgba(80, 226, 208, 0.82);
+  stroke-width: 5;
+  stroke-dasharray: 18 12;
+  filter: drop-shadow(0 0 5px rgba(80, 226, 208, 0.24));
+}
+
+.cluster-frame.is-active {
+  opacity: 1;
 }
 
 @keyframes trendTrace {

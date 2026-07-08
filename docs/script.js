@@ -41,22 +41,20 @@
     return Math.max(34, Math.min(104, Math.sqrt(Number(point.size || 400)) * 1.9));
   };
 
-  const makeEdgePair = (name, attrs, color, extraClass = "") => {
-    const baseAttrs = {
+  const makeEdgeLine = (name, attrs, color, extraClass = "") =>
+    makeSvg(name, {
       ...attrs,
+      class: `chart-emphasis chart-edge edge-line ${extraClass}`.trim(),
       fill: "none",
       stroke: color,
       "vector-effect": "non-scaling-stroke",
-    };
-    const halo = makeSvg(name, {
-      ...baseAttrs,
-      class: `chart-emphasis chart-edge edge-halo ${extraClass}`.trim(),
     });
-    const line = makeSvg(name, {
-      ...baseAttrs,
-      class: `chart-emphasis chart-edge edge-line ${extraClass}`.trim(),
-    });
-    return [halo, line];
+
+  const clusterBox = {
+    x: 2117,
+    y: 538,
+    width: 992,
+    height: 501,
   };
 
   const renderPerformanceOverlay = () => {
@@ -70,6 +68,7 @@
     const pointMap = new Map(panel.points.map((point) => [point.key, point]));
     const pointElements = new Map();
     const arrowElements = new Map();
+    const clusterElements = [];
     const xSpan = panel.xlim[1] - panel.xlim[0];
     const ySpan = panel.ylim[1] - panel.ylim[0];
     const plotWidth = imageSpace.plot.right - imageSpace.plot.left;
@@ -123,21 +122,49 @@
       );
     };
 
+    const activateTrend = () => {
+      clearActive();
+      setActiveControl("efficiency");
+      (data.highlightGroups?.trend || [])
+        .flatMap((key) => arrowElements.get(key) || [])
+        .forEach((element) => element.classList.add("is-active"));
+      setText(
+        note,
+        "Parameter-efficiency direction",
+        "ExoMind combines the score gain with a shift toward smaller models."
+      );
+    };
+
     const activateFrontier = () => {
       clearActive();
       setActiveControl("frontier");
+      clusterElements.forEach((element) => element.classList.add("is-active"));
       (data.highlightGroups?.frontier || []).forEach((key) => {
         (pointElements.get(key) || []).forEach((element) => element.classList.add("is-active"));
       });
       setText(note, "Frontier cluster", "Frontier proprietary systems provide the main high-parameter comparison group.");
     };
 
+    const clusterFrame = makeSvg("rect", {
+      class: "chart-emphasis cluster-frame",
+      x: clusterBox.x,
+      y: clusterBox.y,
+      width: clusterBox.width,
+      height: clusterBox.height,
+      rx: 22,
+      ry: 22,
+      fill: "none",
+      "vector-effect": "non-scaling-stroke",
+    });
+    overlay.appendChild(clusterFrame);
+    clusterElements.push(clusterFrame);
+
     (data.arrows || []).forEach((arrow) => {
       const x1 = sx(arrow.from[0]);
       const y1 = sy(arrow.from[1]);
       const x2 = sx(arrow.to[0]);
       const y2 = sy(arrow.to[1]);
-      const emphasis = makeEdgePair(
+      const emphasis = makeEdgeLine(
         "line",
         {
           x1,
@@ -166,9 +193,9 @@
       ["mouseenter", "focus", "click"].forEach((eventName) => {
         hit.addEventListener(eventName, () => activateArrow(arrow));
       });
-      emphasis.forEach((element) => overlay.appendChild(element));
+      overlay.appendChild(emphasis);
       overlay.appendChild(hit);
-      arrowElements.set(arrow.key, emphasis);
+      arrowElements.set(arrow.key, [emphasis]);
     });
 
     panel.points.forEach((point) => {
@@ -177,13 +204,13 @@
       const r = markerRadius(point);
       const emphasis =
         point.marker === "star"
-          ? makeEdgePair(
+          ? makeEdgeLine(
               "polygon",
               { points: starPoints(cx, cy, r) },
               point.color || "#e31a1c",
               "is-point is-star"
             )
-          : makeEdgePair(
+          : makeEdgeLine(
               "circle",
               { cx, cy, r },
               point.color || "#50e2d0",
@@ -203,19 +230,16 @@
       ["mouseenter", "focus", "click"].forEach((eventName) => {
         hit.addEventListener(eventName, () => activatePoint(point.key, point.key === "Ours" ? "exomind" : ""));
       });
-      emphasis.forEach((element) => overlay.appendChild(element));
+      overlay.appendChild(emphasis);
       overlay.appendChild(hit);
-      pointElements.set(point.key, emphasis);
+      pointElements.set(point.key, [emphasis]);
     });
 
     container.appendChild(overlay);
     controls.forEach((control) => {
       const run = () => {
         if (control.dataset.key === "exomind") activatePoint("Ours", "exomind");
-        if (control.dataset.key === "efficiency") {
-          const trend = (data.arrows || []).find((arrow) => arrow.key === "frontier_efficiency") || data.arrows?.[0];
-          if (trend) activateArrow(trend);
-        }
+        if (control.dataset.key === "efficiency") activateTrend();
         if (control.dataset.key === "frontier") activateFrontier();
       };
       control.addEventListener("mouseenter", run);
