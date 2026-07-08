@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="ExoMind: democratizing scientific intelligence via an extended-mind-inspired agentic system."
+    />
+    <title>ExoMind | Scientific Intelligence</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ExoMind home">
+        ExoMind
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#results">Results</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#citation">Citation</a>
+      </nav>
+      <div class="header-resources" aria-label="Project resources">
+        <a class="resource-link is-primary" href="ExoMind_paper.pdf">Paper</a>
+        <span class="resource-link is-disabled" aria-disabled="true">GitHub</span>
+        <span class="resource-link is-disabled" aria-disabled="true">arXiv</span>
+        <span class="resource-link is-disabled" aria-disabled="true">Hugging Face</span>
+        <span class="resource-link is-disabled" aria-disabled="true">ModelScope</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Extended-Mind-Inspired Agentic System</p>
+          <h1>ExoMind</h1>
+          <p class="lead">
+            Democratizing scientific intelligence for research and reasoning with
+            a compact, interaction-driven agentic system.
+          </p>
+          <p class="summary">
+            ExoMind extends a language model with scientific interaction objects,
+            autonomous tool use, and low-cost specialization.
+          </p>
+          <div class="actions" aria-label="Project actions">
+            <a class="button primary" href="ExoMind_paper.pdf">Paper</a>
+            <a class="button" href="#results">Results</a>
+            <span class="button disabled" aria-disabled="true">Code</span>
+            <span class="button disabled" aria-disabled="true">Model</span>
+            <span class="button disabled" aria-disabled="true">Dataset</span>
+          </div>
+          <ul class="factor-strip" aria-label="Key ExoMind factors">
+            <li>
+              <span class="factor-index">01</span>
+              <div>
+                <strong>Scientific Interaction Objects</strong>
+                <p>Structured objects for research tasks, tools, and intermediate evidence.</p>
+              </div>
+            </li>
+            <li>
+              <span class="factor-index">02</span>
+              <div>
+                <strong>Autonomous Tool-Using Workflow</strong>
+                <p>Search, verification, execution, and reflection inside one agent loop.</p>
+              </div>
+            </li>
+            <li>
+              <span class="factor-index">03</span>
+              <div>
+                <strong>Compact 35B Scientific Agent</strong>
+                <p>Frontier-style scientific capability without only scaling parameters.</p>
+              </div>
+            </li>
+            <li>
+              <span class="factor-index">04</span>
+              <div>
+                <strong>Low-Cost Specialization</strong>
+                <p>Domain adaptation focused on scientific research and reasoning.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <article class="interactive-figure" aria-labelledby="performance-title">
+          <div class="figure-head">
+            <div>
+              <span class="figure-index">Performance Landscape</span>
+              <h2 id="performance-title">Compact model, frontier-level science</h2>
+            </div>
+            <span class="hint">Explore</span>
+          </div>
+          <div class="figure-stage">
+            <img src="assets/benchmark-crop.png" alt="Benchmark comparison showing ExoMind above frontier models" />
+            <button
+              class="hotspot dot"
+              data-key="exomind"
+              style="--x: 11%; --y: 18%; --color: var(--rose)"
+              data-title="ExoMind occupies the upper-left frontier"
+              data-body="The compact 35B ExoMind system reaches the highest average region while staying far smaller than trillion-parameter frontier models."
+              aria-label="Highlight ExoMind point"
+            ></button>
+            <button
+              class="hotspot line"
+              data-key="efficiency"
+              style="--x: 23%; --y: 22%; --w: 55%; --h: 18%; --color: var(--rose)"
+              data-title="Efficiency is the story"
+              data-body="The red trajectory makes the central claim visual: scientific intelligence can improve without only scaling parameters."
+              aria-label="Highlight efficiency trajectory"
+            ></button>
+            <button
+              class="hotspot region"
+              data-key="frontier"
+              style="--x: 69%; --y: 28%; --w: 20%; --h: 34%; --color: var(--teal)"
+              data-title="Frontier models cluster at much larger scale"
+              data-body="Many strong baselines sit around the 1T to 10T region. ExoMind is framed as a low-cost frontier alternative."
+              aria-label="Highlight frontier model cluster"
+            ><span>Frontier cluster</span></button>
+          </div>
+          <div class="figure-controls" aria-label="Performance chart highlights">
+            <button class="figure-control is-active" type="button" data-key="exomind">ExoMind Point</button>
+            <button class="figure-control" type="button" data-key="efficiency">Efficiency Trend</button>
+            <button class="figure-control" type="button" data-key="frontier">Frontier Cluster</button>
+          </div>
+          <aside class="figure-note" aria-live="polite">
+            <strong>ExoMind occupies the upper-left frontier</strong>
+            <p>The compact 35B ExoMind system reaches the highest average region while staying far smaller than trillion-parameter frontier models.</p>
+          </aside>
+        </article>
+      </section>
+
+      <section class="section capability-section" aria-labelledby="capabilities-title">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Capability Overview</p>
+          <h2 id="capabilities-title">Designed for real scientific workflows</h2>
+          <p>
+            ExoMind connects compact-model reasoning with the external objects and tools
+            needed for scientific discovery, verification, and problem solving.
+          </p>
+        </div>
+        <div class="capability-grid" aria-label="ExoMind capability overview">
+          <article class="capability-card">
+            <span>Research</span>
+            <h3>Evidence-centered exploration</h3>
+            <p>Turns search traces, tool outputs, and intermediate observations into reusable reasoning context.</p>
+          </article>
+          <article class="capability-card">
+            <span>Reasoning</span>
+            <h3>Competition-grade problem solving</h3>
+            <p>Targets physics, math, and scientific reasoning tasks where multi-step verification matters.</p>
+          </article>
+          <article class="capability-card">
+            <span>Agent System</span>
+            <h3>Reusable interaction loop</h3>
+            <p>Organizes planning, tool use, and reflection as a compact workflow rather than a one-shot response.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="section table-section" aria-labelledby="results-title">
+        <div class="section-heading">
+          <p class="eyebrow">Benchmark Results</p>
+          <h2 id="results-title">Scientific intelligence benchmark results</h2>
+          <p>
+            Higher is better. The table groups research benchmarks, reasoning benchmarks,
+            and the overall average. The ExoMind row is highlighted.
+          </p>
+          <div class="table-lens" aria-label="Benchmark result groups">
+            <span>Scientific Research</span>
+            <span>Scientific Reasoning</span>
+            <span>Average</span>
+          </div>
+        </div>
+
+        <div class="result-strip" aria-label="ExoMind benchmark highlights">
+          <div>
+            <span>Best average</span>
+            <strong>67.5</strong>
+            <small>overall scientific intelligence</small>
+          </div>
+          <div>
+            <span>Research leader</span>
+            <strong>FS-R 70.0 / CMT 84.0</strong>
+            <small>strongest research-task scores in the table</small>
+          </div>
+          <div>
+            <span>Reasoning leader</span>
+            <strong>IMO 92.8 / FS-O 89.0</strong>
+            <small>top-end scientific reasoning performance</small>
+          </div>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="Scientific intelligence benchmark results" tabindex="0">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th class="sticky-model" rowspan="2" scope="col">Model</th>
+                <th colspan="4" scope="colgroup">Scientific Research</th>
+                <th colspan="4" scope="colgroup">Scientific Reasoning</th>
+                <th rowspan="2" scope="col">Avg.</th>
+              </tr>
+              <tr>
+                <th scope="col">HLE w/tools</th>
+                <th scope="col">FS-R</th>
+                <th scope="col">CMT</th>
+                <th scope="col">CritPt</th>
+                <th scope="col">AMO</th>
+                <th scope="col">IMO</th>
+                <th scope="col">HiPhO</th>
+                <th scope="col">FS-O</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="exomind-row"><th class="sticky-model" scope="row">ExoMind</th><td>50.9</td><td>70.0</td><td>84.0</td><td>26.0</td><td>78.0</td><td>92.8</td><td>49.7</td><td>89.0</td><td>67.5</td></tr>
+              <tr><th class="sticky-model" scope="row">GPT-5.5 (xhigh)</th><td>52.2</td><td>26.7</td><td>43.0</td><td>27.1</td><td>70.0</td><td>83.8</td><td>43.3</td><td>78.0</td><td>53.0</td></tr>
+              <tr><th class="sticky-model" scope="row">GPT-5.4 (xhigh)</th><td>52.1</td><td>33.0</td><td>42.0</td><td>23.4</td><td>66.0</td><td>85.4</td><td>42.9</td><td>78.0</td><td>52.9</td></tr>
+              <tr><th class="sticky-model" scope="row">Gemini-3.1-Pro-Preview</th><td>51.4</td><td>11.7</td><td>43.0</td><td>17.7</td><td>63.1</td><td>90.0</td><td>43.4</td><td>77.0</td><td>49.7</td></tr>
+              <tr><th class="sticky-model" scope="row">Gemini-3.5-Flash-Thinking</th><td>49.0</td><td>16.7</td><td>35.0</td><td>13.1</td><td>64.0</td><td>87.3</td><td>43.5</td><td>76.0</td><td>48.1</td></tr>
+              <tr><th class="sticky-model" scope="row">Gemma-4-31B</th><td>26.5</td><td>2.1</td><td>18.0</td><td>1.4</td><td>39.3</td><td>74.0</td><td>33.2</td><td>64.8</td><td>32.4</td></tr>
+              <tr><th class="sticky-model" scope="row">Claude-Opus-4.8</th><td>&mdash;</td><td>12.5</td><td>28.0</td><td>20.4</td><td>72.0</td><td>86.8</td><td>44.5</td><td>74.0</td><td>53.0</td></tr>
+              <tr><th class="sticky-model" scope="row">Claude-Opus-4.8-Thinking</th><td>57.9</td><td>26.7</td><td>46.0</td><td>20.9</td><td>74.0</td><td>86.8</td><td>46.4</td><td>75.0</td><td>54.2</td></tr>
+              <tr><th class="sticky-model" scope="row">DeepSeek-V4-Pro (Max)</th><td>48.2</td><td>13.3</td><td>28.0</td><td>7.1</td><td>68.0</td><td>89.8</td><td>38.7</td><td>76.0</td><td>46.1</td></tr>
+              <tr><th class="sticky-model" scope="row">DeepSeek-V4-Flash (Max)</th><td>45.1</td><td>8.3</td><td>28.0</td><td>7.1</td><td>68.0</td><td>88.4</td><td>37.4</td><td>77.0</td><td>44.9</td></tr>
+              <tr><th class="sticky-model" scope="row">Kimi-K2.6</th><td>54.0</td><td>17.9</td><td>44.0</td><td>8.0</td><td>63.3</td><td>82.3</td><td>41.1</td><td>73.0</td><td>47.9</td></tr>
+              <tr><th class="sticky-model" scope="row">Kimi-K2.5</th><td>50.2</td><td>13.3</td><td>20.0</td><td>3.1</td><td>61.8</td><td>81.8</td><td>39.3</td><td>71.0</td><td>42.6</td></tr>
+              <tr><th class="sticky-model" scope="row">GLM-5.2</th><td>54.7</td><td>15.0</td><td>20.0</td><td>20.9</td><td>54.0</td><td>91.0</td><td>37.4</td><td>76.5</td><td>46.2</td></tr>
+              <tr><th class="sticky-model" scope="row">GLM-5.1</th><td>52.3</td><td>10.0</td><td>32.0</td><td>4.6</td><td>47.4</td><td>83.8</td><td>35.9</td><td>70.0</td><td>42.0</td></tr>
+              <tr><th class="sticky-model" scope="row">GLM-5</th><td>50.4</td><td>8.8</td><td>22.0</td><td>2.0</td><td>49.0</td><td>82.5</td><td>36.3</td><td>65.8</td><td>39.6</td></tr>
+              <tr><th class="sticky-model" scope="row">MiniMax-M3</th><td>&mdash;</td><td>13.3</td><td>20.0</td><td>3.7</td><td>52.0</td><td>82.5</td><td>33.9</td><td>55.0</td><td>37.2</td></tr>
+              <tr><th class="sticky-model" scope="row">MiniMax-M2.7</th><td>&mdash;</td><td>7.1</td><td>10.0</td><td>0.6</td><td>50.0</td><td>71.8</td><td>31.3</td><td>59.5</td><td>32.9</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.7-Max</th><td>53.5</td><td>10.0</td><td>34.0</td><td>13.4</td><td>57.4</td><td>90.0</td><td>38.8</td><td>80.0</td><td>47.1</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.6-Max-Preview</th><td>51.0</td><td>15.0</td><td>28.0</td><td>3.7</td><td>44.0</td><td>76.8</td><td>36.5</td><td>69.3</td><td>40.5</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.6-Plus</th><td>50.6</td><td>5.8</td><td>26.0</td><td>2.9</td><td>48.0</td><td>75.5</td><td>40.9</td><td>66.3</td><td>39.5</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.6-35B-A3B</th><td>36.2</td><td>2.9</td><td>20.0</td><td>0.3</td><td>58.8</td><td>78.0</td><td>37.7</td><td>60.3</td><td>36.8</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.5-397B-A17B</th><td>48.3</td><td>2.9</td><td>24.0</td><td>1.7</td><td>56.0</td><td>75.5</td><td>37.8</td><td>61.5</td><td>38.5</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.5-122B-A10B</th><td>47.5</td><td>5.0</td><td>22.0</td><td>0.6</td><td>44.0</td><td>75.5</td><td>39.0</td><td>62.8</td><td>37.0</td></tr>
+              <tr><th class="sticky-model" scope="row">Qwen3.5-35B-A3B</th><td>47.4</td><td>2.5</td><td>20.0</td><td>0.9</td><td>46.0</td><td>71.0</td><td>37.0</td><td>64.5</td><td>36.2</td></tr>
+              <tr><th class="sticky-model" scope="row">P1-VL-235B-A22B</th><td>&mdash;</td><td>6.7</td><td>14.0</td><td>1.4</td><td>47.5</td><td>70.6</td><td>39.3</td><td>64.3</td><td>34.8</td></tr>
+              <tr><th class="sticky-model" scope="row">P1-VL-30B-A3B</th><td>&mdash;</td><td>4.6</td><td>10.0</td><td>0.0</td><td>44.5</td><td>65.3</td><td>35.0</td><td>52.5</td><td>30.3</td></tr>
+              <tr><th class="sticky-model" scope="row">P1-235B-A22B</th><td>&mdash;</td><td>7.5</td><td>16.0</td><td>0.0</td><td>53.5</td><td>70.8</td><td>35.9</td><td>62.0</td><td>35.1</td></tr>
+              <tr><th class="sticky-model" scope="row">P1-30B-A3B</th><td>&mdash;</td><td>4.2</td><td>12.0</td><td>0.0</td><td>44.3</td><td>66.2</td><td>32.5</td><td>54.8</td><td>30.6</td></tr>
+              <tr><th class="sticky-model" scope="row">SU-01</th><td>&mdash;</td><td>11.7</td><td>8.0</td><td>0.0</td><td>59.8</td><td>77.5</td><td>35.0</td><td>61.5</td><td>36.2</td></tr>
+              <tr><th class="sticky-model" scope="row">Intern-S2-Preview</th><td>38.7</td><td>19.4</td><td>4.0</td><td>0.0</td><td>64.0</td><td>82.5</td><td>37.1</td><td>60.3</td><td>38.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ecosystem" class="section ecosystem-section" aria-labelledby="ecosystem-title">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Ecosystem</p>
+          <h2 id="ecosystem-title">Related scientific intelligence projects</h2>
+          <p>
+            ExoMind is designed to sit within a broader open ecosystem of scientific
+            reasoning models, benchmarks, datasets, and agent infrastructure.
+          </p>
+        </div>
+        <div class="project-grid" aria-label="Related projects">
+          <article class="project-card">
+            <div>
+              <span class="project-type">Model</span>
+              <h3>P1</h3>
+              <p>Physics olympiad reasoning models trained with reinforcement learning.</p>
+            </div>
+            <a href="https://github.com/PRIME-RL/P1">GitHub</a>
+          </article>
+          <article class="project-card">
+            <div>
+              <span class="project-type">Dataset</span>
+              <h3>HiPhO</h3>
+              <p>High-level physics olympiad benchmark for multimodal scientific reasoning.</p>
+            </div>
+            <a href="https://huggingface.co/datasets/SciYu/HiPhO">Dataset</a>
+          </article>
+          <article class="project-card">
+            <div>
+              <span class="project-type">Infrastructure</span>
+              <h3>openJiSi</h3>
+              <p>Routing and aggregation system for scalable model selection and evidence use.</p>
+            </div>
+            <a href="https://github.com/magent4aci/openJiSi">GitHub</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="citation" class="citation-section" aria-labelledby="citation-title">
+        <div>
+          <p class="eyebrow">Citation</p>
+          <h2 id="citation-title">Cite ExoMind</h2>
+        </div>
+        <pre><code>@misc{ye2026exomind,
+  title  = {ExoMind: Democratizing Scientific Intelligence via Extended-Mind-Inspired Agentic System},
+  author = {Ye, Peng and Liu, Zhuo and Ye, Jingqi and Yu, Fangchen and Tang, Shengji and Jiang, Yichen and He, Haonan and Chen, Tao and Hu, Shuyue and Zhang, Bo and Ouyang, Wanli and Zhou, Bowen and Bai, Lei},
+  year   = {2026}
+}</code></pre>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>ExoMind</span>
+      <span>Shanghai Artificial Intelligence Laboratory</span>
+      <a href="#top">Back to top</a>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
