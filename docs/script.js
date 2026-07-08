@@ -37,8 +37,26 @@
   };
 
   const markerRadius = (point) => {
-    if (point.marker === "star") return 44;
-    return Math.max(22, Math.min(74, Math.sqrt(Number(point.size || 400)) * 1.18));
+    if (point.marker === "star") return 56;
+    return Math.max(34, Math.min(104, Math.sqrt(Number(point.size || 400)) * 1.9));
+  };
+
+  const makeEdgePair = (name, attrs, color, extraClass = "") => {
+    const baseAttrs = {
+      ...attrs,
+      fill: "none",
+      stroke: color,
+      "vector-effect": "non-scaling-stroke",
+    };
+    const halo = makeSvg(name, {
+      ...baseAttrs,
+      class: `chart-emphasis chart-edge edge-halo ${extraClass}`.trim(),
+    });
+    const line = makeSvg(name, {
+      ...baseAttrs,
+      class: `chart-emphasis chart-edge edge-line ${extraClass}`.trim(),
+    });
+    return [halo, line];
   };
 
   const renderPerformanceOverlay = () => {
@@ -119,18 +137,18 @@
       const y1 = sy(arrow.from[1]);
       const x2 = sx(arrow.to[0]);
       const y2 = sy(arrow.to[1]);
-      const emphasis = makeSvg("line", {
-        class: "chart-emphasis is-arrow",
-        x1,
-        y1,
-        x2,
-        y2,
-        stroke: "#e31a1c",
-        "stroke-width": 7,
-        "stroke-linecap": "round",
-        "stroke-dasharray": "20 14",
-        "stroke-dashoffset": "0",
-      });
+      const emphasis = makeEdgePair(
+        "line",
+        {
+          x1,
+          y1,
+          x2,
+          y2,
+          "stroke-linecap": "round",
+        },
+        "#e31a1c",
+        "is-arrow"
+      );
       const hit = makeSvg("line", {
         class: "overlay-hit",
         x1,
@@ -138,7 +156,7 @@
         x2,
         y2,
         stroke: "transparent",
-        "stroke-width": 58,
+        "stroke-width": 62,
         "stroke-linecap": "round",
         "pointer-events": "stroke",
         tabindex: "0",
@@ -148,9 +166,9 @@
       ["mouseenter", "focus", "click"].forEach((eventName) => {
         hit.addEventListener(eventName, () => activateArrow(arrow));
       });
-      overlay.appendChild(emphasis);
+      emphasis.forEach((element) => overlay.appendChild(element));
       overlay.appendChild(hit);
-      arrowElements.set(arrow.key, [emphasis]);
+      arrowElements.set(arrow.key, emphasis);
     });
 
     panel.points.forEach((point) => {
@@ -159,23 +177,23 @@
       const r = markerRadius(point);
       const emphasis =
         point.marker === "star"
-          ? makeSvg("polygon", {
-              class: "chart-emphasis is-point is-star",
-              points: starPoints(cx, cy, r),
-              fill: point.color || "#e31a1c",
-            })
-          : makeSvg("circle", {
-              class: "chart-emphasis is-point",
-              cx,
-              cy,
-              r,
-              fill: point.color || "#50e2d0",
-            });
+          ? makeEdgePair(
+              "polygon",
+              { points: starPoints(cx, cy, r) },
+              point.color || "#e31a1c",
+              "is-point is-star"
+            )
+          : makeEdgePair(
+              "circle",
+              { cx, cy, r },
+              point.color || "#50e2d0",
+              "is-point"
+            );
       const hit = makeSvg("circle", {
         class: "overlay-hit",
         cx,
         cy,
-        r: Math.max(r + 26, 52),
+        r: Math.max(r + 20, 50),
         fill: "#000000",
         "pointer-events": "fill",
         tabindex: "0",
@@ -185,9 +203,9 @@
       ["mouseenter", "focus", "click"].forEach((eventName) => {
         hit.addEventListener(eventName, () => activatePoint(point.key, point.key === "Ours" ? "exomind" : ""));
       });
-      overlay.appendChild(emphasis);
+      emphasis.forEach((element) => overlay.appendChild(element));
       overlay.appendChild(hit);
-      pointElements.set(point.key, [emphasis]);
+      pointElements.set(point.key, emphasis);
     });
 
     container.appendChild(overlay);

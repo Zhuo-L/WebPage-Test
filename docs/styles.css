@@ -40,7 +40,7 @@ body {
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   line-height: 1.5;
-  animation: pageGradientShift 28s ease-in-out infinite alternate;
+  animation: pageGradientShift 12s ease-in-out infinite alternate;
 }
 
 body::before {
@@ -55,7 +55,7 @@ body::before {
     conic-gradient(from 135deg at 52% 44%, transparent 0deg, rgba(244, 201, 104, 0.11) 70deg, transparent 148deg, rgba(80, 226, 208, 0.1) 230deg, transparent 360deg);
   filter: blur(34px);
   transform: translate3d(0, 0, 0) scale(1);
-  animation: ambientDrift 24s ease-in-out infinite alternate;
+  animation: ambientDrift 9s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -65,17 +65,17 @@ body::before {
   }
 
   100% {
-    background-position: 70% 18%, 28% 42%, 88% 20%, 0 0;
+    background-position: 100% 32%, 18% 58%, 96% 10%, 0 0;
   }
 }
 
 @keyframes ambientDrift {
   0% {
-    transform: translate3d(-2.5%, -1.5%, 0) scale(1);
+    transform: translate3d(-5.5%, -3.2%, 0) scale(1);
   }
 
   100% {
-    transform: translate3d(2.5%, 1.8%, 0) scale(1.04);
+    transform: translate3d(6%, 4.2%, 0) scale(1.06);
   }
 }
 
@@ -509,29 +509,69 @@ h2 {
   pointer-events: none;
   transform-box: fill-box;
   transform-origin: center;
-  transition: opacity 170ms ease, filter 170ms ease, transform 170ms ease;
+  transition: opacity 150ms ease, filter 150ms ease;
 }
 
-.chart-emphasis.is-active {
-  opacity: 0.42;
-  filter:
-    drop-shadow(0 0 4px rgba(255, 255, 255, 0.34))
-    drop-shadow(0 0 10px rgba(255, 111, 159, 0.26));
-  transform: scale(1.08);
-}
-
-.chart-emphasis.is-active.is-arrow {
-  opacity: 0.58;
-  filter:
-    drop-shadow(0 0 3px rgba(255, 255, 255, 0.32))
-    drop-shadow(0 0 8px rgba(227, 26, 28, 0.24));
+.chart-edge {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   transform: none;
+}
+
+.chart-edge.edge-halo {
+  stroke-width: 16;
+}
+
+.chart-edge.edge-line {
+  stroke-width: 4.5;
+}
+
+.chart-edge.is-star.edge-halo {
+  stroke-width: 14;
+}
+
+.chart-edge.is-star.edge-line {
+  stroke-width: 4;
+}
+
+.chart-edge.is-arrow.edge-halo {
+  stroke-width: 17;
+}
+
+.chart-edge.is-arrow.edge-line {
+  stroke-width: 5;
+}
+
+.chart-edge.edge-halo.is-active {
+  opacity: 0.34;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.28))
+    drop-shadow(0 0 13px rgba(80, 226, 208, 0.18));
+}
+
+.chart-edge.edge-line.is-active {
+  opacity: 0.9;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 255, 255, 0.28))
+    drop-shadow(0 0 6px rgba(7, 10, 15, 0.2));
+}
+
+.chart-edge.is-star.edge-halo.is-active,
+.chart-edge.is-arrow.edge-halo.is-active {
+  opacity: 0.3;
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.24))
+    drop-shadow(0 0 12px rgba(227, 26, 28, 0.22));
+}
+
+.chart-edge.is-arrow.is-active {
   animation: trendTrace 680ms ease-out;
 }
 
 @keyframes trendTrace {
   from {
-    stroke-dashoffset: 84;
+    stroke-dashoffset: 34;
   }
 
   to {
