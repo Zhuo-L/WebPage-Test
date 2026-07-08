@@ -21,11 +21,11 @@
         <a href="#citation">Citation</a>
       </nav>
       <div class="header-resources" aria-label="Project resources">
-        <a class="resource-link is-primary" href="ExoMind_paper.pdf">Paper</a>
-        <span class="resource-link is-disabled" aria-disabled="true">GitHub</span>
-        <span class="resource-link is-disabled" aria-disabled="true">arXiv</span>
-        <span class="resource-link is-disabled" aria-disabled="true">Hugging Face</span>
-        <span class="resource-link is-disabled" aria-disabled="true">ModelScope</span>
+        <a class="resource-link is-primary" href="https://zhuo-l.github.io/WebPage-Test">Paper</a>
+        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">GitHub</a>
+        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">arXiv</a>
+        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">Hugging Face</a>
+        <a class="resource-link" href="https://zhuo-l.github.io/WebPage-Test">ModelScope</a>
       </div>
     </header>
 
@@ -39,15 +39,22 @@
             a compact, interaction-driven agentic system.
           </p>
           <p class="summary">
-            ExoMind extends a language model with scientific interaction objects,
-            autonomous tool use, and low-cost specialization.
+            Surpassing Frontier Proprietary Models in Scientific Reasoning and Research
+            with Less Data, Small Model, and Low-cost Training.
           </p>
+          <blockquote class="mind-quote">
+            <p>
+              &ldquo;The Extended Mind Thesis: The mind is not confined to the brain,
+              but extends into tools, artifacts, and the environment with which it interacts.&rdquo;
+            </p>
+            <cite>Andy Clark and David Chalmers</cite>
+          </blockquote>
           <div class="actions" aria-label="Project actions">
-            <a class="button primary" href="ExoMind_paper.pdf">Paper</a>
+            <a class="button primary" href="https://zhuo-l.github.io/WebPage-Test">Paper</a>
             <a class="button" href="#results">Results</a>
-            <span class="button disabled" aria-disabled="true">Code</span>
-            <span class="button disabled" aria-disabled="true">Model</span>
-            <span class="button disabled" aria-disabled="true">Dataset</span>
+            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Code</a>
+            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Model</a>
+            <a class="button" href="https://zhuo-l.github.io/WebPage-Test">Dataset</a>
           </div>
           <ul class="factor-strip" aria-label="Key ExoMind factors">
             <li>
@@ -80,7 +87,9 @@
             </li>
           </ul>
         </div>
+      </section>
 
+      <section id="performance" class="section performance-section" aria-labelledby="performance-title">
         <article class="interactive-figure" aria-labelledby="performance-title">
           <div class="figure-head">
             <div>
@@ -90,36 +99,14 @@
             <span class="hint">Explore</span>
           </div>
           <div class="figure-stage">
-            <img src="assets/benchmark-crop.png" alt="Benchmark comparison showing ExoMind above frontier models" />
-            <button
-              class="hotspot dot"
-              data-key="exomind"
-              style="--x: 11%; --y: 18%; --color: var(--rose)"
-              data-title="ExoMind occupies the upper-left frontier"
-              data-body="The compact 35B ExoMind system reaches the highest average region while staying far smaller than trillion-parameter frontier models."
-              aria-label="Highlight ExoMind point"
-            ></button>
-            <button
-              class="hotspot line"
-              data-key="efficiency"
-              style="--x: 23%; --y: 22%; --w: 55%; --h: 18%; --color: var(--rose)"
-              data-title="Efficiency is the story"
-              data-body="The red trajectory makes the central claim visual: scientific intelligence can improve without only scaling parameters."
-              aria-label="Highlight efficiency trajectory"
-            ></button>
-            <button
-              class="hotspot region"
-              data-key="frontier"
-              style="--x: 69%; --y: 28%; --w: 20%; --h: 34%; --color: var(--teal)"
-              data-title="Frontier models cluster at much larger scale"
-              data-body="Many strong baselines sit around the 1T to 10T region. ExoMind is framed as a low-cost frontier alternative."
-              aria-label="Highlight frontier model cluster"
-            ><span>Frontier cluster</span></button>
+            <div id="performance-chart" class="performance-chart" aria-label="Interactive benchmark comparison">
+              <img class="chart-fallback" src="assets/fig1-benchmark.png" alt="Scientific intelligence evaluation chart showing ExoMind against frontier and open models" />
+            </div>
           </div>
           <div class="figure-controls" aria-label="Performance chart highlights">
-            <button class="figure-control is-active" type="button" data-key="exomind">ExoMind Point</button>
-            <button class="figure-control" type="button" data-key="efficiency">Efficiency Trend</button>
-            <button class="figure-control" type="button" data-key="frontier">Frontier Cluster</button>
+            <button class="figure-control is-active" type="button" data-key="exomind">ExoMind</button>
+            <button class="figure-control" type="button" data-key="efficiency">Efficiency trend</button>
+            <button class="figure-control" type="button" data-key="frontier">Frontier cluster</button>
           </div>
           <aside class="figure-note" aria-live="polite">
             <strong>ExoMind occupies the upper-left frontier</strong>
@@ -164,11 +151,6 @@
             Higher is better. The table groups research benchmarks, reasoning benchmarks,
             and the overall average. The ExoMind row is highlighted.
           </p>
-          <div class="table-lens" aria-label="Benchmark result groups">
-            <span>Scientific Research</span>
-            <span>Scientific Reasoning</span>
-            <span>Average</span>
-          </div>
         </div>
 
         <div class="result-strip" aria-label="ExoMind benchmark highlights">
@@ -179,13 +161,13 @@
           </div>
           <div>
             <span>Research leader</span>
-            <strong>FS-R 70.0 / CMT 84.0</strong>
-            <small>strongest research-task scores in the table</small>
+            <strong>FS-R 70.0 / CritPt 26.0</strong>
+            <small>frontier research and critical-point performance</small>
           </div>
           <div>
             <span>Reasoning leader</span>
-            <strong>IMO 92.8 / FS-O 89.0</strong>
-            <small>top-end scientific reasoning performance</small>
+            <strong>FS-O 89.0 / HiPhO 49.7</strong>
+            <small>Olympiad and high-level physics reasoning</small>
           </div>
         </div>
 
@@ -282,6 +264,31 @@
         </div>
       </section>
 
+      <section class="section signal-section" aria-labelledby="signals-title">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Launch Signals</p>
+          <h2 id="signals-title">Global release signals</h2>
+          <p>
+            A compact visual signal panel for the public release. It keeps the page lively
+            without adding third-party tracking scripts before launch.
+          </p>
+        </div>
+        <div class="signal-panel" aria-label="Launch signal visualization">
+          <div class="signal-map" aria-hidden="true">
+            <span style="--x: 14%; --y: 42%"></span>
+            <span style="--x: 31%; --y: 32%"></span>
+            <span style="--x: 48%; --y: 48%"></span>
+            <span style="--x: 67%; --y: 35%"></span>
+            <span style="--x: 82%; --y: 54%"></span>
+          </div>
+          <div class="signal-copy">
+            <span>Public launch ready</span>
+            <strong>Project page prepared for GitHub Pages</strong>
+            <p>Replace this panel with live analytics later, or keep it as a polished release signal.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="citation" class="citation-section" aria-labelledby="citation-title">
         <div>
           <p class="eyebrow">Citation</p>
@@ -300,6 +307,7 @@
       <span>Shanghai Artificial Intelligence Laboratory</span>
       <a href="#top">Back to top</a>
     </footer>
+    <script src="performance-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
