@@ -165,6 +165,7 @@
         stroke: "transparent",
         "stroke-width": 72,
         "stroke-linecap": "round",
+        "pointer-events": "stroke",
         tabindex: "0",
         role: "button",
         "data-key": arrow.key,
@@ -182,7 +183,8 @@
         cx: sx(point.x),
         cy: sy(point.y),
         r: markerRadius(point),
-        fill: "transparent",
+        fill: "#000000",
+        "pointer-events": "fill",
         tabindex: "0",
         role: "button",
         "data-key": point.key,
@@ -216,6 +218,11 @@
     window.addEventListener("resize", () => {
       if (activeTarget) showLoupe(activeTarget);
     });
+    if (image.complete) {
+      window.requestAnimationFrame(() => showPoint("Ours", "exomind"));
+    } else {
+      image.addEventListener("load", () => showPoint("Ours", "exomind"), { once: true });
+    }
   };
 
   const enhanceBenchmarkTable = () => {

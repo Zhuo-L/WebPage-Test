@@ -142,20 +142,6 @@ img {
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, color 160ms ease, box-shadow 160ms ease;
 }
 
-.resource-link span,
-.button span {
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #061014;
-  font-size: 11px;
-  font-weight: 900;
-}
-
 .resource-link:hover,
 .resource-link:focus-visible,
 .button:hover,
@@ -167,55 +153,55 @@ img {
 }
 
 .is-paper {
-  --accent: var(--teal);
-  --accent-2: var(--amber);
+  --accent: #50e2d0;
+  --accent-2: #f4c968;
+  --accent-rgb: 80, 226, 208;
 }
 
 .is-github,
 .is-results {
   --accent: #d6e3f0;
-  --accent-2: var(--violet);
+  --accent-2: #a7abff;
+  --accent-rgb: 214, 227, 240;
 }
 
 .is-arxiv,
 .is-model {
-  --accent: var(--rose);
-  --accent-2: var(--amber);
+  --accent: #ff6f9f;
+  --accent-2: #f4c968;
+  --accent-rgb: 255, 111, 159;
 }
 
 .is-hf {
-  --accent: var(--amber);
+  --accent: #f4c968;
   --accent-2: #ff9e6e;
+  --accent-rgb: 244, 201, 104;
 }
 
 .is-ms {
   --accent: #7cc7ff;
-  --accent-2: var(--teal);
+  --accent-2: #50e2d0;
+  --accent-rgb: 124, 199, 255;
 }
 
 .resource-link[class*="is-"],
 .button[class*="is-"] {
-  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  border-color: rgba(var(--accent-rgb), 0.38);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), color-mix(in srgb, var(--accent-2) 12%, transparent)),
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0.08)),
     rgba(255, 255, 255, 0.045);
   color: var(--text);
-}
-
-.resource-link[class*="is-"] span,
-.button[class*="is-"] span {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 .resource-link[class*="is-"]:hover,
 .resource-link[class*="is-"]:focus-visible,
 .button[class*="is-"]:hover,
 .button[class*="is-"]:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 66%, transparent);
+  border-color: rgba(var(--accent-rgb), 0.66);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 18%, transparent)),
+    linear-gradient(135deg, rgba(var(--accent-rgb), 0.25), rgba(var(--accent-rgb), 0.13)),
     rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 34px color-mix(in srgb, var(--accent) 24%, transparent);
+  box-shadow: 0 12px 34px rgba(var(--accent-rgb), 0.24);
 }
 
 .resource-link.is-disabled {
