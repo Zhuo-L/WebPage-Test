@@ -1,4 +1,28 @@
 (() => {
+  const enhanceFigureControls = () => {
+    const figure = document.querySelector(".interactive-figure");
+    const note = figure?.querySelector(".figure-note");
+    const title = note?.querySelector("strong");
+    const body = note?.querySelector("p");
+    const controls = Array.from(figure?.querySelectorAll(".figure-control") || []);
+    if (!figure || !title || !body || controls.length === 0) return;
+
+    const activate = (control) => {
+      controls.forEach((item) => item.classList.toggle("is-active", item === control));
+      title.textContent = control.dataset.title || "";
+      body.textContent = control.dataset.body || "";
+    };
+
+    controls.forEach((control) => {
+      control.addEventListener("mouseenter", () => activate(control));
+      control.addEventListener("focus", () => activate(control));
+      control.addEventListener("click", (event) => {
+        event.preventDefault();
+        activate(control);
+      });
+    });
+  };
+
   const enhanceBenchmarkTable = () => {
     const table = document.querySelector(".results-table");
     const body = table?.tBodies?.[0];
@@ -24,5 +48,6 @@
     }
   };
 
+  enhanceFigureControls();
   enhanceBenchmarkTable();
 })();
