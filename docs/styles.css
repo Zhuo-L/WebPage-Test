@@ -486,67 +486,6 @@ h2 {
   filter: saturate(0.98) contrast(1.01);
 }
 
-.chart-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.overlay-hit {
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: all;
-}
-
-.overlay-hit:focus-visible {
-  outline: 0;
-}
-
-.chart-emphasis {
-  opacity: 0;
-  pointer-events: none;
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: opacity 150ms ease, filter 150ms ease;
-}
-
-.calibrated-highlight {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: none;
-}
-
-.calibrated-highlight.is-active {
-  opacity: 1;
-}
-
-.exomind-highlight {
-  fill: rgba(244, 201, 104, 0.08);
-  stroke: rgba(255, 255, 255, 0.96);
-  stroke-width: 7;
-  filter:
-    drop-shadow(0 0 3px rgba(227, 26, 28, 0.38))
-    drop-shadow(0 0 7px rgba(244, 201, 104, 0.24));
-}
-
-.trend-highlight {
-  stroke: rgba(255, 226, 143, 0.9);
-  stroke-width: 9;
-  filter:
-    drop-shadow(0 0 2px rgba(7, 10, 15, 0.32))
-    drop-shadow(0 0 5px rgba(227, 26, 28, 0.26));
-}
-
-.cluster-frame {
-  fill: rgba(244, 201, 104, 0.12);
-  stroke: rgba(80, 226, 208, 0.86);
-  stroke-width: 4;
-  filter: drop-shadow(0 0 7px rgba(80, 226, 208, 0.22));
-}
-
 .figure-controls {
   display: flex;
   flex-wrap: wrap;
@@ -564,17 +503,12 @@ h2 {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.055);
   color: var(--muted);
-  cursor: pointer;
-  font: inherit;
   font-size: 13px;
   font-weight: 800;
 }
 
-.figure-control:hover,
-.figure-control:focus-visible,
 .figure-control.is-active {
   border-color: rgba(80, 226, 208, 0.5);
-  outline: 0;
   background: rgba(80, 226, 208, 0.15);
   color: var(--text);
 }
