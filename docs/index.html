@@ -8,7 +8,7 @@
       content="ExoMind: democratizing scientific intelligence via an extended-mind-inspired agentic system."
     />
     <title>ExoMind | Scientific Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260709-01" />
+    <link rel="stylesheet" href="styles.css?v=20260709-02" />
   </head>
   <body>
     <header class="site-header">
@@ -185,61 +185,96 @@
         </div>
       </section>
 
-      <section id="paper-results" class="section paper-results-section" aria-labelledby="paper-results-title">
-        <div class="section-heading">
-          <p class="eyebrow">Paper Results</p>
-          <h2 id="paper-results-title">Additional results from the paper</h2>
-          <p>
-            High-resolution excerpts from the ExoMind paper expand the benchmark table
-            with model-size comparisons, transfer results, and IKP evaluation.
-          </p>
-        </div>
-
-        <div class="paper-result-grid" aria-label="Additional ExoMind paper figures">
-          <figure class="paper-result-card is-wide">
-            <div class="paper-figure-frame">
-              <img
-                src="assets/fig8-benchmarks.png"
-                alt="Figure 8 benchmark matrix comparing ExoMind with frontier and open models across eight scientific research and reasoning datasets"
-                loading="lazy"
-              />
+      <section id="paper-results" class="section paper-results-section" aria-label="ExoMind paper result highlights">
+        <div class="paper-result-stack">
+          <article class="paper-result-feature" aria-labelledby="fig8-title">
+            <div class="paper-result-copy">
+              <p class="eyebrow">Scientific Benchmarks</p>
+              <h2 id="fig8-title">ExoMind rivals frontier models on scientific research and reasoning benchmarks</h2>
+              <p>
+                ExoMind consistently improves over the base model on all eight datasets
+                and surpasses leading open and closed-source models on most of them.
+              </p>
+              <p>
+                At 35B scale, it achieves frontier-level performance with roughly 277x
+                fewer parameters than GPT-5.5.
+              </p>
             </div>
-            <figcaption>
-              <strong>Fig. 8</strong>
-              ExoMind rivals frontier models across eight scientific research and reasoning
-              benchmarks while using roughly 277x fewer parameters than GPT-5.5.
-            </figcaption>
-          </figure>
+            <figure class="paper-result-figure">
+              <div class="paper-figure-frame">
+                <img
+                  src="assets/fig8-benchmarks.png"
+                  alt="Figure 8 benchmark matrix comparing ExoMind with frontier and open models across eight scientific research and reasoning datasets"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                <strong>Fig. 8</strong>
+                Model-size and accuracy comparisons across scientific research and
+                reasoning evaluations.
+              </figcaption>
+            </figure>
+          </article>
 
-          <figure class="paper-result-card">
-            <div class="paper-figure-frame">
-              <img
-                src="assets/fig9-general-intelligence.png"
-                alt="Figure 9 bar chart showing ExoMind improves over the Qwen3.5 35B base model on selected general intelligence benchmarks"
-                loading="lazy"
-              />
+          <article class="paper-result-feature" aria-labelledby="fig9-title">
+            <div class="paper-result-copy">
+              <p class="eyebrow">General Intelligence</p>
+              <h2 id="fig9-title">Results on selected general intelligence benchmarks</h2>
+              <p>
+                Scientific specialization does not trade away general capability:
+                ExoMind improves over the 35B base model across six general intelligence
+                benchmarks.
+              </p>
+              <p>
+                The gains span multi-domain reasoning, expert QA, medical QA, code
+                generation, and interaction-oriented tasks.
+              </p>
             </div>
-            <figcaption>
-              <strong>Fig. 9</strong>
-              Deep specialization improves selected general-intelligence benchmarks over
-              the 35B base model without sacrificing broad capability.
-            </figcaption>
-          </figure>
+            <figure class="paper-result-figure">
+              <div class="paper-figure-frame">
+                <img
+                  src="assets/fig9-general-intelligence.png"
+                  alt="Figure 9 bar chart showing ExoMind improves over the Qwen3.5 35B base model on selected general intelligence benchmarks"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                <strong>Fig. 9</strong>
+                ExoMind reaches 94.5 on MMLU-Pro, 95.0 on GPQA-Diamond, 93.9 on
+                MedMCQA, and 85.7 on LiveCodeBench.
+              </figcaption>
+            </figure>
+          </article>
 
-          <figure class="paper-result-card">
-            <div class="paper-figure-frame">
-              <img
-                src="assets/fig11-ikp.png"
-                alt="Figure 11 IKP evaluation showing ExoMind at 35B approaching the capability range of much larger models"
-                loading="lazy"
-              />
+          <article class="paper-result-feature" aria-labelledby="fig11-title">
+            <div class="paper-result-copy">
+              <p class="eyebrow">Knowledge Probe</p>
+              <h2 id="fig11-title">Incompressible Knowledge Probe (IKP) evaluation</h2>
+              <p>
+                IKP evaluation shows that ExoMind substantially improves the IKP
+                accuracy of the base 35B model.
+              </p>
+              <p>
+                The result reaches a level close to models with approximately one
+                trillion parameters, suggesting a new dimension for scaling scientific
+                intelligence through interaction.
+              </p>
             </div>
-            <figcaption>
-              <strong>Fig. 11</strong>
-              On IKP, ExoMind at the actual 35B scale reaches a performance region close
-              to much larger models around the 1T scale.
-            </figcaption>
-          </figure>
+            <figure class="paper-result-figure">
+              <div class="paper-figure-frame">
+                <img
+                  src="assets/fig11-ikp.png"
+                  alt="Figure 11 IKP evaluation showing ExoMind at 35B approaching the capability range of much larger models"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                <strong>Fig. 11</strong>
+                ExoMind reaches a level close to models with approximately one trillion
+                parameters.
+              </figcaption>
+            </figure>
+          </article>
         </div>
       </section>
 

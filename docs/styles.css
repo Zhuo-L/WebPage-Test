@@ -404,7 +404,6 @@ h2 {
 
 .interactive-figure,
 .table-wrap,
-.paper-result-card,
 .project-card {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -740,22 +739,47 @@ h2 {
   padding-top: 18px;
 }
 
-.paper-result-grid {
+.paper-result-stack {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 24px;
 }
 
-.paper-result-card {
+.paper-result-feature {
   overflow: hidden;
-  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(9, 16, 22, 0.88), rgba(7, 10, 15, 0.76)),
     var(--panel);
+  box-shadow: var(--shadow);
 }
 
-.paper-result-card.is-wide {
-  grid-column: 1 / -1;
+.paper-result-copy {
+  max-width: 940px;
+  padding: 4px 4px 14px;
+}
+
+.paper-result-copy h2 {
+  margin-bottom: 14px;
+}
+
+.paper-result-copy p {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.paper-result-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.paper-result-figure {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(2, 6, 10, 0.58);
 }
 
 .paper-figure-frame {
@@ -775,14 +799,14 @@ h2 {
   box-shadow: 0 0 0 1px rgba(6, 12, 16, 0.74);
 }
 
-.paper-result-card figcaption {
+.paper-result-figure figcaption {
   margin: 0;
   padding: 14px 15px 16px;
   color: var(--muted);
   font-size: 14px;
 }
 
-.paper-result-card figcaption strong {
+.paper-result-figure figcaption strong {
   display: inline-block;
   margin-right: 8px;
   color: var(--text);
@@ -853,10 +877,6 @@ h2 {
   }
 
   .result-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .paper-result-grid {
     grid-template-columns: 1fr;
   }
 
