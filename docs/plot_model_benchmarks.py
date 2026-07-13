@@ -113,6 +113,7 @@ OUTPUT_CONFIG = {
     "bar_png": "model_benchmark_bars.png",
     "bubble_png": "model_benchmark_bubbles.png",
     "bubble_avg_png": "model_benchmark_bubbles_avg.png",
+    "web_data_js": "benchmark-data.js",
     "dpi": 600,
     "figsize": (18, 24.0),
     "avg_figsize": (12.0, 6.0),
@@ -726,6 +727,36 @@ def selected_records(records: list[ModelRecord]) -> list[ModelRecord]:
     if missing:
         print("Warning: missing models in results.xlsx:", ", ".join(missing))
     return ours + closed + open_models
+
+
+def export_web_data(records: list[ModelRecord]) -> Path:
+    dataset_ids = [dataset_id for row in DATASET_LAYOUTS["4x2"] for dataset_id in row]
+    payload = {
+        "datasets": [
+            {
+                "id": dataset_id,
+                "label": DATASET_META[dataset_id]["label"],
+                "domain": DATASET_META[dataset_id]["domain"],
+            }
+            for dataset_id in dataset_ids
+        ],
+        "models": [
+            {
+                "name": record.display_name,
+                "provider": record.provider,
+                "color": color_to_hex(OURS_COLOR if record.is_ours else provider_color(record.provider)),
+                "isOurs": record.is_ours,
+                "scores": {dataset_id: record.scores.get(dataset_id) for dataset_id in dataset_ids},
+            }
+            for record in records
+        ],
+    }
+    output_path = ROOT / OUTPUT_CONFIG["web_data_js"]
+    output_path.write_text(
+        "window.EXOMIND_BENCHMARK_DATA = " + json.dumps(payload, separators=(",", ":")) + ";\n",
+        encoding="utf-8",
+    )
+    return output_path
 
 
 # =============================================================================
@@ -2191,7 +2222,7 @@ def main() -> None:
     records = selected_records(load_excel_records(EXCEL_PATH))
     if not records:
         raise RuntimeError("No selected records found. Check results.xlsx and model lists.")
-    paths = []
+    paths = [export_web_data(records)]
     if OUTPUT_CONFIG["draw_bar_plot"]:
         paths.append(plot_bars(records))
     if OUTPUT_CONFIG["draw_bubble_grid_plot"]:
