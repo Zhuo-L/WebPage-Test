@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260713-03" />
+    <link rel="stylesheet" href="styles.css?v=20260714-01" />
   </head>
   <body>
     <header class="site-header">
@@ -150,7 +150,6 @@
             <h3 id="scaling-insights-title">A different way to scale scientific intelligence</h3>
             <div class="insight-grid">
               <div class="insight-item">
-                <span class="insight-index">01</span>
                 <h4>Deep specialization</h4>
                 <p>
                   Shift specialization from repeatedly compressing heterogeneous tasks into
@@ -159,7 +158,6 @@
                 </p>
               </div>
               <div class="insight-item">
-                <span class="insight-index">02</span>
                 <h4>New scaling dimensions</h4>
                 <p>
                   Expand capability through richer interaction objects and deeper autonomous
@@ -167,7 +165,6 @@
                 </p>
               </div>
               <div class="insight-item">
-                <span class="insight-index">03</span>
                 <h4>Scientific process capacity</h4>
                 <p>
                   Represent evidence acquisition, executable verification, and long-horizon
@@ -346,7 +343,6 @@
             <h3 id="results-insights-title">What the results show</h3>
             <div class="insight-grid">
               <div class="insight-item">
-                <span class="insight-index">01</span>
                 <h4>Open-ended research</h4>
                 <p>
                   ExoMind reaches 70.0 on FrontierScience-Research versus 33.0 for the strongest
@@ -354,7 +350,6 @@
                 </p>
               </div>
               <div class="insight-item">
-                <span class="insight-index">02</span>
                 <h4>Scientific reasoning</h4>
                 <p>
                   It leads the compared models on AMO-Bench, IMO-AnswerBench, HiPhO, and
@@ -362,7 +357,6 @@
                 </p>
               </div>
               <div class="insight-item">
-                <span class="insight-index">03</span>
                 <h4>General capability transfer</h4>
                 <p>
                   All six general benchmarks improve over the 35B base model; the largest gain
@@ -643,27 +637,28 @@
               ExoMind learns to organize finite atomic capabilities into observation-guided
               processes: it identifies the current uncertainty, selects an appropriate interaction
               object, absorbs the returned evidence or executable feedback, and updates subsequent
-              reasoning. These reusable processes emerge as verification-seeking, evidence-seeking,
-              and hybrid closed-loop patterns.
+              reasoning.
+            </p>
+            <p class="section-support">
+              These patterns are neither fixed workflows nor linear tool stacks. They emerge as
+              the model selects and recombines interaction objects around its evolving uncertainty.
+              What matters is whether an interaction returns a useful observation and whether that
+              observation is absorbed into the next reasoning state.
             </p>
           </div>
 
           <ol class="emergence-chain" aria-label="How scientific interaction patterns emerge">
             <li>
-              <span>01</span>
-              <div><strong>Locate uncertainty</strong><p>Identify a source, knowledge, or algebraic gap.</p></div>
+              <div><strong>Locate uncertainty</strong><p>Determine whether the gap is algebraic, source-level, or both.</p></div>
             </li>
             <li>
-              <span>02</span>
-              <div><strong>Select interaction</strong><p>Retrieve, browse, or execute according to that gap.</p></div>
+              <div><strong>Select interaction</strong><p>Choose retrieval, source grounding, execution, or a combination.</p></div>
             </li>
             <li>
-              <span>03</span>
-              <div><strong>Absorb observation</strong><p>Ground evidence or verify a fragile derivation.</p></div>
+              <div><strong>Absorb observation</strong><p>Interpret grounded evidence or executable feedback in context.</p></div>
             </li>
             <li>
-              <span>04</span>
-              <div><strong>Update reasoning</strong><p>Feed the observation into the next decision and synthesis.</p></div>
+              <div><strong>Update reasoning</strong><p>Revise the derivation, hypothesis, or next interaction decision.</p></div>
             </li>
           </ol>
 
@@ -716,30 +711,82 @@
                 transverse field and verify that the result satisfies the physical boundaries.
               </p>
               <ol class="case-flow" aria-label="Verification-seeking interaction flow">
-                <li><strong>Frame</strong><span>Express the potential in cylindrical coordinates.</span></li>
-                <li><strong>Derive</strong><span>Differentiate radial and angular components.</span></li>
-                <li><strong>Inspect</strong><span>Identify uncertainty in the tangential sign.</span></li>
-                <li><strong>Verify</strong><span>Run symbolic differentiation in the code executor.</span></li>
-                <li><strong>Resolve</strong><span>Correct the sign and check boundary and far-field limits.</span></li>
+                <li>
+                  <span class="case-stage-label">Uncertainty</span>
+                  <strong>A sign-sensitive derivative</strong>
+                  <p>The cylindrical-gradient factor makes the sign of the tangential field fragile.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Interaction</span>
+                  <strong>Code Executor</strong>
+                  <p>Differentiate the potential symbolically instead of trusting manual recall.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Observation</span>
+                  <strong>Both components are returned</strong>
+                  <p>The executable result exposes the exact radial and tangential signs.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Reasoning update</span>
+                  <strong>Verify physical limits</strong>
+                  <p>Confirm the surface boundary and recover the applied field at infinity.</p>
+                </li>
               </ol>
               <details class="case-details">
-                <summary>Trajectory details</summary>
-                <div class="case-detail-grid">
-                  <div>
-                    <h4>Action</h4>
-                    <pre><code>Er = -diff(Phi, r)
-Etheta = -(1/r) * diff(Phi, theta)</code></pre>
+                <summary>
+                  <span>Full interaction trace</span>
+                  <small>Reasoning, action, observation, and state update</small>
+                </summary>
+                <div class="case-trace">
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">Reasoning state</span></div>
+                    <div class="trace-body">
+                      <h4>Isolate the fragile step</h4>
+                      <p>
+                        The model starts from a grounded-cylinder potential that satisfies the
+                        boundary and far-field conditions, then identifies the tangential derivative
+                        as the step most likely to contain a sign error.
+                      </p>
+                      <pre><code>Phi = -E0*(r - a**2/r)*cos(theta)
+Etheta = -(1/r) * dPhi/dtheta</code></pre>
+                    </div>
                   </div>
-                  <div>
-                    <h4>Observation</h4>
-                    <pre><code>Er = E0*(a**2 + r**2)*cos(theta)/r**2
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action</span>
+                      <span class="trace-tool">Code Executor</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Differentiate in cylindrical coordinates</h4>
+                      <pre><code>Phi = -E0*(r - a**2/r)*sp.cos(theta)
+Er = -sp.diff(Phi, r)
+Etheta = -(1/r)*sp.diff(Phi, theta)
+sp.simplify(Er), sp.simplify(Etheta)</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Observation</span>
+                      <span class="trace-tool">Code Executor</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Executable feedback fixes the sign</h4>
+                      <pre><code>Er = E0*(a**2 + r**2)*cos(theta)/r**2
 Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">State update</span></div>
+                    <div class="trace-body">
+                      <h4>Absorb the result into the derivation</h4>
+                      <p>
+                        Rewriting the returned tangential component confirms the negative sign.
+                        ExoMind then checks that the tangential field vanishes at <code>r = a</code>
+                        and that the field approaches <code>E0 x-hat</code> as <code>r</code> tends to infinity.
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <p>
-                  The symbolic result exposes the sign error directly; ExoMind updates the
-                  derivation before checking the conductor boundary and the asymptotic field.
-                </p>
               </details>
             </article>
 
@@ -762,22 +809,97 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
                 bilayer system when the two layers have unequal masses.
               </p>
               <ol class="case-flow" aria-label="Evidence-seeking interaction flow">
-                <li><strong>Decompose</strong><span>Separate the claims for T, C2y, and C3z.</span></li>
-                <li><strong>Search</strong><span>Locate the most relevant primary source.</span></li>
-                <li><strong>Refine</strong><span>Move from an incomplete abstract to the arXiv paper.</span></li>
-                <li><strong>Ground</strong><span>Extract the symmetry statements from the source.</span></li>
-                <li><strong>Conclude</strong><span>Preserve T and C3z while identifying broken C2y.</span></li>
+                <li>
+                  <span class="case-stage-label">Uncertainty</span>
+                  <strong>Layer inversion remains unresolved</strong>
+                  <p>The standard continuum symmetries do not directly settle unequal layer masses.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Interaction</span>
+                  <strong>Scholar, Search, Browser</strong>
+                  <p>Discover the exact-symmetry paper, then move from its abstract to the full source.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Observation</span>
+                  <strong>Ground T and C3z</strong>
+                  <p>The source establishes the relevant continuum-model symmetry reference point.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Reasoning update</span>
+                  <strong>Apply the mass asymmetry</strong>
+                  <p>Preserve T and C3z, while unequal layer masses break the layer-exchanging C2y.</p>
+                </li>
               </ol>
               <details class="case-details">
-                <summary>Trajectory details</summary>
-                <div class="case-source-path" aria-label="Evidence retrieval path">
-                  <span>Google Scholar</span><span>Abstract</span><span>arXiv:2009.12376</span><span>Paper evidence</span>
+                <summary>
+                  <span>Full interaction trace</span>
+                  <small>Source discovery, grounding, and problem-specific deduction</small>
+                </summary>
+                <div class="case-trace">
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">Reasoning state</span></div>
+                    <div class="trace-body">
+                      <h4>Separate source knowledge from the task-specific condition</h4>
+                      <p>
+                        ExoMind can partially reason about time reversal and rotational symmetry,
+                        but it is uncertain whether the layer-exchanging <code>C2y</code> operation
+                        survives when the two kinetic terms use different masses.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action</span>
+                      <span class="trace-tool">Google Scholar</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Search for an exact-symmetry reference</h4>
+                      <pre><code>"Bistritzer-MacDonald continuum model symmetries C2y C3z"
+"twisted bilayer graphene Hamiltonian time reversal C2y C3z"</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Observation</span>
+                      <span class="trace-tool">Google Scholar</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Identify the primary source</h4>
+                      <p>
+                        The results surface <em>Twisted bilayer graphene. III. Interacting
+                        Hamiltonian and exact symmetries</em>. Its abstract is relevant but does
+                        not contain enough detail to answer the layer-mass question.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action + observation</span>
+                      <span class="trace-tool">Web Search</span>
+                      <span class="trace-tool">Browser</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Follow the paper trail to arXiv:2009.12376</h4>
+                      <p>
+                        Browser grounding recovers the paper's continuum-model discussion, which
+                        establishes spinless time reversal and <code>C3z</code> rotational symmetry.
+                        The source supplies a trusted symmetry reference rather than the final answer.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">State update</span></div>
+                    <div class="trace-body">
+                      <h4>Combine evidence with the unequal-mass Hamiltonian</h4>
+                      <p>
+                        ExoMind preserves <code>T</code> and <code>C3z</code> from the grounded
+                        reference, then observes that <code>C2y</code> exchanges layers and would
+                        require equal masses. The final decision is therefore T and C3z preserved,
+                        C2y broken.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p>
-                  When the first result does not contain enough evidence, ExoMind continues the
-                  search, opens the full source, and ties each final symmetry claim to retrieved
-                  text rather than relying on an unsupported recollection.
-                </p>
               </details>
             </article>
 
@@ -800,29 +922,106 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
                 an N-photon setting while preserving the required orthogonality.
               </p>
               <ol class="case-flow" aria-label="Hybrid closed-loop interaction flow">
-                <li><strong>Retrieve</strong><span>Find the quantum shutter construction in the literature.</span></li>
-                <li><strong>Extract</strong><span>Ground the state equations and constraints.</span></li>
-                <li><strong>Generalize</strong><span>Extend the construction to K shutters and K photons.</span></li>
-                <li><strong>Compute</strong><span>Verify the inner-product condition programmatically.</span></li>
-                <li><strong>Synthesize</strong><span>Present a source-grounded and algebraically checked result.</span></li>
+                <li>
+                  <span class="case-stage-label">Dual uncertainty</span>
+                  <strong>Recover and generalize</strong>
+                  <p>The trajectory must establish both the source construction and its N-photon extension.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Evidence grounding</span>
+                  <strong>Web Search and Browser</strong>
+                  <p>Locate the quantum-shutter paper and extract its pre- and post-selected states.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Executable verification</span>
+                  <strong>Code Executor</strong>
+                  <p>Check the overlap that determines whether transmitted branches survive.</p>
+                </li>
+                <li>
+                  <span class="case-stage-label">Synthesis</span>
+                  <strong>Close the scientific loop</strong>
+                  <p>Join source-grounded states with the verified induction argument.</p>
+                </li>
               </ol>
               <details class="case-details">
-                <summary>Trajectory details</summary>
-                <div class="case-detail-grid">
-                  <div>
-                    <h4>Evidence</h4>
-                    <p>The trajectory retrieves <code>quant-ph/0206074</code> and extracts the relevant construction and orthogonality equations.</p>
+                <summary>
+                  <span>Full interaction trace</span>
+                  <small>External evidence, symbolic verification, and synthesis</small>
+                </summary>
+                <div class="case-trace">
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">Reasoning state</span></div>
+                    <div class="trace-body">
+                      <h4>Recognize two coupled uncertainties</h4>
+                      <p>
+                        The model must recover the original quantum-shutter construction from a
+                        reliable source and independently verify that its generalized transmitted
+                        branches are removed after post-selection.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4>Verification</h4>
-                    <pre><code>inner = (m - D) / (2*N - m)
-substitute D = m  -&gt;  inner = 0</code></pre>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action</span>
+                      <span class="trace-tool">Web Search</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Locate the original construction</h4>
+                      <pre><code>quantum shutter pre- and post-selected close all N slits
+Aharonov Vaidman quantum shutter N slits
+K shutters prevent passage of K photons</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Observation</span>
+                      <span class="trace-tool">Web Search</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Find the source and its central claim</h4>
+                      <p>
+                        Search returns <em>How One Shutter Can Close N Slits</em>
+                        (<code>quant-ph/0206074</code>), which describes a pre- and post-selected
+                        shutter that closes an arbitrary number of slits for a photon.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action + observation</span>
+                      <span class="trace-tool">Browser</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Ground the pre- and post-selected states</h4>
+                      <p>The paper supplies the state construction needed for the derivation:</p>
+                      <pre><code>|Psi_1> = (sum_i |i> + sqrt(N-1)|N+1>) / sqrt(2N-1)
+|Psi_2> = (sum_i |i> - sqrt(N-1)|N+1>) / sqrt(2N-1)</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta">
+                      <span class="trace-kind">Action</span>
+                      <span class="trace-tool">Code Executor</span>
+                    </div>
+                    <div class="trace-body">
+                      <h4>Test the generalized orthogonality condition</h4>
+                      <pre><code>inner = (m - D) / (2*N - m)
+inner.subs({m: 2, D: 2})  # 0</code></pre>
+                    </div>
+                  </div>
+                  <div class="trace-entry">
+                    <div class="trace-meta"><span class="trace-kind">Observation + state update</span></div>
+                    <div class="trace-body">
+                      <h4>Use the zero overlap to complete the induction</h4>
+                      <p>
+                        The overlap vanishes whenever <code>D = m</code>. The first shutter removes
+                        branches occupying <code>m</code> distinct slits; subsequent shutters handle
+                        the remaining branches in descending order. ExoMind absorbs this executable
+                        result into a source-grounded construction for K shutters and K photons.
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <p>
-                  External evidence supplies the construction; executable algebra tests the
-                  generalization before the final answer joins both strands into one argument.
-                </p>
               </details>
             </article>
           </div>
@@ -846,7 +1045,7 @@ substitute D = m  -&gt;  inner = 0</code></pre>
               <p>High-level physics olympiad benchmark for multimodal scientific reasoning.</p>
             </a>
             <a class="project-card" href="https://github.com/magent4aci/openJiSi" target="_blank" rel="noopener noreferrer">
-              <div><h3>openJiSi</h3><span aria-hidden="true">&nearr;</span></div>
+              <div><h3>JiSi</h3><span aria-hidden="true">&nearr;</span></div>
               <p>Routing and aggregation system for scalable model selection and evidence use.</p>
             </a>
           </div>
@@ -873,8 +1072,8 @@ substitute D = m  -&gt;  inner = 0</code></pre>
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260713-03"></script>
-    <script src="benchmark-data.js?v=20260713-03"></script>
-    <script src="script.js?v=20260713-03"></script>
+    <script src="performance-data.js?v=20260714-01"></script>
+    <script src="benchmark-data.js?v=20260714-01"></script>
+    <script src="script.js?v=20260714-01"></script>
   </body>
 </html>
