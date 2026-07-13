@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260713-01" />
+    <link rel="stylesheet" href="styles.css?v=20260713-02" />
   </head>
   <body>
     <header class="site-header">
@@ -289,14 +289,17 @@
           <section class="benchmark-section reveal" aria-labelledby="benchmark-explorer-title">
             <div class="tool-heading">
               <h3 id="benchmark-explorer-title">Benchmark explorer</h3>
-              <p>Compare all evaluated models on each scientific reasoning and research task.</p>
+              <p>
+                Compare scientific model rankings and the Base/ExoMind results on general
+                intelligence benchmarks.
+              </p>
             </div>
             <div class="benchmark-explorer">
               <div
                 id="benchmark-tabs"
                 class="benchmark-tabs"
                 role="tablist"
-                aria-label="Scientific benchmark datasets"
+                aria-label="Benchmark datasets"
               ></div>
               <div id="benchmark-summary" class="benchmark-summary"></div>
               <div
@@ -422,34 +425,6 @@
           </div>
         </section>
 
-        <section class="content-section general-section" aria-labelledby="general-title">
-          <div class="section-copy reveal">
-            <h2 id="general-title">General intelligence benchmarks</h2>
-            <p class="section-lead">
-              ExoMind improves over the 35B base model across six general intelligence
-              benchmarks, with gains spanning multi-domain reasoning, expert QA, medical QA,
-              code generation, and interaction-oriented tasks.
-            </p>
-          </div>
-          <figure class="wide-figure reveal">
-            <button
-              class="paper-figure zoomable-figure"
-              type="button"
-              data-figure="assets/fig9-general-intelligence.png"
-              aria-label="Open general intelligence benchmark results"
-            >
-              <img
-                src="assets/fig9-general-intelligence.png"
-                alt="ExoMind improvements across six general intelligence benchmarks"
-                width="2920"
-                height="1200"
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-          </figure>
-        </section>
-
         <section class="content-section ikp-section" aria-labelledby="ikp-title">
           <div class="section-copy reveal">
             <h2 id="ikp-title">Incompressible knowledge probe evaluation</h2>
@@ -478,18 +453,187 @@
               <div class="chart-hotspots" aria-hidden="false"></div>
               <div class="chart-tooltip" role="status" aria-live="polite"></div>
             </div>
-            <figcaption class="figure-actions">
-              <span>Actual and IKP-equivalent model scale across evaluated systems.</span>
-              <button
-                class="text-action zoomable-figure"
-                type="button"
-                data-figure="assets/fig11-ikp.png"
-                aria-label="Open IKP evaluation at full resolution"
-              >
-                View full resolution
-              </button>
-            </figcaption>
+            <button
+              class="figure-expand zoomable-figure"
+              type="button"
+              data-figure="assets/fig11-ikp.png"
+              aria-label="Open IKP evaluation at full resolution"
+              title="View full-resolution figure"
+            >
+              <span aria-hidden="true">&#10530;</span>
+            </button>
           </figure>
+        </section>
+
+        <section class="content-section cases-section" aria-labelledby="cases-title">
+          <div class="section-copy reveal">
+            <h2 id="cases-title">Inside ExoMind's scientific interaction</h2>
+            <p class="section-lead">
+              ExoMind adapts its interaction process to the problem: verifying symbolic
+              derivations, grounding claims in external evidence, or combining both in a
+              closed-loop scientific workflow.
+            </p>
+          </div>
+
+          <div class="case-explorer reveal" data-tab-group>
+            <div class="case-tabs" role="tablist" aria-label="Scientific interaction cases">
+              <button
+                id="case-tab-verification"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="case-panel-verification"
+              >
+                Verification-seeking
+              </button>
+              <button
+                id="case-tab-evidence"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="case-panel-evidence"
+              >
+                Evidence-seeking
+              </button>
+              <button
+                id="case-tab-hybrid"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="case-panel-hybrid"
+              >
+                Hybrid closed-loop
+              </button>
+            </div>
+
+            <article
+              id="case-panel-verification"
+              class="case-panel"
+              role="tabpanel"
+              aria-labelledby="case-tab-verification"
+            >
+              <header class="case-header">
+                <div>
+                  <p class="case-kicker">FrontierScience-Olympiad #04</p>
+                  <h3>Resolve a sign ambiguity through executable verification</h3>
+                </div>
+                <span class="case-score">1.0 / 1.0</span>
+              </header>
+              <p class="case-problem">
+                Derive the electric field outside a grounded conducting cylinder in a uniform
+                transverse field and verify that the result satisfies the physical boundaries.
+              </p>
+              <ol class="case-flow" aria-label="Verification-seeking interaction flow">
+                <li><strong>Frame</strong><span>Express the potential in cylindrical coordinates.</span></li>
+                <li><strong>Derive</strong><span>Differentiate radial and angular components.</span></li>
+                <li><strong>Inspect</strong><span>Identify uncertainty in the tangential sign.</span></li>
+                <li><strong>Verify</strong><span>Run symbolic differentiation in the code executor.</span></li>
+                <li><strong>Resolve</strong><span>Correct the sign and check boundary and far-field limits.</span></li>
+              </ol>
+              <details class="case-details">
+                <summary>Trajectory details</summary>
+                <div class="case-detail-grid">
+                  <div>
+                    <h4>Action</h4>
+                    <pre><code>Er = -diff(Phi, r)
+Etheta = -(1/r) * diff(Phi, theta)</code></pre>
+                  </div>
+                  <div>
+                    <h4>Observation</h4>
+                    <pre><code>Er = E0*(a**2 + r**2)*cos(theta)/r**2
+Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
+                  </div>
+                </div>
+                <p>
+                  The symbolic result exposes the sign error directly; ExoMind updates the
+                  derivation before checking the conductor boundary and the asymptotic field.
+                </p>
+              </details>
+            </article>
+
+            <article
+              id="case-panel-evidence"
+              class="case-panel"
+              role="tabpanel"
+              aria-labelledby="case-tab-evidence"
+              hidden
+            >
+              <header class="case-header">
+                <div>
+                  <p class="case-kicker">CMT-Benchmark #05</p>
+                  <h3>Ground a symmetry conclusion in primary literature</h3>
+                </div>
+                <span class="case-score">1.0 / 1.0</span>
+              </header>
+              <p class="case-problem">
+                Determine which time-reversal and rotational symmetries survive in a twisted
+                bilayer system when the two layers have unequal masses.
+              </p>
+              <ol class="case-flow" aria-label="Evidence-seeking interaction flow">
+                <li><strong>Decompose</strong><span>Separate the claims for T, C2y, and C3z.</span></li>
+                <li><strong>Search</strong><span>Locate the most relevant primary source.</span></li>
+                <li><strong>Refine</strong><span>Move from an incomplete abstract to the arXiv paper.</span></li>
+                <li><strong>Ground</strong><span>Extract the symmetry statements from the source.</span></li>
+                <li><strong>Conclude</strong><span>Preserve T and C3z while identifying broken C2y.</span></li>
+              </ol>
+              <details class="case-details">
+                <summary>Trajectory details</summary>
+                <div class="case-source-path" aria-label="Evidence retrieval path">
+                  <span>Google Scholar</span><span>Abstract</span><span>arXiv:2009.12376</span><span>Paper evidence</span>
+                </div>
+                <p>
+                  When the first result does not contain enough evidence, ExoMind continues the
+                  search, opens the full source, and ties each final symmetry claim to retrieved
+                  text rather than relying on an unsupported recollection.
+                </p>
+              </details>
+            </article>
+
+            <article
+              id="case-panel-hybrid"
+              class="case-panel"
+              role="tabpanel"
+              aria-labelledby="case-tab-hybrid"
+              hidden
+            >
+              <header class="case-header">
+                <div>
+                  <p class="case-kicker">FrontierScience-Research #19</p>
+                  <h3>Close the loop between literature and mathematical verification</h3>
+                </div>
+                <span class="case-score">10.0 / 10.0</span>
+              </header>
+              <p class="case-problem">
+                Construct a quantum shutter protocol and generalize the one-photon mechanism to
+                an N-photon setting while preserving the required orthogonality.
+              </p>
+              <ol class="case-flow" aria-label="Hybrid closed-loop interaction flow">
+                <li><strong>Retrieve</strong><span>Find the quantum shutter construction in the literature.</span></li>
+                <li><strong>Extract</strong><span>Ground the state equations and constraints.</span></li>
+                <li><strong>Generalize</strong><span>Extend the construction to K shutters and K photons.</span></li>
+                <li><strong>Compute</strong><span>Verify the inner-product condition programmatically.</span></li>
+                <li><strong>Synthesize</strong><span>Present a source-grounded and algebraically checked result.</span></li>
+              </ol>
+              <details class="case-details">
+                <summary>Trajectory details</summary>
+                <div class="case-detail-grid">
+                  <div>
+                    <h4>Evidence</h4>
+                    <p>The trajectory retrieves <code>quant-ph/0206074</code> and extracts the relevant construction and orthogonality equations.</p>
+                  </div>
+                  <div>
+                    <h4>Verification</h4>
+                    <pre><code>inner = (m - D) / (2*N - m)
+substitute D = m  -&gt;  inner = 0</code></pre>
+                  </div>
+                </div>
+                <p>
+                  External evidence supplies the construction; executable algebra tests the
+                  generalization before the final answer joins both strands into one argument.
+                </p>
+              </details>
+            </article>
+          </div>
         </section>
 
         <section id="ecosystem" class="content-section ecosystem-section" aria-labelledby="ecosystem-title">
@@ -537,8 +681,8 @@
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260713-01"></script>
-    <script src="benchmark-data.js?v=20260713-01"></script>
-    <script src="script.js?v=20260713-01"></script>
+    <script src="performance-data.js?v=20260713-02"></script>
+    <script src="benchmark-data.js?v=20260713-02"></script>
+    <script src="script.js?v=20260713-02"></script>
   </body>
 </html>
