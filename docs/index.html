@@ -7,13 +7,10 @@
       name="description"
       content="ExoMind democratizes scientific intelligence through an extended-mind-inspired agentic system."
     />
-    <meta name="theme-color" content="#070a0f" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="https://zhuo-l.github.io/WebPage-Test" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="ExoMind: Democratizing Scientific Intelligence"
-    />
+    <meta property="og:title" content="ExoMind: Democratizing Scientific Intelligence" />
     <meta
       property="og:description"
       content="Surpassing frontier proprietary models in scientific reasoning and research with less data, small model, and low-cost training."
@@ -36,20 +33,25 @@
       content="https://zhuo-l.github.io/WebPage-Test/assets/fig1-benchmark.png"
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
-    <link rel="stylesheet" href="styles.css?v=20260712-01" />
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="stylesheet" href="styles.css?v=20260713-01" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="ExoMind home">ExoMind</a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#results">Results</a>
-        <a href="#ecosystem">Ecosystem</a>
-      </nav>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="ExoMind home">ExoMind</a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#overview">Overview</a>
+          <a href="#approach">Approach</a>
+          <a href="#results">Results</a>
+          <a href="#evaluation">Evaluation</a>
+        </nav>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
+        <div class="hero-inner">
           <h1 id="hero-title">
             <span>ExoMind:</span> Democratizing Scientific Intelligence via
             Extended-Mind-Inspired Agentic System
@@ -62,10 +64,10 @@
             <strong>ExoMind Team</strong>
             <span class="team-divider" aria-hidden="true"></span>
             <img
-              src="assets/shanghai-ai-lab-logo.png"
+              src="assets/shanghai-ai-lab-logo-solid.png"
               alt="Shanghai Artificial Intelligence Laboratory"
-              width="1469"
-              height="163"
+              width="1517"
+              height="211"
             />
           </div>
           <p class="hero-intro">
@@ -73,201 +75,470 @@
             systematic data engineering, a scientific interaction framework, and a
             systematic training strategy to advance scientific reasoning and research.
           </p>
-          <div class="actions" aria-label="Project resources">
-            <span class="button is-report is-coming-soon" aria-disabled="true">
+          <div class="resource-links" aria-label="Release availability">
+            <span class="resource-link" aria-disabled="true">
               <span>Technical Report</span><small>Coming soon</small>
             </span>
-            <span class="button is-github is-coming-soon" aria-disabled="true">
+            <span class="resource-link" aria-disabled="true">
               <span>GitHub</span><small>Coming soon</small>
             </span>
-            <span class="button is-hf is-coming-soon" aria-disabled="true">
+            <span class="resource-link" aria-disabled="true">
               <span>Hugging Face</span><small>Coming soon</small>
             </span>
-            <span class="button is-ms is-coming-soon" aria-disabled="true">
+            <span class="resource-link" aria-disabled="true">
               <span>ModelScope</span><small>Coming soon</small>
             </span>
           </div>
         </div>
       </section>
 
-      <section id="performance" class="section performance-section" aria-labelledby="performance-title">
-        <div class="section-heading">
-          <h2 id="performance-title">Scientific intelligence evaluation</h2>
-        </div>
-        <div class="figure-stage">
-          <div
-            id="performance-chart"
-            class="interactive-chart"
-            aria-label="Interactive scientific intelligence comparison"
-          >
-            <img
-              src="assets/fig1-benchmark.png"
-              alt="Scientific intelligence evaluation comparing ExoMind with frontier and open models"
-              width="3988"
-              height="1858"
-            />
-            <div class="chart-hotspots" aria-hidden="false"></div>
-            <div class="chart-tooltip" role="status" aria-live="polite"></div>
+      <section class="metric-band" aria-label="ExoMind key results">
+        <div class="metric-strip">
+          <div class="metric-item">
+            <strong>67.5</strong>
+            <span>Average score across eight scientific benchmarks</span>
+          </div>
+          <div class="metric-item">
+            <strong>+31.4</strong>
+            <span>Points over the 35B base model</span>
+          </div>
+          <div class="metric-item">
+            <strong>8 GPUs</strong>
+            <span>One to two days of training</span>
+          </div>
+          <div class="metric-item">
+            <strong>~277&times;</strong>
+            <span>Parameter efficiency over GPT-5.5</span>
           </div>
         </div>
-
-        <div class="fig8-grid" aria-label="Scientific benchmark comparisons">
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-hle.png" aria-label="Open HLE benchmark comparison">
-            <img src="assets/fig8-hle.png" alt="HLE with tools benchmark comparison" width="1840" height="980" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-fs-r.png" aria-label="Open FrontierScience Research benchmark comparison">
-            <img src="assets/fig8-fs-r.png" alt="FrontierScience Research benchmark comparison" width="1840" height="980" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-cmt.png" aria-label="Open CMT benchmark comparison">
-            <img src="assets/fig8-cmt.png" alt="CMT benchmark comparison" width="1840" height="980" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-critpt.png" aria-label="Open CritPt benchmark comparison">
-            <img src="assets/fig8-critpt.png" alt="CritPt benchmark comparison" width="1840" height="980" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-amo.png" aria-label="Open AMO benchmark comparison">
-            <img src="assets/fig8-amo.png" alt="AMO benchmark comparison" width="1840" height="970" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-imo.png" aria-label="Open IMO benchmark comparison">
-            <img src="assets/fig8-imo.png" alt="IMO AnswerBench comparison" width="1840" height="970" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-hipho.png" aria-label="Open HiPhO benchmark comparison">
-            <img src="assets/fig8-hipho.png" alt="HiPhO benchmark comparison" width="1840" height="1010" loading="lazy" />
-          </button>
-          <button class="zoomable-figure" type="button" data-figure="assets/fig8-fs-o.png" aria-label="Open FrontierScience Olympiad benchmark comparison">
-            <img src="assets/fig8-fs-o.png" alt="FrontierScience Olympiad benchmark comparison" width="1840" height="1010" loading="lazy" />
-          </button>
-        </div>
       </section>
 
-      <section id="results" class="section results-section" aria-labelledby="results-title">
-        <div class="section-heading">
-          <h2 id="results-title">Scientific intelligence benchmark results</h2>
-        </div>
-        <div id="benchmark-bars" class="benchmark-grid" aria-label="Interactive benchmark bar charts"></div>
-      </section>
-
-      <section class="section evaluation-section" aria-labelledby="evaluation-title">
-        <div class="section-heading">
-          <h2 id="evaluation-title">Evaluation models and scientific datasets</h2>
-        </div>
-        <div class="evidence-grid scientific-evidence-grid">
-          <article class="evidence-item">
-            <h3>Evaluated models</h3>
-            <button class="paper-asset zoomable-figure" type="button" data-figure="assets/table1-model-configurations.png" aria-label="Open evaluated model configurations">
+      <article class="article-flow">
+        <section id="overview" class="content-section reveal" aria-labelledby="overview-title">
+          <div class="section-copy">
+            <h2 id="overview-title">Intelligence beyond a single LLM</h2>
+            <p class="section-lead">
+              Scientific intelligence demands fine-grained, long-horizon reasoning that is
+              difficult to compress into a single model. Inspired by the Extended Mind Thesis,
+              ExoMind organizes intelligence as an agentic system of an LLM, typed interaction
+              objects, and autonomous interaction processes.
+            </p>
+          </div>
+          <figure class="wide-figure">
+            <button
+              class="paper-figure zoomable-figure"
+              type="button"
+              data-figure="assets/fig2-paradigm.png"
+              aria-label="Open the ExoMind paradigm comparison"
+            >
               <img
-                src="assets/table1-model-configurations.png"
-                alt="Detailed configurations of evaluated models from different providers"
-                width="4150"
-                height="3750"
+                src="assets/fig2-paradigm.png"
+                alt="Comparison between single-LLM specialization and the ExoMind agentic-system paradigm"
+                width="3974"
+                height="1587"
                 loading="lazy"
+                decoding="async"
               />
             </button>
-          </article>
-          <article class="evidence-item">
-            <h3>Scientific dataset distributions</h3>
-            <button class="paper-asset zoomable-figure" type="button" data-figure="assets/fig6-scientific-datasets.png" aria-label="Open scientific dataset distributions">
-              <img
-                src="assets/fig6-scientific-datasets.png"
-                alt="Dataset distributions for scientific intelligence evaluation"
-                width="4300"
-                height="1600"
-                loading="lazy"
-              />
-            </button>
-          </article>
-        </div>
-      </section>
+            <figcaption>
+              ExoMind introduces new scaling dimensions over interaction objects and
+              interaction depth while preserving low-cost specialization.
+            </figcaption>
+          </figure>
+        </section>
 
-      <section class="section general-section" aria-labelledby="general-title">
-        <div class="section-heading">
-          <h2 id="general-title">General intelligence benchmarks</h2>
-        </div>
-        <div class="evidence-grid general-evidence-grid">
-          <article class="evidence-item">
-            <h3>Results</h3>
-            <button class="paper-asset zoomable-figure" type="button" data-figure="assets/fig9-general-intelligence.png" aria-label="Open general intelligence benchmark results">
+        <section id="approach" class="content-section approach-section" aria-labelledby="approach-title">
+          <div class="section-copy reveal">
+            <h2 id="approach-title">Building ExoMind</h2>
+            <p class="section-lead">
+              ExoMind is built through three connected systems rather than a single training
+              recipe: data engineering determines what is worth learning, interaction design
+              determines how scientific work is performed, and progressive training aligns the
+              model with that process.
+            </p>
+          </div>
+
+          <section class="method-block reveal" aria-labelledby="data-engineering-title">
+            <div class="method-copy">
+              <h3 id="data-engineering-title">Systematic data engineering</h3>
+              <p>
+                A multidisciplinary pool of approximately 60K scientific problems is filtered by
+                quality, predicted difficulty, and tool benefit before trajectory generation.
+                Medium-to-hard problems are then routed to pure-reasoning or interaction-reasoning
+                paths according to their training value.
+              </p>
+            </div>
+            <figure class="wide-figure method-figure">
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/fig3-data-pipeline.png"
+                aria-label="Open the systematic data engineering pipeline"
+              >
+                <img
+                  src="assets/fig3-data-pipeline.png"
+                  alt="Systematic scientific data engineering pipeline"
+                  width="3959"
+                  height="1374"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </figure>
+          </section>
+
+          <section class="method-block reveal" aria-labelledby="interaction-framework-title">
+            <div class="method-copy">
+              <h3 id="interaction-framework-title">Deeply specialized scientific interaction</h3>
+              <p>
+                Typed interaction objects turn atomic scientific abilities into executable
+                actions. Chain-of-Interaction distillation and outcome, rule, and process
+                verification produce high-quality long-horizon trajectories and reusable
+                scientific interaction patterns.
+              </p>
+            </div>
+            <figure class="wide-figure method-figure">
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/fig4-interaction-framework.png"
+                aria-label="Open the scientific interaction framework"
+              >
+                <img
+                  src="assets/fig4-interaction-framework.png"
+                  alt="Scientific interaction objects, Chain-of-Interaction distillation, and autonomous interaction patterns"
+                  width="3949"
+                  height="1291"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </figure>
+          </section>
+
+          <section class="method-block reveal" aria-labelledby="training-title">
+            <div class="method-copy">
+              <h3 id="training-title">Systematic training strategy</h3>
+              <p>
+                A shared interface preserves training-inference consistency. Two-stage hybrid
+                progressive CoI training first builds intrinsic reasoning and basic interaction
+                ability, then internalizes higher-quality interaction patterns under a low-cost
+                setting.
+              </p>
+            </div>
+            <figure class="wide-figure method-figure">
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/fig5-training-paradigm.png"
+                aria-label="Open the systematic training strategy"
+              >
+                <img
+                  src="assets/fig5-training-paradigm.png"
+                  alt="Training-inference consistency and hybrid progressive Chain-of-Interaction training"
+                  width="3590"
+                  height="1654"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </figure>
+          </section>
+        </section>
+
+        <section id="results" class="content-section results-section" aria-labelledby="results-title">
+          <div class="section-copy reveal">
+            <h2 id="results-title">Scientific intelligence evaluation</h2>
+            <p class="section-lead">
+              ExoMind consistently improves over the base model on all eight datasets and
+              surpasses leading open and closed-source models on most of them, achieving
+              frontier-level scientific intelligence at 35B scale with roughly 277&times; fewer
+              parameters than GPT-5.5.
+            </p>
+          </div>
+
+          <figure class="wide-figure reveal">
+            <div
+              id="performance-chart"
+              class="interactive-chart"
+              aria-label="Interactive scientific intelligence comparison"
+              tabindex="0"
+            >
+              <img
+                src="assets/fig1-benchmark.png"
+                alt="Scientific intelligence evaluation comparing ExoMind with frontier and open models"
+                width="3988"
+                height="1858"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="chart-hotspots" aria-hidden="false"></div>
+              <div class="chart-tooltip" role="status" aria-live="polite"></div>
+            </div>
+            <button
+              class="figure-expand zoomable-figure"
+              type="button"
+              data-figure="assets/fig1-benchmark.png"
+              aria-label="Open scientific intelligence evaluation at full resolution"
+              title="View full-resolution figure"
+            >
+              <span aria-hidden="true">&#10530;</span>
+            </button>
+          </figure>
+
+          <section class="benchmark-section reveal" aria-labelledby="benchmark-explorer-title">
+            <div class="tool-heading">
+              <h3 id="benchmark-explorer-title">Benchmark explorer</h3>
+              <p>Compare all evaluated models on each scientific reasoning and research task.</p>
+            </div>
+            <div class="benchmark-explorer">
+              <div
+                id="benchmark-tabs"
+                class="benchmark-tabs"
+                role="tablist"
+                aria-label="Scientific benchmark datasets"
+              ></div>
+              <div id="benchmark-summary" class="benchmark-summary"></div>
+              <div
+                id="benchmark-ranking"
+                class="benchmark-ranking"
+                role="tabpanel"
+                aria-live="polite"
+              ></div>
+            </div>
+          </section>
+        </section>
+
+        <section id="evaluation" class="content-section evaluation-section" aria-labelledby="evaluation-title">
+          <div class="section-copy reveal">
+            <h2 id="evaluation-title">Evaluation scope</h2>
+            <p class="section-lead">
+              The evaluation covers frontier proprietary and open models, eight scientific
+              reasoning and research benchmarks, and six complementary general intelligence
+              benchmarks.
+            </p>
+          </div>
+          <div class="evidence-viewer reveal">
+            <div class="evidence-tabs" role="tablist" aria-label="Evaluation evidence">
+              <button
+                id="evidence-tab-models"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="evidence-panel-models"
+                data-evidence="models"
+              >
+                Evaluated models
+              </button>
+              <button
+                id="evidence-tab-scientific"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="evidence-panel-scientific"
+                data-evidence="scientific"
+              >
+                Scientific datasets
+              </button>
+              <button
+                id="evidence-tab-general"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="evidence-panel-general"
+                data-evidence="general"
+              >
+                General datasets
+              </button>
+            </div>
+            <div
+              id="evidence-panel-models"
+              class="evidence-panel"
+              role="tabpanel"
+              aria-labelledby="evidence-tab-models"
+              hidden
+            >
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/table1-model-configurations.png"
+                aria-label="Open evaluated model configurations"
+              >
+                <img
+                  src="assets/table1-model-configurations.png"
+                  alt="Detailed configurations of evaluated models from different providers"
+                  width="4150"
+                  height="3750"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </div>
+            <div
+              id="evidence-panel-scientific"
+              class="evidence-panel"
+              role="tabpanel"
+              aria-labelledby="evidence-tab-scientific"
+            >
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/fig6-scientific-datasets.png"
+                aria-label="Open scientific dataset distributions"
+              >
+                <img
+                  src="assets/fig6-scientific-datasets.png"
+                  alt="Dataset distributions for scientific intelligence evaluation"
+                  width="4300"
+                  height="1600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </div>
+            <div
+              id="evidence-panel-general"
+              class="evidence-panel"
+              role="tabpanel"
+              aria-labelledby="evidence-tab-general"
+              hidden
+            >
+              <button
+                class="paper-figure zoomable-figure"
+                type="button"
+                data-figure="assets/fig7-general-datasets.png"
+                aria-label="Open general intelligence dataset distributions"
+              >
+                <img
+                  src="assets/fig7-general-datasets.png"
+                  alt="Dataset distributions for general intelligence evaluation"
+                  width="4300"
+                  height="1700"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section general-section" aria-labelledby="general-title">
+          <div class="section-copy reveal">
+            <h2 id="general-title">General intelligence benchmarks</h2>
+            <p class="section-lead">
+              ExoMind improves over the 35B base model across six general intelligence
+              benchmarks, with gains spanning multi-domain reasoning, expert QA, medical QA,
+              code generation, and interaction-oriented tasks.
+            </p>
+          </div>
+          <figure class="wide-figure reveal">
+            <button
+              class="paper-figure zoomable-figure"
+              type="button"
+              data-figure="assets/fig9-general-intelligence.png"
+              aria-label="Open general intelligence benchmark results"
+            >
               <img
                 src="assets/fig9-general-intelligence.png"
                 alt="ExoMind improvements across six general intelligence benchmarks"
                 width="2920"
                 height="1200"
                 loading="lazy"
+                decoding="async"
               />
             </button>
-          </article>
-          <article class="evidence-item">
-            <h3>Dataset distributions</h3>
-            <button class="paper-asset zoomable-figure" type="button" data-figure="assets/fig7-general-datasets.png" aria-label="Open general intelligence dataset distributions">
-              <img
-                src="assets/fig7-general-datasets.png"
-                alt="Dataset distributions for general intelligence evaluation"
-                width="4300"
-                height="1700"
-                loading="lazy"
-              />
-            </button>
-          </article>
-        </div>
-      </section>
+          </figure>
+        </section>
 
-      <section class="section ikp-section" aria-labelledby="ikp-title">
-        <div class="section-heading">
-          <h2 id="ikp-title">Incompressible knowledge probe evaluation</h2>
-        </div>
-        <div class="figure-stage">
-          <div id="ikp-chart" class="interactive-chart" aria-label="Interactive incompressible knowledge probe evaluation">
-            <img
-              src="assets/fig11-ikp.png"
-              alt="IKP evaluation showing ExoMind at 35B approaching the capability range of much larger models"
-              width="4160"
-              height="2000"
-              loading="lazy"
-            />
-            <div class="chart-hotspots" aria-hidden="false"></div>
-            <div class="chart-tooltip" role="status" aria-live="polite"></div>
+        <section class="content-section ikp-section" aria-labelledby="ikp-title">
+          <div class="section-copy reveal">
+            <h2 id="ikp-title">Incompressible knowledge probe evaluation</h2>
+            <p class="section-lead">
+              IKP evaluation shows that ExoMind substantially improves the IKP accuracy of the
+              base 35B model and reaches a level close to models with approximately one trillion
+              parameters, suggesting a new dimension for scaling scientific intelligence through
+              interaction.
+            </p>
           </div>
-        </div>
-      </section>
+          <figure class="wide-figure reveal">
+            <div
+              id="ikp-chart"
+              class="interactive-chart"
+              aria-label="Interactive incompressible knowledge probe evaluation"
+              tabindex="0"
+            >
+              <img
+                src="assets/fig11-ikp.png"
+                alt="IKP evaluation showing ExoMind at 35B approaching the capability range of much larger models"
+                width="4160"
+                height="2000"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="chart-hotspots" aria-hidden="false"></div>
+              <div class="chart-tooltip" role="status" aria-live="polite"></div>
+            </div>
+            <figcaption class="figure-actions">
+              <span>Actual and IKP-equivalent model scale across evaluated systems.</span>
+              <button
+                class="text-action zoomable-figure"
+                type="button"
+                data-figure="assets/fig11-ikp.png"
+                aria-label="Open IKP evaluation at full resolution"
+              >
+                View full resolution
+              </button>
+            </figcaption>
+          </figure>
+        </section>
 
-      <section id="ecosystem" class="section ecosystem-section" aria-labelledby="ecosystem-title">
-        <div class="section-heading">
-          <h2 id="ecosystem-title">Related scientific intelligence projects</h2>
-          <p>
-            Scientific reasoning models, benchmarks, and multi-agent systems from the
-            broader open ecosystem.
-          </p>
-        </div>
-        <div class="project-grid" aria-label="Related projects">
-          <a class="project-card" href="https://github.com/PRIME-RL/P1" target="_blank" rel="noopener noreferrer">
-            <h3>P1</h3>
-            <p>Physics olympiad reasoning models trained with reinforcement learning.</p>
-          </a>
-          <a class="project-card" href="https://huggingface.co/datasets/SciYu/HiPhO" target="_blank" rel="noopener noreferrer">
-            <h3>HiPhO</h3>
-            <p>High-level physics olympiad benchmark for multimodal scientific reasoning.</p>
-          </a>
-          <a class="project-card" href="https://github.com/magent4aci/openJiSi" target="_blank" rel="noopener noreferrer">
-            <h3>openJiSi</h3>
-            <p>Routing and aggregation system for scalable model selection and evidence use.</p>
-          </a>
-        </div>
-      </section>
+        <section id="ecosystem" class="content-section ecosystem-section" aria-labelledby="ecosystem-title">
+          <div class="section-copy reveal">
+            <h2 id="ecosystem-title">Related scientific intelligence projects</h2>
+            <p class="section-lead">
+              Scientific reasoning models, benchmarks, and multi-agent systems from the broader
+              open ecosystem.
+            </p>
+          </div>
+          <div class="project-grid reveal" aria-label="Related projects">
+            <a class="project-card" href="https://github.com/PRIME-RL/P1" target="_blank" rel="noopener noreferrer">
+              <div><h3>P1</h3><span aria-hidden="true">&nearr;</span></div>
+              <p>Physics olympiad reasoning models trained with reinforcement learning.</p>
+            </a>
+            <a class="project-card" href="https://huggingface.co/datasets/SciYu/HiPhO" target="_blank" rel="noopener noreferrer">
+              <div><h3>HiPhO</h3><span aria-hidden="true">&nearr;</span></div>
+              <p>High-level physics olympiad benchmark for multimodal scientific reasoning.</p>
+            </a>
+            <a class="project-card" href="https://github.com/magent4aci/openJiSi" target="_blank" rel="noopener noreferrer">
+              <div><h3>openJiSi</h3><span aria-hidden="true">&nearr;</span></div>
+              <p>Routing and aggregation system for scalable model selection and evidence use.</p>
+            </a>
+          </div>
+        </section>
+      </article>
     </main>
 
     <footer class="site-footer">
-      <span>ExoMind</span>
+      <div>
+        <strong>ExoMind</strong>
+        <span>ExoMind Team · Shanghai Artificial Intelligence Laboratory</span>
+      </div>
       <a href="#top">Back to top</a>
     </footer>
+
+    <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+      &uarr;
+    </button>
 
     <dialog id="figure-lightbox" class="figure-lightbox" aria-label="Expanded figure">
       <button class="lightbox-close" type="button" aria-label="Close expanded figure">&times;</button>
       <div class="lightbox-scroll">
-        <img src="" alt="" />
+        <img alt="Expanded research figure" />
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260712-01"></script>
-    <script src="benchmark-data.js?v=20260712-01"></script>
-    <script src="script.js?v=20260712-01"></script>
+    <script src="performance-data.js?v=20260713-01"></script>
+    <script src="benchmark-data.js?v=20260713-01"></script>
+    <script src="script.js?v=20260713-01"></script>
   </body>
 </html>

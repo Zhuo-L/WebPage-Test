@@ -1,7 +1,8 @@
 (() => {
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const toArray = (collection) => Array.prototype.slice.call(collection || []);
   const empty = (element) => {
-    while (element.firstChild) element.removeChild(element.firstChild);
+    while (element && element.firstChild) element.removeChild(element.firstChild);
   };
 
   const createChartInteraction = (container, points) => {
@@ -41,11 +42,11 @@
       button.setAttribute("aria-label", `${point.name}. ${point.detail}`);
       button.style.left = `${point.x}%`;
       button.style.top = `${point.y}%`;
-      button.style.setProperty("--point-color", point.color || "#50e2d0");
+      button.style.setProperty("--point-color", point.color || "#df2f2f");
       button.style.setProperty("--point-size", `${point.size || 34}px`);
       button.style.width = `${point.size || 34}px`;
       button.style.height = `${point.size || 34}px`;
-      button.addEventListener("pointerenter", () => activate(button, point));
+      button.addEventListener("mouseenter", () => activate(button, point));
       button.addEventListener("focus", () => activate(button, point));
       button.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -55,7 +56,7 @@
       hotspotLayer.appendChild(button);
     });
 
-    container.addEventListener("pointerleave", () => {
+    container.addEventListener("mouseleave", () => {
       if (!buttons.includes(document.activeElement)) clear();
     });
     container.addEventListener("click", (event) => {
@@ -64,7 +65,7 @@
     container.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         clear();
-        if (typeof container.focus === "function") container.focus();
+        container.focus();
       }
     });
   };
@@ -99,125 +100,198 @@
     createChartInteraction(document.querySelector("#performance-chart"), points);
   };
 
-  const modelAbbreviation = (model) => {
-    if (model.isOurs) return "Exo";
-    return {
-      OpenAI: "GPT",
-      Google: "Gem",
-      Claude: "Cla",
-      DeepSeek: "DS",
-      Qwen: "Qw",
-      Kimi: "Kimi",
-      GLM: "GLM",
-      MiniMax: "MM",
-      "Shanghai AI Lab": "S2",
-    }[model.provider] || model.provider.slice(0, 3);
+  const formatScore = (score) => {
+    const fixed = score.toFixed(2);
+    return fixed.replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
   };
 
-  const setReadout = (readout, model, score) => {
-    const name = document.createElement("strong");
-    name.textContent = model.name;
-    empty(readout);
-    readout.appendChild(name);
-    readout.appendChild(document.createTextNode(`  ${score.toFixed(1)}`));
-  };
-
-  const renderBenchmarkBars = () => {
-    const root = document.querySelector("#benchmark-bars");
+  const renderBenchmarkExplorer = () => {
+    const tabsRoot = document.querySelector("#benchmark-tabs");
+    const summaryRoot = document.querySelector("#benchmark-summary");
+    const rankingRoot = document.querySelector("#benchmark-ranking");
     const data = window.EXOMIND_BENCHMARK_DATA;
-    if (!root || !data || !data.datasets || !data.datasets.length || !data.models || !data.models.length) return;
+    if (
+      !tabsRoot ||
+      !summaryRoot ||
+      !rankingRoot ||
+      !data ||
+      !data.datasets ||
+      !data.datasets.length ||
+      !data.models ||
+      !data.models.length
+    ) return;
 
-    data.datasets.forEach((dataset) => {
-      const models = data.models.filter((model) => Number.isFinite(model.scores[dataset.id]));
-      const ours = models.find((model) => model.isOurs) || models[0];
+    const tabButtons = [];
+    let activeIndex = 0;
 
-      const panel = document.createElement("article");
-      panel.className = "benchmark-panel";
+    const renderSummary = (dataset, ours, rank, total) => {
+      empty(summaryRoot);
 
-      const header = document.createElement("div");
-      header.className = "benchmark-panel-head";
+      const context = document.createElement("div");
+      const domain = document.createElement("p");
       const title = document.createElement("h3");
+      domain.className = "summary-domain";
+      domain.textContent = dataset.domain;
+      title.className = "summary-title";
       title.textContent = dataset.label;
-      const readout = document.createElement("span");
-      setReadout(readout, ours, ours.scores[dataset.id]);
-      header.appendChild(title);
-      header.appendChild(readout);
+      context.appendChild(domain);
+      context.appendChild(title);
 
-      const scroll = document.createElement("div");
-      scroll.className = "bar-scroll";
-      const plot = document.createElement("div");
-      plot.className = "bar-plot";
+      const result = document.createElement("p");
+      const score = document.createElement("strong");
+      result.className = "summary-result";
+      score.textContent = formatScore(ours.scores[dataset.id]);
+      result.appendChild(score);
+      result.appendChild(document.createTextNode(` ExoMind score · Rank ${rank} of ${total}`));
 
-      const labels = document.createElement("div");
-      labels.className = "bar-axis-labels";
-      [100, 75, 50, 25, 0].forEach((value) => {
-        const label = document.createElement("span");
-        label.textContent = value;
-        labels.appendChild(label);
-      });
+      summaryRoot.appendChild(context);
+      summaryRoot.appendChild(result);
+    };
 
-      const bars = document.createElement("div");
-      bars.className = "bars";
-      const barButtons = [];
+    const renderRanking = (dataset) => {
+      const models = data.models
+        .filter((model) => Number.isFinite(model.scores[dataset.id]))
+        .slice()
+        .sort((a, b) => b.scores[dataset.id] - a.scores[dataset.id]);
+      const ours = models.find((model) => model.isOurs) || models[0];
+      const ourRank = models.indexOf(ours) + 1;
 
-      const clear = () => {
-        bars.classList.remove("has-active");
-        barButtons.forEach((button) => button.classList.remove("is-active"));
-        setReadout(readout, ours, ours.scores[dataset.id]);
-      };
+      renderSummary(dataset, ours, ourRank, models.length);
+      empty(rankingRoot);
+      rankingRoot.setAttribute("aria-labelledby", `benchmark-tab-${dataset.id}`);
 
-      models.forEach((model) => {
+      models.forEach((model, index) => {
         const score = model.scores[dataset.id];
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `benchmark-bar${model.isOurs ? " is-ours" : ""}`;
-        button.title = `${model.name}: ${score.toFixed(1)}`;
-        button.setAttribute("aria-label", `${model.name}, ${dataset.label}, ${score.toFixed(1)}`);
-        button.style.setProperty("--bar-height", `${clamp(score, 0, 100)}%`);
-        button.style.setProperty("--bar-color", model.color);
-
+        const row = document.createElement("div");
+        const rank = document.createElement("span");
+        const modelCell = document.createElement("span");
+        const name = document.createElement("span");
+        const provider = document.createElement("span");
+        const track = document.createElement("span");
         const fill = document.createElement("span");
-        fill.className = "bar-fill";
-        fill.style.height = `${clamp(score, 0, 100)}%`;
-        fill.style.backgroundColor = model.color;
         const value = document.createElement("span");
-        value.className = "bar-value";
-        value.textContent = score.toFixed(1);
-        value.style.bottom = `calc(${clamp(score, 0, 100)}% + 5px)`;
-        const abbreviation = document.createElement("span");
-        abbreviation.className = "bar-abbr";
-        abbreviation.textContent = modelAbbreviation(model);
-        button.appendChild(fill);
-        button.appendChild(value);
-        button.appendChild(abbreviation);
 
-        const activate = () => {
-          bars.classList.add("has-active");
-          barButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-          setReadout(readout, model, score);
-        };
+        row.className = `ranking-row${model.isOurs ? " is-ours" : ""}`;
+        row.setAttribute(
+          "aria-label",
+          `${index + 1}. ${model.name}, ${formatScore(score)} on ${dataset.label}`
+        );
+        rank.className = "ranking-rank";
+        rank.textContent = index + 1;
+        modelCell.className = "ranking-model";
+        name.className = "model-name";
+        name.textContent = model.name;
+        provider.className = "model-provider";
+        provider.textContent = model.provider;
+        track.className = "ranking-track";
+        fill.className = "ranking-fill";
+        fill.style.setProperty("--score-width", `${clamp(score, 0, 100)}%`);
+        fill.style.width = `${clamp(score, 0, 100)}%`;
+        value.className = "ranking-score";
+        value.textContent = formatScore(score);
 
-        button.addEventListener("pointerenter", activate);
-        button.addEventListener("focus", activate);
-        button.addEventListener("click", activate);
-        barButtons.push(button);
-        bars.appendChild(button);
+        modelCell.appendChild(name);
+        modelCell.appendChild(provider);
+        track.appendChild(fill);
+        row.appendChild(rank);
+        row.appendChild(modelCell);
+        row.appendChild(track);
+        row.appendChild(value);
+        rankingRoot.appendChild(row);
       });
+    };
 
-      bars.addEventListener("pointerleave", () => {
-        if (!barButtons.includes(document.activeElement)) clear();
+    const activateTab = (index, moveFocus) => {
+      activeIndex = (index + data.datasets.length) % data.datasets.length;
+      tabButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === activeIndex;
+        button.setAttribute("aria-selected", selected ? "true" : "false");
+        button.tabIndex = selected ? 0 : -1;
       });
-      panel.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") clear();
-      });
+      renderRanking(data.datasets[activeIndex]);
+      if (moveFocus) {
+        tabButtons[activeIndex].focus();
+        if (typeof tabButtons[activeIndex].scrollIntoView === "function") {
+          tabButtons[activeIndex].scrollIntoView({ block: "nearest", inline: "nearest" });
+        }
+      }
+    };
 
-      plot.appendChild(labels);
-      plot.appendChild(bars);
-      scroll.appendChild(plot);
-      panel.appendChild(header);
-      panel.appendChild(scroll);
-      root.appendChild(panel);
+    data.datasets.forEach((dataset, index) => {
+      const button = document.createElement("button");
+      button.id = `benchmark-tab-${dataset.id}`;
+      button.type = "button";
+      button.role = "tab";
+      button.textContent = dataset.label;
+      button.setAttribute("aria-controls", "benchmark-ranking");
+      button.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      button.tabIndex = index === 0 ? 0 : -1;
+      button.addEventListener("click", () => activateTab(index, false));
+      button.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          activateTab(activeIndex + 1, true);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          activateTab(activeIndex - 1, true);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          activateTab(0, true);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          activateTab(data.datasets.length - 1, true);
+        }
+      });
+      tabButtons.push(button);
+      tabsRoot.appendChild(button);
     });
+
+    activateTab(0, false);
+  };
+
+  const enhanceEvidenceTabs = () => {
+    const buttons = toArray(document.querySelectorAll(".evidence-tabs [role='tab']"));
+    const panels = toArray(document.querySelectorAll(".evidence-panel[role='tabpanel']"));
+    if (!buttons.length || !panels.length) return;
+
+    let activeIndex = Math.max(
+      0,
+      buttons.findIndex((button) => button.getAttribute("aria-selected") === "true")
+    );
+
+    const activate = (index, moveFocus) => {
+      activeIndex = (index + buttons.length) % buttons.length;
+      buttons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === activeIndex;
+        button.setAttribute("aria-selected", selected ? "true" : "false");
+        button.tabIndex = selected ? 0 : -1;
+      });
+      panels.forEach((panel) => {
+        panel.hidden = panel.id !== buttons[activeIndex].getAttribute("aria-controls");
+      });
+      if (moveFocus) buttons[activeIndex].focus();
+    };
+
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => activate(index, false));
+      button.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          activate(activeIndex + 1, true);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          activate(activeIndex - 1, true);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          activate(0, true);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          activate(buttons.length - 1, true);
+        }
+      });
+    });
+
+    activate(activeIndex, false);
   };
 
   const enhanceIkpChart = () => {
@@ -246,22 +320,36 @@
     const dialogImage = dialog ? dialog.querySelector("img") : null;
     const scroll = dialog ? dialog.querySelector(".lightbox-scroll") : null;
     const closeButton = dialog ? dialog.querySelector(".lightbox-close") : null;
-    const triggers = document.querySelectorAll(".zoomable-figure[data-figure]");
+    const triggers = toArray(document.querySelectorAll(".zoomable-figure[data-figure]"));
+    let lastTrigger = null;
     if (!dialog || !dialogImage || !scroll || !closeButton) return;
+
+    const clearImage = () => {
+      dialogImage.removeAttribute("src");
+      dialogImage.alt = "Expanded research figure";
+    };
 
     const close = () => {
       if (dialog.open && typeof dialog.close === "function") dialog.close();
-      else dialog.removeAttribute("open");
+      else {
+        dialog.removeAttribute("open");
+        clearImage();
+        if (lastTrigger) lastTrigger.focus();
+      }
     };
 
-    Array.prototype.forEach.call(triggers, (trigger) => {
+    triggers.forEach((trigger) => {
       trigger.addEventListener("click", () => {
         const sourceImage = trigger.querySelector("img");
-        dialogImage.src = trigger.dataset.figure;
-        dialogImage.alt = (sourceImage && sourceImage.alt) || "Expanded figure";
+        lastTrigger = trigger;
+        dialogImage.src = trigger.getAttribute("data-figure");
+        dialogImage.alt = sourceImage
+          ? sourceImage.alt
+          : trigger.getAttribute("aria-label") || "Expanded figure";
         scroll.classList.add("is-fit");
         if (typeof dialog.showModal === "function") dialog.showModal();
         else dialog.setAttribute("open", "");
+        closeButton.focus();
       });
     });
 
@@ -271,13 +359,75 @@
     });
     scroll.addEventListener("click", () => scroll.classList.toggle("is-fit"));
     dialog.addEventListener("close", () => {
-      dialogImage.src = "";
-      dialogImage.alt = "";
+      clearImage();
+      if (lastTrigger) lastTrigger.focus();
     });
   };
 
+  const enhanceNavigation = () => {
+    const links = toArray(document.querySelectorAll(".nav-links a[href^='#']"));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+    if (!links.length || !sections.length || !("IntersectionObserver" in window)) return;
+
+    const setActive = (id) => {
+      links.forEach((link) => {
+        link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-20% 0px -62% 0px", threshold: [0, 0.1, 0.25] }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  };
+
+  const enhanceReveal = () => {
+    const elements = toArray(document.querySelectorAll(".reveal"));
+    if (!elements.length) return;
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+  };
+
+  const enhanceBackToTop = () => {
+    const button = document.querySelector("#back-to-top");
+    if (!button) return;
+
+    const update = () => button.classList.toggle("is-visible", window.scrollY > 700);
+    window.addEventListener("scroll", update, { passive: true });
+    button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    update();
+  };
+
   enhancePerformanceChart();
-  renderBenchmarkBars();
+  renderBenchmarkExplorer();
+  enhanceEvidenceTabs();
   enhanceIkpChart();
   enhanceFigureLightbox();
+  enhanceNavigation();
+  enhanceReveal();
+  enhanceBackToTop();
 })();
