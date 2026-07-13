@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260713-02" />
+    <link rel="stylesheet" href="styles.css?v=20260713-03" />
   </head>
   <body>
     <header class="site-header">
@@ -145,6 +145,37 @@
               interaction depth while preserving low-cost specialization.
             </figcaption>
           </figure>
+
+          <section class="insight-block reveal" aria-labelledby="scaling-insights-title">
+            <h3 id="scaling-insights-title">A different way to scale scientific intelligence</h3>
+            <div class="insight-grid">
+              <div class="insight-item">
+                <span class="insight-index">01</span>
+                <h4>Deep specialization</h4>
+                <p>
+                  Shift specialization from repeatedly compressing heterogeneous tasks into
+                  model parameters toward designing interaction objects around scientific
+                  processes.
+                </p>
+              </div>
+              <div class="insight-item">
+                <span class="insight-index">02</span>
+                <h4>New scaling dimensions</h4>
+                <p>
+                  Expand capability through richer interaction objects and deeper autonomous
+                  interaction, beyond model size, data volume, and training time.
+                </p>
+              </div>
+              <div class="insight-item">
+                <span class="insight-index">03</span>
+                <h4>Scientific process capacity</h4>
+                <p>
+                  Represent evidence acquisition, executable verification, and long-horizon
+                  scientific workflows as part of the intelligence system itself.
+                </p>
+              </div>
+            </div>
+          </section>
         </section>
 
         <section id="approach" class="content-section approach-section" aria-labelledby="approach-title">
@@ -310,6 +341,36 @@
               ></div>
             </div>
           </section>
+
+          <section class="insight-block results-insights reveal" aria-labelledby="results-insights-title">
+            <h3 id="results-insights-title">What the results show</h3>
+            <div class="insight-grid">
+              <div class="insight-item">
+                <span class="insight-index">01</span>
+                <h4>Open-ended research</h4>
+                <p>
+                  ExoMind reaches 70.0 on FrontierScience-Research versus 33.0 for the strongest
+                  external baseline, and 84.0 on CMT-Benchmark versus 46.0.
+                </p>
+              </div>
+              <div class="insight-item">
+                <span class="insight-index">02</span>
+                <h4>Scientific reasoning</h4>
+                <p>
+                  It leads the compared models on AMO-Bench, IMO-AnswerBench, HiPhO, and
+                  FrontierScience-Olympiad with 78.0, 92.8, 49.7, and 89.0.
+                </p>
+              </div>
+              <div class="insight-item">
+                <span class="insight-index">03</span>
+                <h4>General capability transfer</h4>
+                <p>
+                  All six general benchmarks improve over the 35B base model; the largest gain
+                  appears on &tau;&sup2;-Bench, from 32.5 to 74.8.
+                </p>
+              </div>
+            </div>
+          </section>
         </section>
 
         <section id="evaluation" class="content-section evaluation-section" aria-labelledby="evaluation-title">
@@ -356,26 +417,135 @@
             </div>
             <div
               id="evidence-panel-models"
-              class="evidence-panel"
+              class="evidence-panel model-table-panel"
               role="tabpanel"
               aria-labelledby="evidence-tab-models"
               hidden
             >
-              <button
-                class="paper-figure zoomable-figure"
-                type="button"
-                data-figure="assets/table1-model-configurations.png"
-                aria-label="Open evaluated model configurations"
+              <div class="model-table-heading">
+                <p>29 comparison models across nine providers and a broad range of scales.</p>
+                <span class="open-model-legend"><i aria-hidden="true"></i>Open-source model</span>
+              </div>
+              <div
+                class="model-table-scroll"
+                tabindex="0"
+                aria-label="Scrollable table of evaluated model configurations"
               >
-                <img
-                  src="assets/table1-model-configurations.png"
-                  alt="Detailed configurations of evaluated models from different providers"
-                  width="4150"
-                  height="3750"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
+                <table class="model-table">
+                  <caption>Detailed configurations of evaluated comparison models</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Provider</th>
+                      <th scope="col">Model</th>
+                      <th scope="col">Release</th>
+                      <th scope="col">Parameters</th>
+                      <th scope="col">Architecture</th>
+                      <th scope="col">Availability</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="rowgroup" rowspan="2">OpenAI</th>
+                      <th scope="row">GPT-5.5 (xhigh)</th><td>2026-04</td><td>~9.7T</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">GPT-5.4 (xhigh)</th><td>2026-03</td><td>~2.2T</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="rowgroup" rowspan="3">Google</th>
+                      <th scope="row">Gemini-3.1-Pro-Preview</th><td>2026-02</td><td>~9.0T</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Gemini-3.5-Flash-Thinking</th><td>2026-05</td><td>~6.6T</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Gemma-4-31B</th><td>2026-04</td><td>31B</td><td>Dense</td><td>Open source</td>
+                    </tr>
+                    <tr>
+                      <th scope="rowgroup" rowspan="2">Anthropic</th>
+                      <th scope="row">Claude-Opus-4.8</th><td>2026-05</td><td>~572B</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Claude-Opus-4.8-Thinking</th><td>2026-05</td><td>~936B</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="rowgroup" rowspan="2">DeepSeek</th>
+                      <th scope="row">DeepSeek-V4-Pro (Max)</th><td>2026-04</td><td>1.6T / A49B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">DeepSeek-V4-Flash (Max)</th><td>2026-04</td><td>284B / A13B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="rowgroup" rowspan="2">Moonshot AI</th>
+                      <th scope="row">Kimi-K2.6</th><td>2026-04</td><td>1T / A32B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Kimi-K2.5</th><td>2026-01</td><td>1T / A32B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="rowgroup" rowspan="3">Zhipu AI</th>
+                      <th scope="row">GLM-5.2</th><td>2026-06</td><td>744B / A40B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">GLM-5.1</th><td>2026-04</td><td>744B / A40B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">GLM-5</th><td>2026-02</td><td>744B / A40B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="rowgroup" rowspan="2">MiniMax</th>
+                      <th scope="row">MiniMax-M3</th><td>2026-06</td><td>428B / A23B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">MiniMax-M2.7</th><td>2026-05</td><td>229B / A10B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr>
+                      <th scope="rowgroup" rowspan="7">Qwen</th>
+                      <th scope="row">Qwen3.7-Max</th><td>2026-05</td><td>~685B</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Qwen3.6-Max-Preview</th><td>2026-04</td><td>~685B</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Qwen3.6-Plus</th><td>2026-04</td><td>~524B</td><td>-</td><td>Proprietary</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Qwen3.6-35B-A3B</th><td>2026-04</td><td>35B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Qwen3.5-397B-A17B</th><td>2026-02</td><td>397B / A17B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Qwen3.5-122B-A10B</th><td>2026-02</td><td>122B / A10B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Qwen3.5-35B-A3B</th><td>2026-02</td><td>35B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="rowgroup" rowspan="6">Shanghai AI Lab</th>
+                      <th scope="row">P1-VL-235B-A22B</th><td>2026-02</td><td>235B / A22B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">P1-VL-30B-A3B</th><td>2026-02</td><td>30B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">P1-235B-A22B</th><td>2025-11</td><td>235B / A22B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">P1-30B-A3B</th><td>2025-11</td><td>30B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">SU-01</th><td>2026-05</td><td>30B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                    <tr class="is-open">
+                      <th scope="row">Intern-S2-Preview</th><td>2026-05</td><td>35B / A3B</td><td>MoE</td><td>Open source</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="model-table-note">
+                ~ indicates an IKP-estimated model size; A denotes activated parameters for MoE models.
+              </p>
             </div>
             <div
               id="evidence-panel-scientific"
@@ -467,13 +637,35 @@
 
         <section class="content-section cases-section" aria-labelledby="cases-title">
           <div class="section-copy reveal">
-            <h2 id="cases-title">Inside ExoMind's scientific interaction</h2>
+            <h2 id="cases-title">Emergent scientific interaction patterns</h2>
             <p class="section-lead">
-              ExoMind adapts its interaction process to the problem: verifying symbolic
-              derivations, grounding claims in external evidence, or combining both in a
-              closed-loop scientific workflow.
+              More interaction objects do not automatically produce better scientific reasoning.
+              ExoMind learns to organize finite atomic capabilities into observation-guided
+              processes: it identifies the current uncertainty, selects an appropriate interaction
+              object, absorbs the returned evidence or executable feedback, and updates subsequent
+              reasoning. These reusable processes emerge as verification-seeking, evidence-seeking,
+              and hybrid closed-loop patterns.
             </p>
           </div>
+
+          <ol class="emergence-chain" aria-label="How scientific interaction patterns emerge">
+            <li>
+              <span>01</span>
+              <div><strong>Locate uncertainty</strong><p>Identify a source, knowledge, or algebraic gap.</p></div>
+            </li>
+            <li>
+              <span>02</span>
+              <div><strong>Select interaction</strong><p>Retrieve, browse, or execute according to that gap.</p></div>
+            </li>
+            <li>
+              <span>03</span>
+              <div><strong>Absorb observation</strong><p>Ground evidence or verify a fragile derivation.</p></div>
+            </li>
+            <li>
+              <span>04</span>
+              <div><strong>Update reasoning</strong><p>Feed the observation into the next decision and synthesis.</p></div>
+            </li>
+          </ol>
 
           <div class="case-explorer reveal" data-tab-group>
             <div class="case-tabs" role="tablist" aria-label="Scientific interaction cases">
@@ -681,8 +873,8 @@ substitute D = m  -&gt;  inner = 0</code></pre>
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260713-02"></script>
-    <script src="benchmark-data.js?v=20260713-02"></script>
-    <script src="script.js?v=20260713-02"></script>
+    <script src="performance-data.js?v=20260713-03"></script>
+    <script src="benchmark-data.js?v=20260713-03"></script>
+    <script src="script.js?v=20260713-03"></script>
   </body>
 </html>
