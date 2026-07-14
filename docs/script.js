@@ -628,24 +628,27 @@
   };
 
   const enhanceIkpChart = () => {
+    const formatIkpDetail = (accuracy, modelSize, estimated = false) =>
+      `IKP accuracy ${accuracy.toFixed(1)}% · Model size ${estimated ? "~" : ""}${modelSize}`;
+
     const points = [
-      { name: "ExoMind", detail: "IKP accuracy 56.0% · 35B actual, nearly 1T equivalent", sourceX: 409, sourceY: 837, sourceDiameter: 102, color: "#e31a1c" },
-      { name: "Qwen3.5-35B-A3B", detail: "IKP accuracy 37.4% · 35B", sourceX: 409, sourceY: 1369, sourceDiameter: 28, color: "#ab68e6" },
-      { name: "Qwen3.5-122B-A10B", detail: "IKP accuracy 48.3% · 122B", sourceX: 991, sourceY: 1058, sourceDiameter: 52, color: "#ab68e6" },
-      { name: "MiniMax-M2.7", detail: "IKP accuracy 40.9% · 229B", sourceX: 1283, sourceY: 1270, sourceDiameter: 62, color: "#f03365" },
-      { name: "DeepSeek-V4-Flash (Max)", detail: "IKP accuracy 56.3%", sourceX: 1383, sourceY: 829, sourceDiameter: 66, color: "#4f6aef" },
-      { name: "Qwen3.5-397B-A17B", detail: "IKP accuracy 48.9% · 397B", sourceX: 1539, sourceY: 1041, sourceDiameter: 72, color: "#ab68e6" },
-      { name: "Qwen3.6-Plus", detail: "IKP accuracy 53.3% · 524B", sourceX: 1668, sourceY: 915, sourceDiameter: 82, color: "#ab68e6" },
-      { name: "Claude-Opus-4.8", detail: "IKP accuracy 53.9% · 572B", sourceX: 1710, sourceY: 898, sourceDiameter: 74, color: "#ee822f" },
-      { name: "Qwen3.7-Max", detail: "IKP accuracy 54.7% · 685B", sourceX: 1792, sourceY: 873, sourceDiameter: 80, color: "#ab68e6" },
-      { name: "GLM-5", detail: "IKP accuracy 56.8% · 744B", sourceX: 1832, sourceY: 813, sourceDiameter: 82, color: "#9da3aa" },
-      { name: "GLM-5.1", detail: "IKP accuracy 57.8%", sourceX: 1832, sourceY: 785, sourceDiameter: 82, color: "#9da3aa" },
-      { name: "Claude-Opus-4.8-Thinking", detail: "IKP accuracy 57.0%", sourceX: 1938, sourceY: 808, sourceDiameter: 92, color: "#ee822f" },
-      { name: "Kimi-K2.6", detail: "IKP accuracy 62.4% · 1.0T", sourceX: 1988, sourceY: 655, sourceDiameter: 86, color: "#69aeff" },
-      { name: "DeepSeek-V4-Pro (Max)", detail: "IKP accuracy 61.3% · 1.6T", sourceX: 2187, sourceY: 685, sourceDiameter: 92, color: "#4f6aef" },
-      { name: "GPT-5.4 (xhigh)", detail: "IKP accuracy 62.1% · 2.2T", sourceX: 2336, sourceY: 661, sourceDiameter: 104, color: "#0ca982" },
-      { name: "Gemini-3.5-Flash-Thinking", detail: "IKP accuracy 69.5% · 6.6T", sourceX: 2848, sourceY: 450, sourceDiameter: 122, color: "#fabc05" },
-      { name: "GPT-5.5 (xhigh)", detail: "IKP accuracy 71.6% · 9.7T", sourceX: 3028, sourceY: 391, sourceDiameter: 124, color: "#0ca982" },
+      { name: "ExoMind", detail: "IKP accuracy 56.0% · Actual model size 35B · IKP-equivalent scale ~1T", sourceX: 409, sourceY: 837, sourceDiameter: 102, color: "#e31a1c" },
+      { name: "Qwen3.5-35B-A3B", detail: formatIkpDetail(37.4, "35B"), sourceX: 409, sourceY: 1369, sourceDiameter: 28, color: "#ab68e6" },
+      { name: "Qwen3.5-122B-A10B", detail: formatIkpDetail(48.3, "122B"), sourceX: 991, sourceY: 1058, sourceDiameter: 52, color: "#ab68e6" },
+      { name: "MiniMax-M2.7", detail: formatIkpDetail(40.9, "229B"), sourceX: 1283, sourceY: 1270, sourceDiameter: 62, color: "#f03365" },
+      { name: "DeepSeek-V4-Flash (Max)", detail: formatIkpDetail(56.3, "284B"), sourceX: 1383, sourceY: 829, sourceDiameter: 66, color: "#4f6aef" },
+      { name: "Qwen3.5-397B-A17B", detail: formatIkpDetail(48.9, "397B"), sourceX: 1539, sourceY: 1041, sourceDiameter: 72, color: "#ab68e6" },
+      { name: "Qwen3.6-Plus", detail: formatIkpDetail(53.3, "524B", true), sourceX: 1668, sourceY: 915, sourceDiameter: 82, color: "#ab68e6" },
+      { name: "Claude-Opus-4.8", detail: formatIkpDetail(53.9, "572B", true), sourceX: 1710, sourceY: 898, sourceDiameter: 74, color: "#ee822f" },
+      { name: "Qwen3.7-Max", detail: formatIkpDetail(54.7, "685B", true), sourceX: 1792, sourceY: 873, sourceDiameter: 80, color: "#ab68e6" },
+      { name: "GLM-5", detail: formatIkpDetail(56.8, "744B"), sourceX: 1832, sourceY: 813, sourceDiameter: 82, color: "#9da3aa" },
+      { name: "GLM-5.1", detail: formatIkpDetail(57.8, "744B"), sourceX: 1832, sourceY: 785, sourceDiameter: 82, color: "#9da3aa" },
+      { name: "Claude-Opus-4.8-Thinking", detail: formatIkpDetail(57.0, "936B", true), sourceX: 1938, sourceY: 808, sourceDiameter: 92, color: "#ee822f" },
+      { name: "Kimi-K2.6", detail: formatIkpDetail(62.4, "1.0T"), sourceX: 1988, sourceY: 655, sourceDiameter: 86, color: "#69aeff" },
+      { name: "DeepSeek-V4-Pro (Max)", detail: formatIkpDetail(61.3, "1.6T"), sourceX: 2187, sourceY: 685, sourceDiameter: 92, color: "#4f6aef" },
+      { name: "GPT-5.4 (xhigh)", detail: formatIkpDetail(62.1, "2.2T", true), sourceX: 2336, sourceY: 661, sourceDiameter: 104, color: "#0ca982" },
+      { name: "Gemini-3.5-Flash-Thinking", detail: formatIkpDetail(69.5, "6.6T", true), sourceX: 2848, sourceY: 450, sourceDiameter: 122, color: "#fabc05" },
+      { name: "GPT-5.5 (xhigh)", detail: formatIkpDetail(71.6, "9.7T", true), sourceX: 3028, sourceY: 391, sourceDiameter: 124, color: "#0ca982" },
     ];
 
     createChartInteraction(document.querySelector("#ikp-chart"), {
