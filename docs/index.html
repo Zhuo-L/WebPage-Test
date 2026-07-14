@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260714-02" />
+    <link rel="stylesheet" href="styles.css?v=20260714-03" />
   </head>
   <body>
     <header class="site-header">
@@ -88,27 +88,6 @@
             <span class="resource-link" aria-disabled="true">
               <span>ModelScope</span><small>Coming soon</small>
             </span>
-          </div>
-        </div>
-      </section>
-
-      <section class="metric-band" aria-label="ExoMind key results">
-        <div class="metric-strip">
-          <div class="metric-item">
-            <strong data-count-value="67.5" data-count-decimals="1">67.5</strong>
-            <span>Average score across eight scientific benchmarks</span>
-          </div>
-          <div class="metric-item">
-            <strong data-count-value="31.4" data-count-prefix="+" data-count-decimals="1">+31.4</strong>
-            <span>Points over the 35B base model</span>
-          </div>
-          <div class="metric-item">
-            <strong data-count-value="8" data-count-suffix=" GPUs">8 GPUs</strong>
-            <span>One to two days of training</span>
-          </div>
-          <div class="metric-item">
-            <strong data-count-value="277" data-count-prefix="~" data-count-suffix="&times;">~277&times;</strong>
-            <span>Parameter efficiency over GPT-5.5</span>
           </div>
         </div>
       </section>
@@ -374,7 +353,7 @@
                   A shared interface preserves training-inference consistency. Two-stage hybrid
                   progressive CoI training first builds intrinsic reasoning and basic interaction
                   ability, then internalizes higher-quality interaction patterns under a low-cost
-                  setting.
+                  setting. The full specialization runs on 8 GPUs for one to two days.
                 </p>
                 <figure class="method-stage-figure">
                   <button
@@ -714,7 +693,7 @@
               interaction.
             </p>
           </div>
-          <figure class="wide-figure reveal">
+          <figure class="ikp-figure reveal">
             <div
               id="ikp-chart"
               class="interactive-chart"
@@ -748,37 +727,15 @@
           <div class="section-copy reveal">
             <h2 id="cases-title">Emergent scientific interaction patterns</h2>
             <p class="section-lead">
-              More interaction objects do not automatically produce better scientific reasoning.
-              ExoMind learns to organize finite atomic capabilities into observation-guided
-              processes: it identifies the current uncertainty, selects an appropriate interaction
-              object, absorbs the returned evidence or executable feedback, and updates subsequent
-              reasoning.
-            </p>
-            <p class="section-support">
-              These patterns are neither fixed workflows nor linear tool stacks. They emerge as
-              the model selects and recombines interaction objects around its evolving uncertainty.
-              What matters is whether an interaction returns a useful observation and whether that
-              observation is absorbed into the next reasoning state.
+              ExoMind does not rely on a fixed tool sequence. Its trajectories adapt to the
+              unresolved scientific question: executable checks for fragile derivations, source
+              grounding for literature-dependent claims, and a closed loop when both evidence and
+              verification are required.
             </p>
           </div>
 
-          <ol class="emergence-chain" aria-label="How scientific interaction patterns emerge">
-            <li>
-              <div><strong>Locate uncertainty</strong><p>Determine whether the gap is algebraic, source-level, or both.</p></div>
-            </li>
-            <li>
-              <div><strong>Select interaction</strong><p>Choose retrieval, source grounding, execution, or a combination.</p></div>
-            </li>
-            <li>
-              <div><strong>Absorb observation</strong><p>Interpret grounded evidence or executable feedback in context.</p></div>
-            </li>
-            <li>
-              <div><strong>Update reasoning</strong><p>Revise the derivation, hypothesis, or next interaction decision.</p></div>
-            </li>
-          </ol>
-
-          <div class="case-explorer reveal" data-tab-group>
-            <div class="case-tabs" role="tablist" aria-label="Scientific interaction cases">
+          <div class="case-notebook reveal" data-tab-group>
+            <div class="case-index" role="tablist" aria-label="Scientific interaction cases">
               <button
                 id="case-tab-verification"
                 type="button"
@@ -786,7 +743,8 @@
                 aria-selected="true"
                 aria-controls="case-panel-verification"
               >
-                Verification-seeking
+                <span>Verification-seeking</span>
+                <small>FrontierScience-Olympiad</small>
               </button>
               <button
                 id="case-tab-evidence"
@@ -795,7 +753,8 @@
                 aria-selected="false"
                 aria-controls="case-panel-evidence"
               >
-                Evidence-seeking
+                <span>Evidence-seeking</span>
+                <small>CMT-Benchmark</small>
               </button>
               <button
                 id="case-tab-hybrid"
@@ -804,13 +763,14 @@
                 aria-selected="false"
                 aria-controls="case-panel-hybrid"
               >
-                Hybrid closed-loop
+                <span>Hybrid closed-loop</span>
+                <small>FrontierScience-Research</small>
               </button>
             </div>
 
             <article
               id="case-panel-verification"
-              class="case-panel"
+              class="case-sheet"
               role="tabpanel"
               aria-labelledby="case-tab-verification"
             >
@@ -821,35 +781,34 @@
                 </div>
                 <span class="case-score">1.0 / 1.0</span>
               </header>
-              <p class="case-problem">
-                Derive the electric field outside a grounded conducting cylinder in a uniform
-                transverse field and verify that the result satisfies the physical boundaries.
-              </p>
-              <ol class="case-flow" aria-label="Verification-seeking interaction flow">
-                <li>
-                  <span class="case-stage-label">Uncertainty</span>
-                  <strong>A sign-sensitive derivative</strong>
-                  <p>The cylindrical-gradient factor makes the sign of the tangential field fragile.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Interaction</span>
-                  <strong>Code Executor</strong>
-                  <p>Differentiate the potential symbolically instead of trusting manual recall.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Observation</span>
-                  <strong>Both components are returned</strong>
-                  <p>The executable result exposes the exact radial and tangential signs.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Reasoning update</span>
-                  <strong>Verify physical limits</strong>
-                  <p>Confirm the surface boundary and recover the applied field at infinity.</p>
-                </li>
-              </ol>
+              <div class="case-question">
+                <span class="case-section-label">Research question</span>
+                <p>
+                  Derive the electric field outside a grounded conducting cylinder in a uniform
+                  transverse field and verify that the result satisfies the physical boundaries.
+                </p>
+              </div>
+              <dl class="case-brief" aria-label="Verification-seeking interaction summary">
+                <div>
+                  <dt>Uncertainty</dt>
+                  <dd><strong>A sign-sensitive derivative</strong><p>The cylindrical-gradient factor makes the sign of the tangential field fragile.</p></dd>
+                </div>
+                <div>
+                  <dt>Interaction</dt>
+                  <dd><strong>Code Executor</strong><p>Differentiate the potential symbolically instead of trusting manual recall.</p></dd>
+                </div>
+                <div>
+                  <dt>Observation</dt>
+                  <dd><strong>Both components are returned</strong><p>The executable result exposes the exact radial and tangential signs.</p></dd>
+                </div>
+                <div>
+                  <dt>Reasoning update</dt>
+                  <dd><strong>Verify physical limits</strong><p>Confirm the surface boundary and recover the applied field at infinity.</p></dd>
+                </div>
+              </dl>
               <details class="case-details">
                 <summary>
-                  <span>Full interaction trace</span>
+                  <span>Trajectory evidence</span>
                   <small>Reasoning, action, observation, and state update</small>
                 </summary>
                 <div class="case-trace">
@@ -907,7 +866,7 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
 
             <article
               id="case-panel-evidence"
-              class="case-panel"
+              class="case-sheet"
               role="tabpanel"
               aria-labelledby="case-tab-evidence"
               hidden
@@ -919,35 +878,34 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
                 </div>
                 <span class="case-score">1.0 / 1.0</span>
               </header>
-              <p class="case-problem">
-                Determine which time-reversal and rotational symmetries survive in a twisted
-                bilayer system when the two layers have unequal masses.
-              </p>
-              <ol class="case-flow" aria-label="Evidence-seeking interaction flow">
-                <li>
-                  <span class="case-stage-label">Uncertainty</span>
-                  <strong>Layer inversion remains unresolved</strong>
-                  <p>The standard continuum symmetries do not directly settle unequal layer masses.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Interaction</span>
-                  <strong>Scholar, Search, Browser</strong>
-                  <p>Discover the exact-symmetry paper, then move from its abstract to the full source.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Observation</span>
-                  <strong>Ground T and C3z</strong>
-                  <p>The source establishes the relevant continuum-model symmetry reference point.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Reasoning update</span>
-                  <strong>Apply the mass asymmetry</strong>
-                  <p>Preserve T and C3z, while unequal layer masses break the layer-exchanging C2y.</p>
-                </li>
-              </ol>
+              <div class="case-question">
+                <span class="case-section-label">Research question</span>
+                <p>
+                  Determine which time-reversal and rotational symmetries survive in a twisted
+                  bilayer system when the two layers have unequal masses.
+                </p>
+              </div>
+              <dl class="case-brief" aria-label="Evidence-seeking interaction summary">
+                <div>
+                  <dt>Uncertainty</dt>
+                  <dd><strong>Layer inversion remains unresolved</strong><p>The standard continuum symmetries do not directly settle unequal layer masses.</p></dd>
+                </div>
+                <div>
+                  <dt>Interaction</dt>
+                  <dd><strong>Scholar, Search, Browser</strong><p>Discover the exact-symmetry paper, then move from its abstract to the full source.</p></dd>
+                </div>
+                <div>
+                  <dt>Observation</dt>
+                  <dd><strong>Ground T and C3z</strong><p>The source establishes the relevant continuum-model symmetry reference point.</p></dd>
+                </div>
+                <div>
+                  <dt>Reasoning update</dt>
+                  <dd><strong>Apply the mass asymmetry</strong><p>Preserve T and C3z, while unequal layer masses break the layer-exchanging C2y.</p></dd>
+                </div>
+              </dl>
               <details class="case-details">
                 <summary>
-                  <span>Full interaction trace</span>
+                  <span>Trajectory evidence</span>
                   <small>Source discovery, grounding, and problem-specific deduction</small>
                 </summary>
                 <div class="case-trace">
@@ -1020,7 +978,7 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
 
             <article
               id="case-panel-hybrid"
-              class="case-panel"
+              class="case-sheet"
               role="tabpanel"
               aria-labelledby="case-tab-hybrid"
               hidden
@@ -1032,35 +990,34 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
                 </div>
                 <span class="case-score">10.0 / 10.0</span>
               </header>
-              <p class="case-problem">
-                Construct a quantum shutter protocol and generalize the one-photon mechanism to
-                an N-photon setting while preserving the required orthogonality.
-              </p>
-              <ol class="case-flow" aria-label="Hybrid closed-loop interaction flow">
-                <li>
-                  <span class="case-stage-label">Dual uncertainty</span>
-                  <strong>Recover and generalize</strong>
-                  <p>The trajectory must establish both the source construction and its N-photon extension.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Evidence grounding</span>
-                  <strong>Web Search and Browser</strong>
-                  <p>Locate the quantum-shutter paper and extract its pre- and post-selected states.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Executable verification</span>
-                  <strong>Code Executor</strong>
-                  <p>Check the overlap that determines whether transmitted branches survive.</p>
-                </li>
-                <li>
-                  <span class="case-stage-label">Synthesis</span>
-                  <strong>Close the scientific loop</strong>
-                  <p>Join source-grounded states with the verified induction argument.</p>
-                </li>
-              </ol>
+              <div class="case-question">
+                <span class="case-section-label">Research question</span>
+                <p>
+                  Construct a quantum shutter protocol and generalize the one-photon mechanism to
+                  an N-photon setting while preserving the required orthogonality.
+                </p>
+              </div>
+              <dl class="case-brief" aria-label="Hybrid closed-loop interaction summary">
+                <div>
+                  <dt>Dual uncertainty</dt>
+                  <dd><strong>Recover and generalize</strong><p>The trajectory must establish both the source construction and its N-photon extension.</p></dd>
+                </div>
+                <div>
+                  <dt>Evidence grounding</dt>
+                  <dd><strong>Web Search and Browser</strong><p>Locate the quantum-shutter paper and extract its pre- and post-selected states.</p></dd>
+                </div>
+                <div>
+                  <dt>Executable verification</dt>
+                  <dd><strong>Code Executor</strong><p>Check the overlap that determines whether transmitted branches survive.</p></dd>
+                </div>
+                <div>
+                  <dt>Synthesis</dt>
+                  <dd><strong>Close the scientific loop</strong><p>Join source-grounded states with the verified induction argument.</p></dd>
+                </div>
+              </dl>
               <details class="case-details">
                 <summary>
-                  <span>Full interaction trace</span>
+                  <span>Trajectory evidence</span>
                   <small>External evidence, symbolic verification, and synthesis</small>
                 </summary>
                 <div class="case-trace">
@@ -1165,6 +1122,35 @@ inner.subs({m: 2, D: 2})  # 0</code></pre>
             </a>
           </div>
         </section>
+
+        <section id="citation" class="content-section citation-section" aria-labelledby="citation-title">
+          <div class="section-copy reveal">
+            <h2 id="citation-title">Citation</h2>
+            <p class="section-lead">
+              Use this provisional citation while the technical report is forthcoming.
+            </p>
+          </div>
+          <div class="citation-block reveal">
+            <div class="citation-toolbar">
+              <span>Provisional BibTeX</span>
+              <button
+                id="copy-citation"
+                type="button"
+                data-copy-target="citation-bibtex"
+              >
+                Copy BibTeX
+              </button>
+              <span id="citation-copy-status" class="citation-copy-status" role="status" aria-live="polite"></span>
+            </div>
+            <pre id="citation-bibtex"><code>@misc{exomind2026,
+  title  = {ExoMind: Democratizing Scientific Intelligence via Extended-Mind-Inspired Agentic System},
+  author = {{ExoMind Team}},
+  year   = {2026},
+  note   = {Technical report, forthcoming},
+  url    = {https://zhuo-l.github.io/WebPage-Test}
+}</code></pre>
+          </div>
+        </section>
       </article>
     </main>
 
@@ -1187,8 +1173,8 @@ inner.subs({m: 2, D: 2})  # 0</code></pre>
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260714-02"></script>
-    <script src="benchmark-data.js?v=20260714-02"></script>
-    <script src="script.js?v=20260714-02"></script>
+    <script src="performance-data.js?v=20260714-03"></script>
+    <script src="benchmark-data.js?v=20260714-03"></script>
+    <script src="script.js?v=20260714-03"></script>
   </body>
 </html>

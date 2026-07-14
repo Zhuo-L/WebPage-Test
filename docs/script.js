@@ -334,8 +334,11 @@
 
       const result = document.createElement("p");
       const score = document.createElement("strong");
+      const maxScore = Number.isFinite(dataset.maxScore) ? dataset.maxScore : 100;
       result.className = "summary-result";
-      score.textContent = formatScore(ours.scores[dataset.id]);
+      score.textContent = Number.isFinite(dataset.maxScore)
+        ? `${formatScore(ours.scores[dataset.id])} / ${formatScore(maxScore)}`
+        : formatScore(ours.scores[dataset.id]);
       result.appendChild(score);
       result.appendChild(document.createTextNode(` ExoMind score · Rank ${rank} of ${total}`));
 
@@ -367,6 +370,7 @@
     };
 
     const renderRanking = (dataset) => {
+      const maxScore = Number.isFinite(dataset.maxScore) ? dataset.maxScore : 100;
       const models = data.models
         .filter((model) => Number.isFinite(model.scores[dataset.id]))
         .slice()
@@ -393,7 +397,9 @@
         row.className = `ranking-row${model.isOurs ? " is-ours" : ""}`;
         row.setAttribute(
           "aria-label",
-          `${index + 1}. ${model.name}, ${formatScore(score)} on ${dataset.label}`
+          `${index + 1}. ${model.name}, ${formatScore(score)}${
+            Number.isFinite(dataset.maxScore) ? ` of ${formatScore(maxScore)}` : ""
+          } on ${dataset.label}`
         );
         rank.className = "ranking-rank";
         rank.textContent = index + 1;
@@ -404,7 +410,7 @@
         provider.textContent = model.provider;
         track.className = "ranking-track";
         fill.className = "ranking-fill";
-        const targetWidth = `${clamp(score, 0, 100)}%`;
+        const targetWidth = `${clamp((score / maxScore) * 100, 0, 100)}%`;
         fill.style.setProperty("--score-width", targetWidth);
         fill.style.width = prefersReducedMotion ? targetWidth : "0%";
         value.className = "ranking-score";
@@ -698,67 +704,48 @@
     });
   };
 
-  const enhanceMetrics = () => {
-    const band = document.querySelector(".metric-band");
-    const values = toArray(document.querySelectorAll("[data-count-value]"));
-    if (!band || !values.length) return;
+  const enhanceCitationCopy = () => {
+    const button = document.querySelector("#copy-citation");
+    const status = document.querySelector("#citation-copy-status");
+    if (!button) return;
 
-    const formatValue = (element, value) => {
-      const decimals = Number(element.dataset.countDecimals || 0);
-      const prefix = element.dataset.countPrefix || "";
-      const suffix = element.dataset.countSuffix || "";
-      return `${prefix}${Number(value).toFixed(decimals)}${suffix}`;
+    const target = document.querySelector(`#${button.dataset.copyTarget}`);
+    if (!target) return;
+
+    const copyWithFallback = async (text) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand && document.execCommand("copy");
+      textarea.remove();
+      if (!copied) throw new Error("Copy command unavailable");
     };
 
-    const finish = () => {
-      band.classList.add("is-visible");
-      values.forEach((element) => {
-        element.textContent = formatValue(element, Number(element.dataset.countValue));
-      });
-    };
+    button.addEventListener("click", async () => {
+      const originalLabel = "Copy BibTeX";
+      try {
+        await copyWithFallback(target.textContent.trim());
+        button.textContent = "Copied";
+        if (status) status.textContent = "BibTeX copied to clipboard.";
+      } catch (error) {
+        button.textContent = "Copy failed";
+        if (status) status.textContent = "Unable to copy BibTeX automatically.";
+      }
 
-    if (prefersReducedMotion) {
-      finish();
-      return;
-    }
-
-    values.forEach((element) => {
-      element.textContent = formatValue(element, 0);
+      window.setTimeout(() => {
+        button.textContent = originalLabel;
+        if (status) status.textContent = "";
+      }, 1800);
     });
-
-    const start = () => {
-      band.classList.add("is-visible");
-      const startedAt = window.performance.now();
-      const duration = 720;
-
-      const tick = (now) => {
-        const progress = clamp((now - startedAt) / duration, 0, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        values.forEach((element) => {
-          const target = Number(element.dataset.countValue);
-          element.textContent = formatValue(element, target * eased);
-        });
-        if (progress < 1) window.requestAnimationFrame(tick);
-        else finish();
-      };
-
-      window.requestAnimationFrame(tick);
-    };
-
-    if (!("IntersectionObserver" in window)) {
-      start();
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        observer.disconnect();
-        start();
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.18 }
-    );
-    observer.observe(band);
   };
 
   const enhanceNavigation = () => {
@@ -846,7 +833,7 @@
   enhanceTabGroups();
   enhanceIkpChart();
   enhanceFigureLightbox();
-  enhanceMetrics();
+  enhanceCitationCopy();
   enhanceNavigation();
   enhanceReveal();
   enhanceBackToTop();
