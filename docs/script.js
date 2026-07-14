@@ -4,6 +4,9 @@
   const empty = (element) => {
     while (element && element.firstChild) element.removeChild(element.firstChild);
   };
+  const prefersReducedMotion = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
 
   const createChartInteraction = (container, config) => {
     const hotspotLayer = container ? container.querySelector(".chart-hotspots") : null;
@@ -19,49 +22,87 @@
       !config.sourceHeight ||
       !points ||
       !points.length
-    ) return;
+    ) return null;
 
     const buttons = [];
+    const entriesByKey = new Map();
     const coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    let persistentState = null;
+    let pinnedState = null;
 
-    const clear = () => {
+    const clearVisualState = () => {
       buttons.forEach((button) => button.classList.remove("is-active"));
-      container.classList.remove("has-active");
+      container.classList.remove("has-active", "has-story-state");
       tooltip.classList.remove("is-visible", "is-below");
       empty(tooltip);
     };
 
-    const activate = (button, point) => {
-      buttons.forEach((item) => item.classList.toggle("is-active", item === button));
-      container.classList.add("has-active");
+    const renderState = (state) => {
+      if (!state || !state.keys || !state.keys.length) {
+        clearVisualState();
+        return;
+      }
 
-      const title = document.createTextNode(point.name);
+      const activeKeys = new Set(state.keys);
+      buttons.forEach((button) => {
+        button.classList.toggle("is-active", activeKeys.has(button.dataset.pointKey));
+      });
+      container.classList.add("has-active");
+      container.classList.toggle("has-story-state", state.kind === "story");
+
+      const anchorEntry = entriesByKey.get(state.anchorKey || state.keys[0]);
+      if (!anchorEntry || !state.title) {
+        tooltip.classList.remove("is-visible", "is-below");
+        empty(tooltip);
+        return;
+      }
+
+      const point = anchorEntry.point;
+      const title = document.createTextNode(state.title);
       const detail = document.createElement("span");
-      detail.textContent = point.detail;
+      detail.textContent = state.detail || "";
       empty(tooltip);
       tooltip.appendChild(title);
-      tooltip.appendChild(detail);
+      if (state.detail) tooltip.appendChild(detail);
       tooltip.style.left = `${clamp((point.sourceX / config.sourceWidth) * 100, 14, 86)}%`;
       tooltip.style.top = `${(point.sourceY / config.sourceHeight) * 100}%`;
       tooltip.classList.toggle("is-below", point.sourceY / config.sourceHeight < 0.18);
       tooltip.classList.add("is-visible");
     };
 
-    points.forEach((point) => {
+    const pointState = (point) => ({
+      keys: [point.key],
+      anchorKey: point.key,
+      title: point.name,
+      detail: point.detail,
+    });
+
+    const restore = () => renderState(pinnedState || persistentState);
+
+    points.forEach((rawPoint, index) => {
+      const point = { ...rawPoint, key: rawPoint.key || `point-${index}` };
       const button = document.createElement("button");
       button.type = "button";
       button.className = "chart-point";
+      button.dataset.pointKey = point.key;
       button.setAttribute("aria-label", `${point.name}. ${point.detail}`);
       button.style.left = `${(point.sourceX / config.sourceWidth) * 100}%`;
       button.style.top = `${(point.sourceY / config.sourceHeight) * 100}%`;
       button.style.setProperty("--point-color", point.color || "#df2f2f");
-      button.addEventListener("mouseenter", () => activate(button, point));
-      button.addEventListener("focus", () => activate(button, point));
+      button.addEventListener("mouseenter", () => renderState(pointState(point)));
+      button.addEventListener("focus", () => renderState(pointState(point)));
+      button.addEventListener("blur", () => {
+        window.setTimeout(() => {
+          if (!buttons.includes(document.activeElement)) restore();
+        }, 0);
+      });
       button.addEventListener("click", (event) => {
         event.stopPropagation();
-        activate(button, point);
+        pinnedState = pointState(point);
+        renderState(pinnedState);
       });
       buttons.push(button);
+      entriesByKey.set(point.key, { button, point });
       hotspotLayer.appendChild(button);
     });
 
@@ -71,8 +112,8 @@
       const minimumHitSize = coarsePointer ? 44 : 32;
 
       buttons.forEach((button, index) => {
-        const markerSize = Math.max(10, points[index].sourceDiameter * scale + 4);
-        const hitSize = Math.max(minimumHitSize, markerSize + 10);
+        const markerSize = Math.max(8, points[index].sourceDiameter * scale + 2);
+        const hitSize = Math.max(minimumHitSize, markerSize + 8);
         button.style.setProperty("--marker-size", `${markerSize}px`);
         button.style.setProperty("--hit-size", `${hitSize}px`);
       });
@@ -87,17 +128,45 @@
     updateGeometry();
 
     container.addEventListener("mouseleave", () => {
-      if (!buttons.includes(document.activeElement)) clear();
+      if (!buttons.includes(document.activeElement)) restore();
     });
     container.addEventListener("click", (event) => {
-      if (!event.target.classList || !event.target.classList.contains("chart-point")) clear();
+      if (!event.target.classList || !event.target.classList.contains("chart-point")) {
+        pinnedState = null;
+        restore();
+      }
     });
     container.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        clear();
+        pinnedState = null;
+        restore();
         container.focus();
       }
     });
+
+    return {
+      setPersistentSelection(keys, options) {
+        const validKeys = (keys || []).filter((key) => entriesByKey.has(key));
+        persistentState = validKeys.length
+          ? {
+              keys: validKeys,
+              anchorKey: options && options.anchorKey,
+              title: options && options.title,
+              detail: options && options.detail,
+              kind: options && options.kind,
+            }
+          : null;
+        pinnedState = null;
+        restore();
+      },
+      pulse(key) {
+        const entry = entriesByKey.get(key);
+        if (!entry || prefersReducedMotion) return;
+        entry.button.classList.remove("is-guided");
+        window.requestAnimationFrame(() => entry.button.classList.add("is-guided"));
+        window.setTimeout(() => entry.button.classList.remove("is-guided"), 900);
+      },
+    };
   };
 
   const enhancePerformanceChart = () => {
@@ -136,6 +205,7 @@
     };
 
     const points = panel.points.map((point) => ({
+      key: point.key,
       name: point.label.replace(/\n/g, " "),
       detail: `Average score ${point.y.toFixed(1)}`,
       sourceX: source.plotLeft + (point.x / 2.2) * (source.plotRight - source.plotLeft),
@@ -144,11 +214,84 @@
       sourceDiameter: markerDiameters[point.key] || 90,
     }));
 
-    createChartInteraction(document.querySelector("#performance-chart"), {
+    const chartController = createChartInteraction(document.querySelector("#performance-chart"), {
       sourceWidth: source.width,
       sourceHeight: source.height,
       points,
     });
+    const storyButtons = toArray(document.querySelectorAll("[data-performance-story]"));
+    if (!chartController || !storyButtons.length) return;
+
+    const stories = {
+      overall: {
+        kind: "story",
+        keys: ["Ours"],
+        anchorKey: "Ours",
+        title: "ExoMind · 67.5 average",
+        detail: "Frontier-level performance across eight scientific benchmarks",
+      },
+      gain: {
+        kind: "story",
+        keys: ["Ours", "Qwen3.5-35B-A3B"],
+        anchorKey: "Ours",
+        title: "+31.4 points over Base 35B",
+        detail: "ExoMind 67.5 · Qwen3.5-35B-A3B 36.2",
+      },
+      efficiency: {
+        kind: "story",
+        keys: ["Ours", "GPT-5.5 (xhigh)"],
+        anchorKey: "Ours",
+        title: "~277× fewer parameters",
+        detail: "ExoMind 35B compared with GPT-5.5",
+      },
+    };
+    let activeStoryIndex = 0;
+
+    const activateStory = (index, moveFocus) => {
+      activeStoryIndex = (index + storyButtons.length) % storyButtons.length;
+      storyButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === activeStoryIndex;
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-pressed", selected ? "true" : "false");
+      });
+      const activeButton = storyButtons[activeStoryIndex];
+      const story = stories[activeButton.dataset.performanceStory];
+      chartController.setPersistentSelection(story.keys, story);
+      if (moveFocus) activeButton.focus();
+    };
+
+    storyButtons.forEach((button, index) => {
+      button.addEventListener("click", () => activateStory(index, false));
+      button.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          activateStory(activeStoryIndex + 1, true);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          activateStory(activeStoryIndex - 1, true);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          activateStory(0, true);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          activateStory(storyButtons.length - 1, true);
+        }
+      });
+    });
+
+    activateStory(0, false);
+
+    const spotlight = document.querySelector(".result-spotlight");
+    if (!spotlight || prefersReducedMotion || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        chartController.pulse("Ours");
+        observer.disconnect();
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(spotlight);
   };
 
   const formatScore = (score) => Number(score).toFixed(1);
@@ -157,6 +300,8 @@
     const tabsRoot = document.querySelector("#benchmark-tabs");
     const summaryRoot = document.querySelector("#benchmark-summary");
     const rankingRoot = document.querySelector("#benchmark-ranking");
+    const previousButton = document.querySelector("#benchmark-previous");
+    const nextButton = document.querySelector("#benchmark-next");
     const data = window.EXOMIND_BENCHMARK_DATA;
     if (
       !tabsRoot ||
@@ -172,6 +317,7 @@
     const datasets = data.datasets.concat(data.general ? [data.general] : []);
     const tabButtons = [];
     let activeIndex = 0;
+    let transitionTimer = null;
 
     const renderSummary = (dataset, ours, rank, total) => {
       empty(summaryRoot);
@@ -258,8 +404,9 @@
         provider.textContent = model.provider;
         track.className = "ranking-track";
         fill.className = "ranking-fill";
-        fill.style.setProperty("--score-width", `${clamp(score, 0, 100)}%`);
-        fill.style.width = `${clamp(score, 0, 100)}%`;
+        const targetWidth = `${clamp(score, 0, 100)}%`;
+        fill.style.setProperty("--score-width", targetWidth);
+        fill.style.width = prefersReducedMotion ? targetWidth : "0%";
         value.className = "ranking-score";
         value.textContent = formatScore(score);
 
@@ -271,6 +418,12 @@
         row.appendChild(track);
         row.appendChild(value);
         rankingRoot.appendChild(row);
+
+        if (!prefersReducedMotion) {
+          window.requestAnimationFrame(() => {
+            fill.style.width = targetWidth;
+          });
+        }
       });
     };
 
@@ -309,7 +462,8 @@
           label.textContent = series.label;
           track.className = "general-series-track";
           fill.className = "general-series-fill";
-          fill.style.width = `${clamp(series.value, 0, 100)}%`;
+          const targetWidth = `${clamp(series.value, 0, 100)}%`;
+          fill.style.width = prefersReducedMotion ? targetWidth : "0%";
           value.className = "general-series-value";
           value.textContent = formatScore(series.value);
           track.appendChild(fill);
@@ -317,6 +471,12 @@
           seriesRow.appendChild(track);
           seriesRow.appendChild(value);
           bars.appendChild(seriesRow);
+
+          if (!prefersReducedMotion) {
+            window.requestAnimationFrame(() => {
+              fill.style.width = targetWidth;
+            });
+          }
         });
 
         row.appendChild(name);
@@ -330,18 +490,41 @@
       else renderRanking(dataset);
     };
 
-    const activateTab = (index, moveFocus) => {
+    const renderActiveDataset = (animate) => {
+      const render = () => {
+        renderDataset(datasets[activeIndex]);
+        window.requestAnimationFrame(() => {
+          summaryRoot.classList.remove("is-changing");
+          rankingRoot.classList.remove("is-changing");
+        });
+      };
+
+      window.clearTimeout(transitionTimer);
+      if (!animate || prefersReducedMotion) {
+        render();
+        return;
+      }
+
+      summaryRoot.classList.add("is-changing");
+      rankingRoot.classList.add("is-changing");
+      transitionTimer = window.setTimeout(render, 120);
+    };
+
+    const activateTab = (index, moveFocus, animate = true) => {
       activeIndex = (index + datasets.length) % datasets.length;
       tabButtons.forEach((button, buttonIndex) => {
         const selected = buttonIndex === activeIndex;
         button.setAttribute("aria-selected", selected ? "true" : "false");
         button.tabIndex = selected ? 0 : -1;
       });
-      renderDataset(datasets[activeIndex]);
+      renderActiveDataset(animate);
       if (moveFocus) tabButtons[activeIndex].focus();
       const activeButton = tabButtons[activeIndex];
       const targetScroll = activeButton.offsetLeft - tabsRoot.clientWidth + activeButton.offsetWidth + 18;
-      tabsRoot.scrollLeft = activeIndex === 0 ? 0 : Math.max(0, targetScroll);
+      tabsRoot.scrollTo({
+        left: activeIndex === 0 ? 0 : Math.max(0, targetScroll),
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
     };
 
     datasets.forEach((dataset, index) => {
@@ -373,7 +556,14 @@
       tabsRoot.appendChild(button);
     });
 
-    activateTab(0, false);
+    if (previousButton) {
+      previousButton.addEventListener("click", () => activateTab(activeIndex - 1, false));
+    }
+    if (nextButton) {
+      nextButton.addEventListener("click", () => activateTab(activeIndex + 1, false));
+    }
+
+    activateTab(0, false, false);
   };
 
   const enhanceTabGroups = () => {
@@ -396,8 +586,14 @@
           button.setAttribute("aria-selected", selected ? "true" : "false");
           button.tabIndex = selected ? 0 : -1;
         });
+        const activePanelId = buttons[activeIndex].getAttribute("aria-controls");
         panels.forEach((panel) => {
-          panel.hidden = panel.id !== buttons[activeIndex].getAttribute("aria-controls");
+          const selected = panel.id === activePanelId;
+          panel.hidden = !selected;
+          panel.classList.remove("is-panel-entering");
+          if (selected && !prefersReducedMotion) {
+            window.requestAnimationFrame(() => panel.classList.add("is-panel-entering"));
+          }
         });
         if (moveFocus) buttons[activeIndex].focus();
       };
@@ -502,11 +698,94 @@
     });
   };
 
+  const enhanceMetrics = () => {
+    const band = document.querySelector(".metric-band");
+    const values = toArray(document.querySelectorAll("[data-count-value]"));
+    if (!band || !values.length) return;
+
+    const formatValue = (element, value) => {
+      const decimals = Number(element.dataset.countDecimals || 0);
+      const prefix = element.dataset.countPrefix || "";
+      const suffix = element.dataset.countSuffix || "";
+      return `${prefix}${Number(value).toFixed(decimals)}${suffix}`;
+    };
+
+    const finish = () => {
+      band.classList.add("is-visible");
+      values.forEach((element) => {
+        element.textContent = formatValue(element, Number(element.dataset.countValue));
+      });
+    };
+
+    if (prefersReducedMotion) {
+      finish();
+      return;
+    }
+
+    values.forEach((element) => {
+      element.textContent = formatValue(element, 0);
+    });
+
+    const start = () => {
+      band.classList.add("is-visible");
+      const startedAt = window.performance.now();
+      const duration = 720;
+
+      const tick = (now) => {
+        const progress = clamp((now - startedAt) / duration, 0, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        values.forEach((element) => {
+          const target = Number(element.dataset.countValue);
+          element.textContent = formatValue(element, target * eased);
+        });
+        if (progress < 1) window.requestAnimationFrame(tick);
+        else finish();
+      };
+
+      window.requestAnimationFrame(tick);
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      start();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        start();
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.18 }
+    );
+    observer.observe(band);
+  };
+
   const enhanceNavigation = () => {
+    const header = document.querySelector(".site-header");
     const links = toArray(document.querySelectorAll(".nav-links a[href^='#']"));
     const sections = links
       .map((link) => document.querySelector(link.getAttribute("href")))
       .filter(Boolean);
+
+    let scrollTicking = false;
+    const updateScrollState = () => {
+      scrollTicking = false;
+      if (!header) return;
+      const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = clamp(window.scrollY / scrollable, 0, 1) * 100;
+      header.style.setProperty("--scroll-progress", `${progress}%`);
+      header.classList.toggle("is-scrolled", window.scrollY > 12);
+    };
+    const requestScrollUpdate = () => {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      window.requestAnimationFrame(updateScrollState);
+    };
+    window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+    window.addEventListener("resize", requestScrollUpdate, { passive: true });
+    updateScrollState();
+
     if (!links.length || !sections.length || !("IntersectionObserver" in window)) return;
 
     const setActive = (id) => {
@@ -535,6 +814,8 @@
       elements.forEach((element) => element.classList.add("is-visible"));
       return;
     }
+
+    document.documentElement.classList.add("motion-ready");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -565,6 +846,7 @@
   enhanceTabGroups();
   enhanceIkpChart();
   enhanceFigureLightbox();
+  enhanceMetrics();
   enhanceNavigation();
   enhanceReveal();
   enhanceBackToTop();

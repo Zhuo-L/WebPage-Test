@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260714-01" />
+    <link rel="stylesheet" href="styles.css?v=20260714-02" />
   </head>
   <body>
     <header class="site-header">
@@ -95,21 +95,101 @@
       <section class="metric-band" aria-label="ExoMind key results">
         <div class="metric-strip">
           <div class="metric-item">
-            <strong>67.5</strong>
+            <strong data-count-value="67.5" data-count-decimals="1">67.5</strong>
             <span>Average score across eight scientific benchmarks</span>
           </div>
           <div class="metric-item">
-            <strong>+31.4</strong>
+            <strong data-count-value="31.4" data-count-prefix="+" data-count-decimals="1">+31.4</strong>
             <span>Points over the 35B base model</span>
           </div>
           <div class="metric-item">
-            <strong>8 GPUs</strong>
+            <strong data-count-value="8" data-count-suffix=" GPUs">8 GPUs</strong>
             <span>One to two days of training</span>
           </div>
           <div class="metric-item">
-            <strong>~277&times;</strong>
+            <strong data-count-value="277" data-count-prefix="~" data-count-suffix="&times;">~277&times;</strong>
             <span>Parameter efficiency over GPT-5.5</span>
           </div>
+        </div>
+      </section>
+
+      <section class="result-spotlight reveal" aria-labelledby="result-spotlight-title">
+        <div class="result-spotlight-inner">
+          <div class="spotlight-heading">
+            <h2 id="result-spotlight-title">Frontier-level scientific intelligence at 35B scale</h2>
+            <p class="section-lead">
+              ExoMind consistently improves over the base model on all eight datasets and
+              surpasses leading open and closed-source models on most of them, achieving
+              frontier-level scientific intelligence at 35B scale with roughly 277&times; fewer
+              parameters than GPT-5.5.
+            </p>
+          </div>
+
+          <div class="result-story-controls" role="group" aria-label="Scientific intelligence result views">
+            <button
+              class="result-story is-active"
+              type="button"
+              data-performance-story="overall"
+              aria-pressed="true"
+              aria-controls="performance-chart"
+            >
+              <span class="result-story-label">Overall performance</span>
+              <strong>67.5</strong>
+              <span>Average across eight benchmarks</span>
+            </button>
+            <button
+              class="result-story"
+              type="button"
+              data-performance-story="gain"
+              aria-pressed="false"
+              aria-controls="performance-chart"
+            >
+              <span class="result-story-label">Gain over Base 35B</span>
+              <strong>+31.4</strong>
+              <span>Average-score improvement</span>
+            </button>
+            <button
+              class="result-story"
+              type="button"
+              data-performance-story="efficiency"
+              aria-pressed="false"
+              aria-controls="performance-chart"
+            >
+              <span class="result-story-label">Parameter efficiency</span>
+              <strong>~277&times;</strong>
+              <span>Fewer parameters than GPT-5.5</span>
+            </button>
+          </div>
+
+          <figure class="spotlight-figure">
+            <div
+              id="performance-chart"
+              class="interactive-chart performance-chart"
+              aria-label="Interactive scientific intelligence comparison"
+              tabindex="0"
+            >
+              <img
+                src="assets/fig1-benchmark.png"
+                alt="Scientific intelligence evaluation comparing ExoMind with frontier and open models"
+                width="3988"
+                height="1858"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <div class="chart-hotspots" aria-hidden="false"></div>
+              <div class="chart-tooltip" role="status" aria-live="polite"></div>
+            </div>
+            <button
+              class="figure-expand zoomable-figure"
+              type="button"
+              data-figure="assets/fig1-benchmark.png"
+              aria-label="Open scientific intelligence evaluation at full resolution"
+              title="View full-resolution figure"
+            >
+              <span aria-hidden="true">&#10530;</span>
+            </button>
+          </figure>
         </div>
       </section>
 
@@ -186,133 +266,146 @@
             </p>
           </div>
 
-          <section class="method-block reveal" aria-labelledby="data-engineering-title">
-            <div class="method-copy">
-              <h3 id="data-engineering-title">Systematic data engineering</h3>
-              <p>
-                A multidisciplinary pool of approximately 60K scientific problems is filtered by
-                quality, predicted difficulty, and tool benefit before trajectory generation.
-                Medium-to-hard problems are then routed to pure-reasoning or interaction-reasoning
-                paths according to their training value.
-              </p>
-            </div>
-            <figure class="wide-figure method-figure">
+          <div class="method-stage reveal" data-tab-group>
+            <div class="method-stage-tabs" role="tablist" aria-label="ExoMind system components">
               <button
-                class="paper-figure zoomable-figure"
+                id="method-tab-data"
                 type="button"
-                data-figure="assets/fig3-data-pipeline.png"
-                aria-label="Open the systematic data engineering pipeline"
+                role="tab"
+                aria-selected="true"
+                aria-controls="method-panel-data"
               >
-                <img
-                  src="assets/fig3-data-pipeline.png"
-                  alt="Systematic scientific data engineering pipeline"
-                  width="3959"
-                  height="1374"
-                  loading="lazy"
-                  decoding="async"
-                />
+                Systematic data engineering
               </button>
-            </figure>
-          </section>
+              <button
+                id="method-tab-interaction"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="method-panel-interaction"
+                tabindex="-1"
+              >
+                Deeply specialized scientific interaction
+              </button>
+              <button
+                id="method-tab-training"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="method-panel-training"
+                tabindex="-1"
+              >
+                Systematic training strategy
+              </button>
+            </div>
 
-          <section class="method-block reveal" aria-labelledby="interaction-framework-title">
-            <div class="method-copy">
-              <h3 id="interaction-framework-title">Deeply specialized scientific interaction</h3>
-              <p>
-                Typed interaction objects turn atomic scientific abilities into executable
-                actions. Chain-of-Interaction distillation and outcome, rule, and process
-                verification produce high-quality long-horizon trajectories and reusable
-                scientific interaction patterns.
-              </p>
-            </div>
-            <figure class="wide-figure method-figure">
-              <button
-                class="paper-figure zoomable-figure"
-                type="button"
-                data-figure="assets/fig4-interaction-framework.png"
-                aria-label="Open the scientific interaction framework"
+            <div class="method-stage-content">
+              <section
+                id="method-panel-data"
+                class="method-panel"
+                role="tabpanel"
+                aria-labelledby="method-tab-data"
               >
-                <img
-                  src="assets/fig4-interaction-framework.png"
-                  alt="Scientific interaction objects, Chain-of-Interaction distillation, and autonomous interaction patterns"
-                  width="3949"
-                  height="1291"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-            </figure>
-          </section>
+                <p>
+                  A multidisciplinary pool of approximately 60K scientific problems is filtered by
+                  quality, predicted difficulty, and tool benefit before trajectory generation.
+                  Medium-to-hard problems are then routed to pure-reasoning or interaction-reasoning
+                  paths according to their training value.
+                </p>
+                <figure class="method-stage-figure">
+                  <button
+                    class="paper-figure zoomable-figure"
+                    type="button"
+                    data-figure="assets/fig3-data-pipeline.png"
+                    aria-label="Open the systematic data engineering pipeline"
+                  >
+                    <img
+                      src="assets/fig3-data-pipeline.png"
+                      alt="Systematic scientific data engineering pipeline"
+                      width="3959"
+                      height="1374"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                </figure>
+              </section>
 
-          <section class="method-block reveal" aria-labelledby="training-title">
-            <div class="method-copy">
-              <h3 id="training-title">Systematic training strategy</h3>
-              <p>
-                A shared interface preserves training-inference consistency. Two-stage hybrid
-                progressive CoI training first builds intrinsic reasoning and basic interaction
-                ability, then internalizes higher-quality interaction patterns under a low-cost
-                setting.
-              </p>
-            </div>
-            <figure class="wide-figure method-figure">
-              <button
-                class="paper-figure zoomable-figure"
-                type="button"
-                data-figure="assets/fig5-training-paradigm.png"
-                aria-label="Open the systematic training strategy"
+              <section
+                id="method-panel-interaction"
+                class="method-panel"
+                role="tabpanel"
+                aria-labelledby="method-tab-interaction"
+                hidden
               >
-                <img
-                  src="assets/fig5-training-paradigm.png"
-                  alt="Training-inference consistency and hybrid progressive Chain-of-Interaction training"
-                  width="3590"
-                  height="1654"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-            </figure>
-          </section>
+                <p>
+                  Typed interaction objects turn atomic scientific abilities into executable
+                  actions. Chain-of-Interaction distillation and outcome, rule, and process
+                  verification produce high-quality long-horizon trajectories and reusable
+                  scientific interaction patterns.
+                </p>
+                <figure class="method-stage-figure">
+                  <button
+                    class="paper-figure zoomable-figure"
+                    type="button"
+                    data-figure="assets/fig4-interaction-framework.png"
+                    aria-label="Open the scientific interaction framework"
+                  >
+                    <img
+                      src="assets/fig4-interaction-framework.png"
+                      alt="Scientific interaction objects, Chain-of-Interaction distillation, and autonomous interaction patterns"
+                      width="3949"
+                      height="1291"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                </figure>
+              </section>
+
+              <section
+                id="method-panel-training"
+                class="method-panel"
+                role="tabpanel"
+                aria-labelledby="method-tab-training"
+                hidden
+              >
+                <p>
+                  A shared interface preserves training-inference consistency. Two-stage hybrid
+                  progressive CoI training first builds intrinsic reasoning and basic interaction
+                  ability, then internalizes higher-quality interaction patterns under a low-cost
+                  setting.
+                </p>
+                <figure class="method-stage-figure">
+                  <button
+                    class="paper-figure zoomable-figure"
+                    type="button"
+                    data-figure="assets/fig5-training-paradigm.png"
+                    aria-label="Open the systematic training strategy"
+                  >
+                    <img
+                      src="assets/fig5-training-paradigm.png"
+                      alt="Training-inference consistency and hybrid progressive Chain-of-Interaction training"
+                      width="3590"
+                      height="1654"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                </figure>
+              </section>
+            </div>
+          </div>
         </section>
 
         <section id="results" class="content-section results-section" aria-labelledby="results-title">
           <div class="section-copy reveal">
             <h2 id="results-title">Scientific intelligence evaluation</h2>
             <p class="section-lead">
-              ExoMind consistently improves over the base model on all eight datasets and
-              surpasses leading open and closed-source models on most of them, achieving
-              frontier-level scientific intelligence at 35B scale with roughly 277&times; fewer
-              parameters than GPT-5.5.
+              Explore ExoMind's rankings across eight scientific benchmarks and compare it with
+              the 35B base model across six general intelligence benchmarks.
             </p>
           </div>
-
-          <figure class="wide-figure reveal">
-            <div
-              id="performance-chart"
-              class="interactive-chart"
-              aria-label="Interactive scientific intelligence comparison"
-              tabindex="0"
-            >
-              <img
-                src="assets/fig1-benchmark.png"
-                alt="Scientific intelligence evaluation comparing ExoMind with frontier and open models"
-                width="3988"
-                height="1858"
-                loading="lazy"
-                decoding="async"
-              />
-              <div class="chart-hotspots" aria-hidden="false"></div>
-              <div class="chart-tooltip" role="status" aria-live="polite"></div>
-            </div>
-            <button
-              class="figure-expand zoomable-figure"
-              type="button"
-              data-figure="assets/fig1-benchmark.png"
-              aria-label="Open scientific intelligence evaluation at full resolution"
-              title="View full-resolution figure"
-            >
-              <span aria-hidden="true">&#10530;</span>
-            </button>
-          </figure>
 
           <section class="benchmark-section reveal" aria-labelledby="benchmark-explorer-title">
             <div class="tool-heading">
@@ -323,12 +416,34 @@
               </p>
             </div>
             <div class="benchmark-explorer">
-              <div
-                id="benchmark-tabs"
-                class="benchmark-tabs"
-                role="tablist"
-                aria-label="Benchmark datasets"
-              ></div>
+              <div class="benchmark-tabbar">
+                <button
+                  id="benchmark-previous"
+                  class="benchmark-step"
+                  type="button"
+                  aria-label="Show previous benchmark"
+                  aria-controls="benchmark-ranking"
+                  title="Previous benchmark"
+                >
+                  <span aria-hidden="true">&larr;</span>
+                </button>
+                <div
+                  id="benchmark-tabs"
+                  class="benchmark-tabs"
+                  role="tablist"
+                  aria-label="Benchmark datasets"
+                ></div>
+                <button
+                  id="benchmark-next"
+                  class="benchmark-step"
+                  type="button"
+                  aria-label="Show next benchmark"
+                  aria-controls="benchmark-ranking"
+                  title="Next benchmark"
+                >
+                  <span aria-hidden="true">&rarr;</span>
+                </button>
+              </div>
               <div id="benchmark-summary" class="benchmark-summary"></div>
               <div
                 id="benchmark-ranking"
@@ -1072,8 +1187,8 @@ inner.subs({m: 2, D: 2})  # 0</code></pre>
       </div>
     </dialog>
 
-    <script src="performance-data.js?v=20260714-01"></script>
-    <script src="benchmark-data.js?v=20260714-01"></script>
-    <script src="script.js?v=20260714-01"></script>
+    <script src="performance-data.js?v=20260714-02"></script>
+    <script src="benchmark-data.js?v=20260714-02"></script>
+    <script src="script.js?v=20260714-02"></script>
   </body>
 </html>
