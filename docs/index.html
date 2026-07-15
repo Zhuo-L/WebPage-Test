@@ -34,7 +34,7 @@
     />
     <title>ExoMind: Democratizing Scientific Intelligence</title>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="styles.css?v=20260714-03" />
+    <link rel="stylesheet" href="styles.css?v=20260715-01" />
   </head>
   <body>
     <header class="site-header">
@@ -104,40 +104,23 @@
             </p>
           </div>
 
-          <div class="result-story-controls" role="group" aria-label="Scientific intelligence result views">
-            <button
-              class="result-story is-active"
-              type="button"
-              data-performance-story="overall"
-              aria-pressed="true"
-              aria-controls="performance-chart"
-            >
-              <span class="result-story-label">Overall performance</span>
-              <strong>67.5</strong>
-              <span>Average across eight benchmarks</span>
-            </button>
-            <button
-              class="result-story"
-              type="button"
-              data-performance-story="gain"
-              aria-pressed="false"
-              aria-controls="performance-chart"
-            >
-              <span class="result-story-label">Gain over Base 35B</span>
-              <strong>+31.4</strong>
-              <span>Average-score improvement</span>
-            </button>
-            <button
-              class="result-story"
-              type="button"
-              data-performance-story="efficiency"
-              aria-pressed="false"
-              aria-controls="performance-chart"
-            >
-              <span class="result-story-label">Parameter efficiency</span>
+          <div class="result-metrics" aria-label="ExoMind efficiency highlights">
+            <article class="result-metric">
+              <strong>+14.5</strong>
+              <p>Average benchmark score vs. GPT-5.5 (xhigh)</p>
+            </article>
+            <article class="result-metric">
               <strong>~277&times;</strong>
-              <span>Fewer parameters than GPT-5.5</span>
-            </button>
+              <p>Model-size efficiency vs. GPT-5.5 (xhigh)</p>
+            </article>
+            <article class="result-metric">
+              <strong>~10K&times;</strong>
+              <p>GPU-count efficiency vs. GPT-5.5-scale training</p>
+            </article>
+            <article class="result-metric">
+              <strong>~100K&times;</strong>
+              <p>Training-data efficiency vs. GPT-5.5-scale training</p>
+            </article>
           </div>
 
           <figure class="spotlight-figure">
@@ -200,20 +183,20 @@
               />
             </button>
             <figcaption>
-              ExoMind introduces new scaling dimensions over interaction objects and
-              interaction depth while preserving low-cost specialization.
+              ExoMind validates a broader scaling paradigm in scientific reasoning and research
+              by organizing intelligence beyond the parameters of a single model.
             </figcaption>
           </figure>
 
           <section class="insight-block reveal" aria-labelledby="scaling-insights-title">
-            <h3 id="scaling-insights-title">A different way to scale scientific intelligence</h3>
+            <h3 id="scaling-insights-title">A broader paradigm for scaling intelligence</h3>
             <div class="insight-grid">
               <div class="insight-item">
                 <h4>Deep specialization</h4>
                 <p>
-                  Shift specialization from repeatedly compressing heterogeneous tasks into
-                  model parameters toward designing interaction objects around scientific
-                  processes.
+                  Shift specialization from repeatedly modifying model parameters toward
+                  designing interaction objects that can be tailored to the operations of a task
+                  or domain.
                 </p>
               </div>
               <div class="insight-item">
@@ -224,10 +207,11 @@
                 </p>
               </div>
               <div class="insight-item">
-                <h4>Scientific process capacity</h4>
+                <h4>Stronger representational capacity</h4>
                 <p>
-                  Represent evidence acquisition, executable verification, and long-horizon
-                  scientific workflows as part of the intelligence system itself.
+                  Organize the model, external objects, and interaction processes as one system
+                  for diverse, fine-grained, and long-horizon tasks; ExoMind tests this idea in
+                  science.
                 </p>
               </div>
             </div>
@@ -286,10 +270,11 @@
                 aria-labelledby="method-tab-data"
               >
                 <p>
-                  A multidisciplinary pool of approximately 60K scientific problems is filtered by
-                  quality, predicted difficulty, and tool benefit before trajectory generation.
-                  Medium-to-hard problems are then routed to pure-reasoning or interaction-reasoning
-                  paths according to their training value.
+                  ExoMind starts with a large and diverse scientific problem-answer pool, uses
+                  strong models to predict each problem's difficulty and potential tool benefit
+                  before trajectory generation, and progressively filters and routes problems
+                  into pure-reasoning or interaction-reasoning paths. This yields a compact set of
+                  high-quality data with stable learning signals.
                 </p>
                 <figure class="method-stage-figure">
                   <button
@@ -318,10 +303,12 @@
                 hidden
               >
                 <p>
-                  Typed interaction objects turn atomic scientific abilities into executable
-                  actions. Chain-of-Interaction distillation and outcome, rule, and process
-                  verification produce high-quality long-horizon trajectories and reusable
-                  scientific interaction patterns.
+                  ExoMind abstracts key operations in scientific reasoning and research into
+                  typed interaction objects under an action-observation contract, then distills
+                  verified Chain-of-Interaction trajectories for training. The model learns to
+                  select objects, absorb external observations, and iteratively update its
+                  reasoning state, allowing reusable interaction patterns to emerge from a finite
+                  object set.
                 </p>
                 <figure class="method-stage-figure">
                   <button
@@ -350,10 +337,12 @@
                 hidden
               >
                 <p>
-                  A shared interface preserves training-inference consistency. Two-stage hybrid
-                  progressive CoI training first builds intrinsic reasoning and basic interaction
-                  ability, then internalizes higher-quality interaction patterns under a low-cost
-                  setting. The full specialization runs on 8 GPUs for one to two days.
+                  ExoMind transforms Qwen3.5-35B-A3B into an agentic reasoner through
+                  training-inference consistency and hybrid progressive CoI training. A unified
+                  interaction interface limits capability degradation, while staged reasoning and
+                  interaction trajectories build intrinsic reasoning, basic interaction, and
+                  higher-quality interaction patterns. The full specialization runs on 8 GPUs for
+                  one to two days.
                 </p>
                 <figure class="method-stage-figure">
                   <button
@@ -379,10 +368,11 @@
 
         <section id="results" class="content-section results-section" aria-labelledby="results-title">
           <div class="section-copy reveal">
-            <h2 id="results-title">Scientific intelligence evaluation</h2>
+            <h2 id="results-title">Scientific and general intelligence evaluation</h2>
             <p class="section-lead">
-              Explore ExoMind's rankings across eight scientific benchmarks and compare it with
-              the 35B base model across six general intelligence benchmarks.
+              Evaluate ExoMind along two complementary dimensions: scientific intelligence
+              against frontier open and proprietary models across eight benchmarks, and general
+              intelligence against the 35B base model across six benchmarks.
             </p>
           </div>
 
@@ -437,10 +427,11 @@
             <h3 id="results-insights-title">What the results show</h3>
             <div class="insight-grid">
               <div class="insight-item">
-                <h4>Open-ended research</h4>
+                <h4>Scientific research</h4>
                 <p>
-                  ExoMind reaches 70.0 on FrontierScience-Research versus 33.0 for the strongest
-                  external baseline, and 84.0 on CMT-Benchmark versus 46.0.
+                  ExoMind reaches 70.0 on FrontierScience-Research and 84.0 on CMT-Benchmark,
+                  substantially exceeding the strongest external results, while remaining
+                  competitive on the highly challenging HLE and CritPt benchmarks.
                 </p>
               </div>
               <div class="insight-item">
@@ -451,10 +442,11 @@
                 </p>
               </div>
               <div class="insight-item">
-                <h4>General capability transfer</h4>
+                <h4>General intelligence</h4>
                 <p>
-                  All six general benchmarks improve over the 35B base model; the largest gain
-                  appears on &tau;&sup2;-Bench, from 32.5 to 74.8.
+                  ExoMind improves over the 35B base model on all six general benchmarks,
+                  including MMLU-Pro, GPQA-Diamond, MedMCQA, LiveCodeBench, xbench, and
+                  &tau;<sup>2</sup>-Bench, where the score rises from 32.5 to 74.8.
                 </p>
               </div>
             </div>
@@ -727,10 +719,13 @@
           <div class="section-copy reveal">
             <h2 id="cases-title">Emergent scientific interaction patterns</h2>
             <p class="section-lead">
-              ExoMind does not rely on a fixed tool sequence. Its trajectories adapt to the
-              unresolved scientific question: executable checks for fragile derivations, source
-              grounding for literature-dependent claims, and a closed loop when both evidence and
-              verification are required.
+              More available interaction objects do not automatically produce stronger
+              performance. The key is whether the model can organize finite atomic capabilities
+              into an observation-guided process: identifying its current uncertainty, selecting
+              an appropriate interaction object, absorbing the returned observation, and updating
+              subsequent reasoning. Through hybrid progressive CoI training, ExoMind composes
+              these objects into reusable verification-seeking, evidence-seeking, and hybrid
+              closed-loop patterns.
             </p>
           </div>
 
@@ -809,7 +804,6 @@
               <details class="case-details">
                 <summary>
                   <span>Trajectory evidence</span>
-                  <small>Reasoning, action, observation, and state update</small>
                 </summary>
                 <div class="case-trace">
                   <div class="trace-entry">
@@ -906,7 +900,6 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
               <details class="case-details">
                 <summary>
                   <span>Trajectory evidence</span>
-                  <small>Source discovery, grounding, and problem-specific deduction</small>
                 </summary>
                 <div class="case-trace">
                   <div class="trace-entry">
@@ -1018,7 +1011,6 @@ Etheta = E0*(a**2 - r**2)*sin(theta)/r**2</code></pre>
               <details class="case-details">
                 <summary>
                   <span>Trajectory evidence</span>
-                  <small>External evidence, symbolic verification, and synthesis</small>
                 </summary>
                 <div class="case-trace">
                   <div class="trace-entry">
@@ -1175,6 +1167,6 @@ inner.subs({m: 2, D: 2})  # 0</code></pre>
 
     <script src="performance-data.js?v=20260714-03"></script>
     <script src="benchmark-data.js?v=20260714-03"></script>
-    <script src="script.js?v=20260714-04"></script>
+    <script src="script.js?v=20260715-01"></script>
   </body>
 </html>

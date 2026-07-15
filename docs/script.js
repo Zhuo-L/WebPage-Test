@@ -27,12 +27,11 @@
     const buttons = [];
     const entriesByKey = new Map();
     const coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
-    let persistentState = null;
     let pinnedState = null;
 
     const clearVisualState = () => {
       buttons.forEach((button) => button.classList.remove("is-active"));
-      container.classList.remove("has-active", "has-story-state");
+      container.classList.remove("has-active");
       tooltip.classList.remove("is-visible", "is-below");
       empty(tooltip);
     };
@@ -48,7 +47,6 @@
         button.classList.toggle("is-active", activeKeys.has(button.dataset.pointKey));
       });
       container.classList.add("has-active");
-      container.classList.toggle("has-story-state", state.kind === "story");
 
       const anchorEntry = entriesByKey.get(state.anchorKey || state.keys[0]);
       if (!anchorEntry || !state.title) {
@@ -77,7 +75,7 @@
       detail: point.detail,
     });
 
-    const restore = () => renderState(pinnedState || persistentState);
+    const restore = () => renderState(pinnedState);
 
     points.forEach((rawPoint, index) => {
       const point = { ...rawPoint, key: rawPoint.key || `point-${index}` };
@@ -145,20 +143,6 @@
     });
 
     return {
-      setPersistentSelection(keys, options) {
-        const validKeys = (keys || []).filter((key) => entriesByKey.has(key));
-        persistentState = validKeys.length
-          ? {
-              keys: validKeys,
-              anchorKey: options && options.anchorKey,
-              title: options && options.title,
-              detail: options && options.detail,
-              kind: options && options.kind,
-            }
-          : null;
-        pinnedState = null;
-        restore();
-      },
       pulse(key) {
         const entry = entriesByKey.get(key);
         if (!entry || prefersReducedMotion) return;
@@ -204,10 +188,29 @@
       "Intern-S2-Preview": 84,
     };
 
+    const modelSizes = {
+      Ours: "35B",
+      "GPT-5.5 (xhigh)": "~9.7T",
+      "Gemini-3.1-Pro-Preview": "~9.0T",
+      "Gemini-3.5-Flash-Thinking": "~6.6T",
+      "Claude-Opus-4.8-Thinking": "~936B",
+      "Qwen3.7-Max": "~685B",
+      "DeepSeek-V4-Pro (Max)": "1.6T",
+      "DeepSeek-V4-Flash (Max)": "284B",
+      "Kimi-K2.6": "1T",
+      "GLM-5.2": "744B",
+      "MiniMax-M3": "428B",
+      "Qwen3.5-397B-A17B": "397B",
+      "Qwen3.5-122B-A10B": "122B",
+      "Qwen3.5-35B-A3B": "35B",
+      "Gemma-4-31B": "31B",
+      "Intern-S2-Preview": "35B",
+    };
+
     const points = panel.points.map((point) => ({
       key: point.key,
       name: point.label.replace(/\n/g, " "),
-      detail: `Average score ${point.y.toFixed(1)}`,
+      detail: `Average score ${point.y.toFixed(1)} · Model size ${modelSizes[point.key]}`,
       sourceX: source.plotLeft + (point.x / 2.2) * (source.plotRight - source.plotLeft),
       sourceY: source.plotTop + ((70 - point.y) / 40) * (source.plotBottom - source.plotTop),
       color: point.color,
@@ -219,67 +222,7 @@
       sourceHeight: source.height,
       points,
     });
-    const storyButtons = toArray(document.querySelectorAll("[data-performance-story]"));
-    if (!chartController || !storyButtons.length) return;
-
-    const stories = {
-      overall: {
-        kind: "story",
-        keys: ["Ours"],
-        anchorKey: "Ours",
-        title: "ExoMind · 67.5 average",
-        detail: "Frontier-level performance across eight scientific benchmarks",
-      },
-      gain: {
-        kind: "story",
-        keys: ["Ours", "Qwen3.5-35B-A3B"],
-        anchorKey: "Ours",
-        title: "+31.4 points over Base 35B",
-        detail: "ExoMind 67.5 · Qwen3.5-35B-A3B 36.2",
-      },
-      efficiency: {
-        kind: "story",
-        keys: ["Ours", "GPT-5.5 (xhigh)"],
-        anchorKey: "Ours",
-        title: "~277× fewer parameters",
-        detail: "ExoMind 35B compared with GPT-5.5",
-      },
-    };
-    let activeStoryIndex = 0;
-
-    const activateStory = (index, moveFocus) => {
-      activeStoryIndex = (index + storyButtons.length) % storyButtons.length;
-      storyButtons.forEach((button, buttonIndex) => {
-        const selected = buttonIndex === activeStoryIndex;
-        button.classList.toggle("is-active", selected);
-        button.setAttribute("aria-pressed", selected ? "true" : "false");
-      });
-      const activeButton = storyButtons[activeStoryIndex];
-      const story = stories[activeButton.dataset.performanceStory];
-      chartController.setPersistentSelection(story.keys, story);
-      if (moveFocus) activeButton.focus();
-    };
-
-    storyButtons.forEach((button, index) => {
-      button.addEventListener("click", () => activateStory(index, false));
-      button.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowRight") {
-          event.preventDefault();
-          activateStory(activeStoryIndex + 1, true);
-        } else if (event.key === "ArrowLeft") {
-          event.preventDefault();
-          activateStory(activeStoryIndex - 1, true);
-        } else if (event.key === "Home") {
-          event.preventDefault();
-          activateStory(0, true);
-        } else if (event.key === "End") {
-          event.preventDefault();
-          activateStory(storyButtons.length - 1, true);
-        }
-      });
-    });
-
-    activateStory(0, false);
+    if (!chartController) return;
 
     const spotlight = document.querySelector(".result-spotlight");
     if (!spotlight || prefersReducedMotion || !("IntersectionObserver" in window)) return;
