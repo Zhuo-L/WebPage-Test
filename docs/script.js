@@ -246,6 +246,19 @@
     const previousButton = document.querySelector("#benchmark-previous");
     const nextButton = document.querySelector("#benchmark-next");
     const data = window.EXOMIND_BENCHMARK_DATA;
+    const providerIcons = {
+      Ours: { src: "assets/providers/exomind.png", label: "ExoMind" },
+      OpenAI: { src: "assets/providers/openai.png", label: "OpenAI" },
+      Google: { src: "assets/providers/google.png", label: "Google" },
+      Gemma: { src: "assets/providers/google.png", label: "Google" },
+      Claude: { src: "assets/providers/claude.png", label: "Claude" },
+      Qwen: { src: "assets/providers/qwen.png", label: "Qwen" },
+      DeepSeek: { src: "assets/providers/deepseek.png", label: "DeepSeek" },
+      Kimi: { src: "assets/providers/kimi.png", label: "Kimi" },
+      GLM: { src: "assets/providers/glm.png", label: "GLM" },
+      MiniMax: { src: "assets/providers/minimax.png", label: "MiniMax" },
+      "Shanghai AI Lab": { src: "assets/providers/intern.png", label: "Shanghai AI Lab" },
+    };
     if (
       !tabsRoot ||
       !summaryRoot ||
@@ -331,26 +344,36 @@
         const row = document.createElement("div");
         const rank = document.createElement("span");
         const modelCell = document.createElement("span");
+        const providerIcon = document.createElement("img");
         const name = document.createElement("span");
-        const provider = document.createElement("span");
         const track = document.createElement("span");
         const fill = document.createElement("span");
         const value = document.createElement("span");
+        const provider = providerIcons[model.provider];
 
         row.className = `ranking-row${model.isOurs ? " is-ours" : ""}`;
         row.setAttribute(
           "aria-label",
-          `${index + 1}. ${model.name}, ${formatScore(score)}${
+          `${index + 1}. ${model.name} by ${provider ? provider.label : model.provider}, ${formatScore(score)}${
             Number.isFinite(dataset.maxScore) ? ` of ${formatScore(maxScore)}` : ""
           } on ${dataset.label}`
         );
         rank.className = "ranking-rank";
         rank.textContent = index + 1;
         modelCell.className = "ranking-model";
+        if (provider) {
+          providerIcon.className = "model-provider-icon";
+          providerIcon.src = provider.src;
+          providerIcon.alt = "";
+          providerIcon.width = 18;
+          providerIcon.height = 18;
+          providerIcon.decoding = "async";
+          providerIcon.title = `${provider.label} logo`;
+          providerIcon.setAttribute("aria-hidden", "true");
+          modelCell.appendChild(providerIcon);
+        }
         name.className = "model-name";
         name.textContent = model.name;
-        provider.className = "model-provider";
-        provider.textContent = model.provider;
         track.className = "ranking-track";
         fill.className = "ranking-fill";
         const targetWidth = `${clamp((score / maxScore) * 100, 0, 100)}%`;
@@ -360,7 +383,6 @@
         value.textContent = formatScore(score);
 
         modelCell.appendChild(name);
-        modelCell.appendChild(provider);
         track.appendChild(fill);
         row.appendChild(rank);
         row.appendChild(modelCell);
